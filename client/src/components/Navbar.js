@@ -1,18 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import citcLogo from '../assets/citc-logo-full.png';
 import './Navbar.css';
 
 const NAV_ITEMS = [
   {
     label: 'The Club',
     dropdown: [
-      { label: 'Coaches',          to: '/the-club/coaches' },
+      { label: 'Coaches',           to: '/the-club/coaches' },
       { label: 'Training Programs', to: '/the-club/training' },
-      { label: 'Track Meets',      to: '/the-club/meets' },
+      { label: 'Track Meets',       to: '/the-club/meets' },
       { divider: true },
       { label: 'Mission Statement', to: '/the-club/mission' },
-      { label: 'Code of Conduct',  to: '/the-club/conduct' },
+      { label: 'Code of Conduct',   to: '/the-club/conduct' },
     ],
   },
   {
@@ -23,7 +24,7 @@ const NAV_ITEMS = [
       { label: 'Volunteer',         to: '/membership/volunteer' },
       { divider: true },
       { label: '2-Week Trial',      to: '/membership/trial' },
-      { label: 'Register Now →',   to: '/register', cta: true },
+      { label: 'Register Now →',    to: '/register', cta: true },
     ],
   },
   {
@@ -39,21 +40,19 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  const [scrolled,     setScrolled]     = useState(false);
+  const [scrolled, setScrolled]         = useState(window.location.pathname !== '/');
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [drawerOpen,   setDrawerOpen]   = useState(false);
+  const [drawerOpen, setDrawerOpen]     = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const navRef = useRef(null);
 
-  // Scroll detection
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const onClick = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
@@ -64,7 +63,6 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', onClick);
   }, []);
 
-  // Close drawer on resize to desktop
   useEffect(() => {
     const onResize = () => { if (window.innerWidth > 768) setDrawerOpen(false); };
     window.addEventListener('resize', onResize);
@@ -87,11 +85,11 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" className="logo" onClick={() => setOpenDropdown(null)}>
-            <span className="logo-badge">CITC</span>
-            <span className="logo-name">
-              <strong>Calgary International Track Club</strong>
-              <span>In the Habit of Excellence</span>
-            </span>
+            <img
+              src={citcLogo}
+              alt="Calgary International Track Club"
+              className="logo-img"
+            />
           </Link>
 
           {/* Desktop nav links */}
@@ -139,7 +137,6 @@ export default function Navbar() {
               )
             )}
 
-            {/* Auth buttons */}
             {user ? (
               <>
                 <li className="nav-item">
@@ -178,7 +175,7 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       <div className={`nav-drawer${drawerOpen ? ' open' : ''}`}>
-        <Link to="/"        className="drawer-link" onClick={() => setDrawerOpen(false)}>Home</Link>
+        <Link to="/" className="drawer-link" onClick={() => setDrawerOpen(false)}>Home</Link>
 
         <div className="drawer-section-label">The Club</div>
         <Link to="/the-club/coaches"  className="drawer-sub" onClick={() => setDrawerOpen(false)}>Coaches</Link>

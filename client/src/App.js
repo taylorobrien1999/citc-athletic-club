@@ -9,6 +9,7 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import Navbar from './components/Navbar';
 
+
 function App() {
   return (
     <AuthProvider>

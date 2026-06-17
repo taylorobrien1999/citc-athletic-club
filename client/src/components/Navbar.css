@@ -1,4 +1,4 @@
-/* ── NAV ────────────────────────────────────────────────────────────────────── */
+/* NAV */
 
 .nav {
   position: fixed;
@@ -27,8 +27,20 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
+}
+
+.logo-img {
+  height: 52px;
+  width: auto;
+  display: block;
+  filter: none;
+  transition: filter 0.35s;
+  margin-left: -8px;
+}
+
+.nav.scrolled .logo-img {
+  filter: none;
 }
 
 .logo-badge {
