@@ -7,15 +7,13 @@ import HomePage     from './pages/HomePage';
 import LoginPage    from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
-
-// Navbar stub — Mayur will replace with CACOS-18
-// import Navbar from './components/Navbar';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        {/* <Navbar /> */}
+        <Navbar />
         <Routes>
           {/*Public routes */}
           <Route path="/"         element={<HomePage />} />
