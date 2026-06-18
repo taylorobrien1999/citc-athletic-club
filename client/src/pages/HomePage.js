@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import citcLogoFull from '../assets/citc-logo-full.png';
 import citcLogoIcon from '../assets/citc-logo-icon.jpg';
+import RegistrationModal from '../components/RegistrationModal';
 import './HomePage.css';
 
 // Coaches (revised per Tessa, Dani, Cindy)  1.1
@@ -59,6 +60,7 @@ const SLIDES = [
 
 export default function HomePage() {
   const [slide, setSlide] = useState(0);
+  const [isRegModalOpen, setIsRegModalOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -69,6 +71,7 @@ export default function HomePage() {
 
   return (
     <main className="home">
+      <RegistrationModal isOpen={isRegModalOpen} onClose={() => setIsRegModalOpen(false)} />
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section className="hero">
@@ -230,7 +233,7 @@ export default function HomePage() {
             membership is required before your first session.
           </p>
           <div className="cta-btns">
-            <Link to="/membership/trial" className="btn-primary">Register Now</Link>
+            <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
             <Link to="/contact" className="btn-outline-dark">Contact Us</Link>
           </div>
         </div>

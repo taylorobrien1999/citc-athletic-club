@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './RegistrationModal.css';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export default function RegistrationModal({ isOpen, onClose }) {
   const [form, setForm] = useState({
     firstName: '',
@@ -8,7 +10,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
     phone: '',
     email: '',
     parentEmail: '',
-    dob: '2026-06-17', 
+    dob: '',
     yearsRunning: '',
     indoorGoals: '',
     outdoorGoals: '',
@@ -19,8 +21,9 @@ export default function RegistrationModal({ isOpen, onClose }) {
     parentSignature: ''
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
 
@@ -33,19 +36,28 @@ export default function RegistrationModal({ isOpen, onClose }) {
     setError('');
   };
 
+  // DOB guard: must be in the past and not absurdly far back
+  const dobIsValid = (val) => {
+    if (!val) return false;
+    const d = new Date(val);
+    if (isNaN(d.getTime())) return false;
+    const year = d.getFullYear();
+    return year >= 1900 && year <= CURRENT_YEAR;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!dobIsValid(form.dob)) {
+      setError('Please enter a valid date of birth (must be in the past).');
+      return;
+    }
+
     setLoading(true);
     try {
-      // NOTE: might need to update API to handle this new intake payload
-      // Since there's no password, this likely pings a different endpoint than your old auth.js
       console.log('Submitting intake form:', form);
-      
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      onClose(); // Close modal on success
-      // Optional: Trigger a success toast notification here (as per prototype)
+      setSubmitted(true);
     } catch (err) {
       setError('Failed to submit registration. Please try again.');
     } finally {
@@ -53,106 +65,147 @@ export default function RegistrationModal({ isOpen, onClose }) {
     }
   };
 
+  const handleClose = () => {
+    setSubmitted(false);
+    setForm({
+      firstName: '', lastName: '', phone: '', email: '', parentEmail: '',
+      dob: '', yearsRunning: '', indoorGoals: '', outdoorGoals: '',
+      ackConduct: false, ackVolunteer: false, ackFees: false, ackAttendance: false,
+      parentSignature: ''
+    });
+    setError('');
+    onClose();
+  };
+
   return (
-    <div className="reg-modal-overlay" onClick={onClose}>
+    <div className="reg-modal-overlay" onClick={handleClose}>
       <div className="reg-modal-card" onClick={e => e.stopPropagation()}>
-        <button className="reg-modal-close" onClick={onClose}>×</button>
-        
-        <div className="reg-modal-header">
-          <span className="reg-season-tag">2026-27 SEASON</span>
-          <h2 className="reg-title">CITC REGISTRATION</h2>
-          <p className="reg-subtitle">
-            Complete all fields below. A coach will follow up within 48 hours. A valid Athletics Alberta membership is required before your first session.
-          </p>
-        </div>
+        <button className="reg-modal-close" onClick={handleClose}>×</button>
 
-        {error && <p className="reg-error">{error}</p>}
-
-        <form onSubmit={handleSubmit} className="reg-form">
-          <div className="reg-row">
-            <div className="reg-field">
-              <label>First Name *</label>
-              <input type="text" name="firstName" value={form.firstName} onChange={handleChange} placeholder="First" required />
+        {submitted ? (
+          /* ── SUCCESS SCREEN ── */
+          <div className="reg-success">
+            <div className="reg-success-icon">✓</div>
+            <h2 className="reg-success-title">You're In!</h2>
+            <p className="reg-success-body">
+              Thanks for registering your interest in CITC. A coach will reach out within
+              48 hours to confirm your 2-week trial start date.
+              <br /><br />
+              In the meantime, make sure your <strong>Athletics Alberta membership</strong> is
+              active and ready to go.
+            </p>
+            <button className="reg-submit-btn" style={{ marginTop: '2rem' }} onClick={handleClose}>
+              Close
+            </button>
+          </div>
+        ) : (
+          /* ── FORM ── */
+          <>
+            <div className="reg-modal-header">
+              <span className="reg-season-tag">2026-27 SEASON</span>
+              <h2 className="reg-title">CITC REGISTRATION</h2>
+              <p className="reg-subtitle">
+                Complete all fields below. A coach will follow up within 48 hours. A valid Athletics Alberta membership is required before your first session.
+              </p>
             </div>
-            <div className="reg-field">
-              <label>Last Name *</label>
-              <input type="text" name="lastName" value={form.lastName} onChange={handleChange} placeholder="Last" required />
-            </div>
-          </div>
 
-          <div className="reg-field">
-            <label>Phone Number *</label>
-            <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+1 (403) 000-0000" required />
-          </div>
+            {error && <p className="reg-error">{error}</p>}
 
-          <div className="reg-field">
-            <label>Your Email Address *</label>
-            <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
-          </div>
+            <form onSubmit={handleSubmit} className="reg-form">
+              <div className="reg-row">
+                <div className="reg-field">
+                  <label>First Name *</label>
+                  <input type="text" name="firstName" value={form.firstName} onChange={handleChange} placeholder="First" required />
+                </div>
+                <div className="reg-field">
+                  <label>Last Name *</label>
+                  <input type="text" name="lastName" value={form.lastName} onChange={handleChange} placeholder="Last" required />
+                </div>
+              </div>
 
-          <div className="reg-field">
-            <label>Parent/Guardian Email <span className="light-text">(if under 18)</span></label>
-            <input type="email" name="parentEmail" value={form.parentEmail} onChange={handleChange} placeholder="parent@example.com" />
-          </div>
+              <div className="reg-field">
+                <label>Phone Number *</label>
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+1 (403) 000-0000" required />
+              </div>
 
-          <div className="reg-field">
-            <label>Date of Birth *</label>
-            <input type="date" name="dob" value={form.dob} onChange={handleChange} required />
-          </div>
+              <div className="reg-field">
+                <label>Your Email Address *</label>
+                <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
+              </div>
 
-          <div className="reg-field">
-            <label>Years Running *</label>
-            <select name="yearsRunning" value={form.yearsRunning} onChange={handleChange} required>
-              <option value="" disabled>e.g. 3</option>
-              <option value="0-1">0-1 Years</option>
-              <option value="2-3">2-3 Years</option>
-              <option value="4+">4+ Years</option>
-            </select>
-          </div>
+              <div className="reg-field">
+                <label>Parent/Guardian Email <span className="light-text">(if under 18)</span></label>
+                <input type="email" name="parentEmail" value={form.parentEmail} onChange={handleChange} placeholder="parent@example.com" />
+              </div>
 
-          <div className="reg-field">
-            <label>Indoor Goals for 2026 *</label>
-            <input type="text" name="indoorGoals" value={form.indoorGoals} onChange={handleChange} placeholder="e.g. Sub-7.8 in 60m hurdles, qualify for provincials" required />
-          </div>
+              <div className="reg-field">
+                <label>Date of Birth *</label>
+                <input
+                  type="date"
+                  name="dob"
+                  value={form.dob}
+                  onChange={handleChange}
+                  max={new Date().toISOString().split('T')[0]}
+                  min="1900-01-01"
+                  required
+                />
+              </div>
 
-          <div className="reg-field">
-            <label>Outdoor Goals for 2026 *</label>
-            <input type="text" name="outdoorGoals" value={form.outdoorGoals} onChange={handleChange} placeholder="e.g. Run 100m under 11s, compete at nationals" required />
-          </div>
+              <div className="reg-field">
+                <label>Years Running *</label>
+                <select name="yearsRunning" value={form.yearsRunning} onChange={handleChange} required>
+                  <option value="" disabled>e.g. 3</option>
+                  <option value="0-1">0-1 Years</option>
+                  <option value="2-3">2-3 Years</option>
+                  <option value="4+">4+ Years</option>
+                </select>
+              </div>
 
-          <div className="reg-acknowledgements">
-            <h3>ACKNOWLEDGEMENTS</h3>
-            
-            <label className="reg-checkbox-label">
-              <input type="checkbox" name="ackConduct" checked={form.ackConduct} onChange={handleChange} required />
-              <span>I have read and understood the <strong>CITC Code of Conduct</strong> and agree to uphold its standards as a member of the club. <em>(Initials confirm agreement)</em></span>
-            </label>
+              <div className="reg-field">
+                <label>Indoor Goals for 2026 *</label>
+                <input type="text" name="indoorGoals" value={form.indoorGoals} onChange={handleChange} placeholder="e.g. Sub-7.8 in 60m hurdles, qualify for provincials" required />
+              </div>
 
-            <label className="reg-checkbox-label">
-              <input type="checkbox" name="ackVolunteer" checked={form.ackVolunteer} onChange={handleChange} required />
-              <span>I understand I must provide <strong>12 hours of volunteer commitment</strong> annually (or pay the $300 opt-out fee).</span>
-            </label>
+              <div className="reg-field">
+                <label>Outdoor Goals for 2026 *</label>
+                <input type="text" name="outdoorGoals" value={form.outdoorGoals} onChange={handleChange} placeholder="e.g. Run 100m under 11s, compete at nationals" required />
+              </div>
 
-            <label className="reg-checkbox-label">
-              <input type="checkbox" name="ackFees" checked={form.ackFees} onChange={handleChange} required />
-              <span>I understand I will be <strong>charged the meet entry fee</strong> for any races I don't run in if CITC has registered me.</span>
-            </label>
+              <div className="reg-acknowledgements">
+                <h3>ACKNOWLEDGEMENTS *</h3>
 
-            <label className="reg-checkbox-label">
-              <input type="checkbox" name="ackAttendance" checked={form.ackAttendance} onChange={handleChange} required />
-              <span>I understand I must <strong>attend 85% of practices</strong> in person to be entered in meets.</span>
-            </label>
-          </div>
+                <label className="reg-checkbox-label">
+                  <input type="checkbox" name="ackConduct" checked={form.ackConduct} onChange={handleChange} required />
+                  <span>I have read and understood the <strong>CITC Code of Conduct</strong> and agree to uphold its standards as a member of the club. <em>(Initials confirm agreement)</em></span>
+                </label>
 
-          <div className="reg-field">
-            <label>Parent/Guardian Signature <span className="light-text">(if under 18 — type full name)</span></label>
-            <input type="text" name="parentSignature" value={form.parentSignature} onChange={handleChange} placeholder="Full name as signature" />
-          </div>
+                <label className="reg-checkbox-label">
+                  <input type="checkbox" name="ackVolunteer" checked={form.ackVolunteer} onChange={handleChange} required />
+                  <span>I understand I must provide <strong>12 hours of volunteer commitment</strong> annually (or pay the $300 opt-out fee).</span>
+                </label>
 
-          <button type="submit" className="reg-submit-btn" disabled={loading}>
-            {loading ? 'Submitting...' : 'Submit Registration →'}
-          </button>
-        </form>
+                <label className="reg-checkbox-label">
+                  <input type="checkbox" name="ackFees" checked={form.ackFees} onChange={handleChange} required />
+                  <span>I understand I will be <strong>charged the meet entry fee</strong> for any races I don't run in if CITC has registered me.</span>
+                </label>
+
+                <label className="reg-checkbox-label">
+                  <input type="checkbox" name="ackAttendance" checked={form.ackAttendance} onChange={handleChange} required />
+                  <span>I understand I must <strong>attend 85% of practices</strong> in person to be entered in meets.</span>
+                </label>
+              </div>
+
+              <div className="reg-field">
+                <label>Parent/Guardian Signature <span className="light-text">(if under 18 — type full name)</span></label>
+                <input type="text" name="parentSignature" value={form.parentSignature} onChange={handleChange} placeholder="Full name as signature" />
+              </div>
+
+              <button type="submit" className="reg-submit-btn" disabled={loading}>
+                {loading ? 'Submitting...' : 'Submit Registration →'}
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </div>
   );

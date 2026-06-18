@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import citcLogo from '../assets/citc-logo-full.png';
 import './Navbar.css';
@@ -41,7 +41,8 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled]         = useState(window.location.pathname !== '/');
+  const location = useLocation();
+  const [scrolled, setScrolled]         = useState(location.pathname !== '/' || window.scrollY > 10);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [drawerOpen, setDrawerOpen]     = useState(false);
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
@@ -50,10 +51,14 @@ export default function Navbar() {
   const navRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => {
+      setScrolled(location.pathname !== '/' || window.scrollY > 10);
+    };
+    // Re-evaluate immediately on route change
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     const onClick = (e) => {
@@ -95,7 +100,7 @@ export default function Navbar() {
             <img
               src={citcLogo}
               alt="Calgary International Track Club"
-              className="logo-img" 
+              className={`logo-img${!scrolled ? ' logo-img--hero' : ''}`} 
             />
           </Link>
 

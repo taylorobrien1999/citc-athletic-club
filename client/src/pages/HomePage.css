@@ -106,6 +106,9 @@
   transition: background 0.2s, transform 0.15s;
   white-space: nowrap;
   display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 .btn-primary:hover { background: #B45309; transform: translateY(-2px); text-decoration: none; }
 

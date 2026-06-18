@@ -170,3 +170,51 @@
 .reg-submit-btn:hover {
   background: #4C1D95;
 }
+/* ── Success screen ── */
+.reg-success {
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+}
+
+.reg-success-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--citc-purple, #5B21B6);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.reg-success-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 32px;
+  text-transform: uppercase;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.reg-success-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #6B7280;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ── Validation error message ── */
+.reg-error {
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  color: #B91C1C;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}

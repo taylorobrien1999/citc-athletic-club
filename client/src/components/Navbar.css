@@ -39,6 +39,11 @@
   margin-left: -8px;
 }
 
+/* On the hero (transparent nav), invert the logo to white so it shows over dark images */
+.logo-img--hero {
+  filter: brightness(0) invert(1);
+}
+
 .nav.scrolled .logo-img {
   filter: none;
 }
