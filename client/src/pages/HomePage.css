@@ -59,10 +59,10 @@
 
 /* Logo in hero body — swap for new logo when Tessa sends it */
 .hero-logo {
-  height: 100px;
+  height: 275px;
   width: auto;
   display: block;
-  margin-bottom: 1.25rem;
+  margin-bottom: -5.5rem;
   filter: brightness(0) invert(1);
   opacity: 0.9;
 }

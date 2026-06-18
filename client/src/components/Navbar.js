@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import citcLogo from '../assets/citc-logo-full.png';
 import './Navbar.css';
+import RegistrationModal from './RegistrationModal';
 
 const NAV_ITEMS = [
   {
@@ -24,7 +25,7 @@ const NAV_ITEMS = [
       { label: 'Volunteer',         to: '/membership/volunteer' },
       { divider: true },
       { label: '2-Week Trial',      to: '/membership/trial' },
-      { label: 'Register Now →',    to: '/register', cta: true },
+      { label: 'Register Now →',    isRegTrigger: true, cta: true },
     ],
   },
   {
@@ -43,6 +44,7 @@ export default function Navbar() {
   const [scrolled, setScrolled]         = useState(window.location.pathname !== '/');
   const [openDropdown, setOpenDropdown] = useState(null);
   const [drawerOpen, setDrawerOpen]     = useState(false);
+  const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const navRef = useRef(null);
@@ -80,6 +82,11 @@ export default function Navbar() {
 
   return (
     <>
+      <RegistrationModal 
+        isOpen={isRegModalOpen} 
+        onClose={() => setIsRegModalOpen(false)} 
+      />
+
       <nav className={`nav${scrolled ? ' scrolled' : ''}`} ref={navRef}>
         <div className="nav-inner">
 
@@ -88,7 +95,7 @@ export default function Navbar() {
             <img
               src={citcLogo}
               alt="Calgary International Track Club"
-              className="logo-img"
+              className="logo-img" 
             />
           </Link>
 
@@ -117,6 +124,18 @@ export default function Navbar() {
                     {item.dropdown.map((dd, i) =>
                       dd.divider ? (
                         <hr key={i} />
+                      ) : dd.isRegTrigger ? (
+                        <button
+                          key="reg-dd"
+                          className={dd.cta ? 'dd-cta' : ''}
+                          style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', padding: '9px 13px', fontSize: '14px', fontFamily: 'inherit', display: 'block', borderRadius: '7px' }}
+                          onClick={() => {
+                            setIsRegModalOpen(true);
+                            setOpenDropdown(null);
+                          }}
+                        >
+                          {dd.label}
+                        </button>
                       ) : (
                         <Link
                           key={dd.to}
@@ -154,9 +173,12 @@ export default function Navbar() {
                   <Link to="/login" className="nav-btn">Sign In</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/register" className="nav-btn nav-register">
+                  <button 
+                    className="nav-btn nav-register" 
+                    onClick={() => setIsRegModalOpen(true)}
+                  >
                     Register Now
-                  </Link>
+                  </button>
                 </li>
               </>
             )}
@@ -205,8 +227,16 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <Link to="/login"    className="drawer-link" onClick={() => setDrawerOpen(false)}>Sign In</Link>
-            <Link to="/register" className="drawer-register" onClick={() => setDrawerOpen(false)}>Register Now</Link>
+            <Link to="/login" className="drawer-link" onClick={() => setDrawerOpen(false)}>Sign In</Link>
+            <button 
+              className="drawer-register" 
+              onClick={() => {
+                setIsRegModalOpen(true);
+                setDrawerOpen(false);
+              }}
+            >
+              Register Now
+            </button>
           </>
         )}
       </div>
