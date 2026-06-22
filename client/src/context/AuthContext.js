@@ -3,11 +3,11 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser]           = useState(null);
+  const [token, setToken]         = useState(null);
+  const [loading, setLoading]     = useState(true);
+  const [showLogoutToast, setShowLogoutToast] = useState(false);
 
-  // On mount, restore session from localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem('citc_token');
     const storedUser  = localStorage.getItem('citc_user');
@@ -30,19 +30,20 @@ export function AuthProvider({ children }) {
     setToken(null);
     localStorage.removeItem('citc_token');
     localStorage.removeItem('citc_user');
+    setShowLogoutToast(true);
+    setTimeout(() => setShowLogoutToast(false), 4000);
   };
 
   const isAdmin  = user?.role === 'admin';
   const isMember = user?.role === 'member' || isAdmin;
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, logout, isAdmin, isMember }}>
+    <AuthContext.Provider value={{ user, token, loading, login, logout, isAdmin, isMember, showLogoutToast }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// Custom hook — import this wherever auth state is needed
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error('useAuth must be used inside AuthProvider');

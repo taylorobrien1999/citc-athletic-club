@@ -3,12 +3,12 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 
 // Pages
-import HomePage     from './pages/HomePage';
-import LoginPage    from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
-import Navbar from './components/Navbar';
-
+import HomePage           from './pages/HomePage';
+import LoginPage          from './pages/LoginPage';
+import DashboardPage      from './pages/DashboardPage';
+import AdminPage          from './pages/AdminPage';
+import AdminOverviewPage  from './pages/AdminOverviewPage';
+import Navbar             from './components/Navbar';
 
 function App() {
   return (
@@ -16,22 +16,23 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          {/*Public routes */}
+          {/* Public routes */}
           <Route path="/"         element={<HomePage />} />
           <Route path="/login"    element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
 
           {/* Member-only routes */}
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<DashboardPage />} />
           </Route>
 
-          {/* Admin-only routes*/}
+          {/* Admin-only routes */}
           <Route element={<PrivateRoute adminOnly />}>
-            <Route path="/admin" element={<div>Admin panel — CACOS-20</div>} />
+            <Route path="/admin" element={<AdminPage />}>
+              <Route index element={<AdminOverviewPage />} />
+            </Route>
           </Route>
 
-          {/*  Fallback */}
+          {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

@@ -41,20 +41,19 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  const location = useLocation();
-  const [scrolled, setScrolled]         = useState(location.pathname !== '/' || window.scrollY > 10);
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [drawerOpen, setDrawerOpen]     = useState(false);
+  const location                            = useLocation();
+  const [scrolled, setScrolled]             = useState(location.pathname !== '/' || window.scrollY > 10);
+  const [openDropdown, setOpenDropdown]     = useState(null);
+  const [drawerOpen, setDrawerOpen]         = useState(false);
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const navRef = useRef(null);
+  const { user, logout, isAdmin, showLogoutToast } = useAuth();
+  const navigate                            = useNavigate();
+  const navRef                              = useRef(null);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(location.pathname !== '/' || window.scrollY > 10);
     };
-    // Re-evaluate immediately on route change
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -80,13 +79,20 @@ export default function Navbar() {
     setOpenDropdown(prev => (prev === label ? null : label));
 
   const handleLogout = () => {
+    setDrawerOpen(false);
     logout();
     navigate('/');
-    setDrawerOpen(false);
   };
 
   return (
     <>
+      {showLogoutToast && (
+        <div className="nav-logout-toast">
+          <span className="nav-logout-toast-icon">✓</span>
+          You've been signed out. See you next time!
+        </div>
+      )}
+
       <RegistrationModal 
         isOpen={isRegModalOpen} 
         onClose={() => setIsRegModalOpen(false)} 
@@ -95,7 +101,6 @@ export default function Navbar() {
       <nav className={`nav${scrolled ? ' scrolled' : ''}`} ref={navRef}>
         <div className="nav-inner">
 
-          {/* Logo */}
           <Link to="/" className="logo" onClick={() => setOpenDropdown(null)}>
             <img
               src={citcLogo}
@@ -104,7 +109,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop nav links */}
           <ul className="nav-links">
             <li className="nav-item">
               <Link to="/" className="nav-btn">Home</Link>
@@ -164,7 +168,7 @@ export default function Navbar() {
             {user ? (
               <>
                 <li className="nav-item">
-                  <Link to="/dashboard" className="nav-btn">Dashboard</Link>
+                  <Link to={isAdmin ? '/admin' : '/dashboard'} className="nav-btn">Dashboard</Link>
                 </li>
                 <li className="nav-item">
                   <button className="nav-btn nav-register" onClick={handleLogout}>
@@ -189,7 +193,6 @@ export default function Navbar() {
             )}
           </ul>
 
-          {/* Mobile hamburger */}
           <button
             className={`nav-hamburger${drawerOpen ? ' open' : ''}`}
             onClick={() => setDrawerOpen(prev => !prev)}
@@ -200,7 +203,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
       <div className={`nav-drawer${drawerOpen ? ' open' : ''}`}>
         <Link to="/" className="drawer-link" onClick={() => setDrawerOpen(false)}>Home</Link>
 
@@ -227,7 +229,7 @@ export default function Navbar() {
 
         {user ? (
           <>
-            <Link to="/dashboard" className="drawer-link" onClick={() => setDrawerOpen(false)}>Dashboard</Link>
+            <Link to={isAdmin ? '/admin' : '/dashboard'} className="drawer-link" onClick={() => setDrawerOpen(false)}>Dashboard</Link>
             <button className="drawer-register" onClick={handleLogout}>Log Out</button>
           </>
         ) : (
