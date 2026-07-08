@@ -104,7 +104,7 @@ export default function HomePage() {
               and champions in life across Calgary and beyond.
             </p>
             <div className="hero-btns">
-              <Link to="/membership/trial" className="btn-primary">Start Your 2-Week Trial</Link>
+              <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
               <Link to="/the-club/coaches" className="btn-outline">Meet the Coaches</Link>
             </div>
           </div>

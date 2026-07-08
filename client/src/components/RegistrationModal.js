@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './RegistrationModal.css';
 
-const CURRENT_YEAR = new Date().getFullYear();
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function RegistrationModal({ isOpen, onClose }) {
   const [form, setForm] = useState({
@@ -10,15 +10,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
     phone: '',
     email: '',
     parentEmail: '',
-    dob: '',
-    yearsRunning: '',
-    indoorGoals: '',
-    outdoorGoals: '',
-    ackConduct: false,
-    ackVolunteer: false,
-    ackFees: false,
-    ackAttendance: false,
-    parentSignature: ''
+    message: '',
   });
 
   const [loading, setLoading]     = useState(false);
@@ -28,38 +20,32 @@ export default function RegistrationModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
     setError('');
-  };
-
-  // DOB guard: must be in the past and not absurdly far back
-  const dobIsValid = (val) => {
-    if (!val) return false;
-    const d = new Date(val);
-    if (isNaN(d.getTime())) return false;
-    const year = d.getFullYear();
-    return year >= 1900 && year <= CURRENT_YEAR;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!dobIsValid(form.dob)) {
-      setError('Please enter a valid date of birth (must be in the past).');
-      return;
-    }
-
     setLoading(true);
     try {
-      console.log('Submitting intake form:', form);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const res = await fetch(`${API_URL}/api/inquiries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || 'Failed to submit your inquiry. Please try again.');
+        return;
+      }
+
       setSubmitted(true);
     } catch (err) {
-      setError('Failed to submit registration. Please try again.');
+      setError('Failed to submit your inquiry. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -67,12 +53,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
 
   const handleClose = () => {
     setSubmitted(false);
-    setForm({
-      firstName: '', lastName: '', phone: '', email: '', parentEmail: '',
-      dob: '', yearsRunning: '', indoorGoals: '', outdoorGoals: '',
-      ackConduct: false, ackVolunteer: false, ackFees: false, ackAttendance: false,
-      parentSignature: ''
-    });
+    setForm({ firstName: '', lastName: '', phone: '', email: '', parentEmail: '', message: '' });
     setError('');
     onClose();
   };
@@ -86,13 +67,10 @@ export default function RegistrationModal({ isOpen, onClose }) {
           /* ── SUCCESS SCREEN ── */
           <div className="reg-success">
             <div className="reg-success-icon">✓</div>
-            <h2 className="reg-success-title">You're In!</h2>
+            <h2 className="reg-success-title">Thanks for Reaching Out!</h2>
             <p className="reg-success-body">
-              Thanks for registering your interest in CITC. A coach will reach out within
-              48 hours to confirm your 2-week trial start date.
-              <br /><br />
-              In the meantime, make sure your <strong>Athletics Alberta membership</strong> is
-              active and ready to go.
+              We've received your inquiry about joining CITC. A coach will reach out within
+              48 hours to chat about next steps.
             </p>
             <button className="reg-submit-btn" style={{ marginTop: '2rem' }} onClick={handleClose}>
               Close
@@ -103,9 +81,9 @@ export default function RegistrationModal({ isOpen, onClose }) {
           <>
             <div className="reg-modal-header">
               <span className="reg-season-tag">2026-27 SEASON</span>
-              <h2 className="reg-title">CITC REGISTRATION</h2>
+              <h2 className="reg-title">INTERESTED IN JOINING CITC?</h2>
               <p className="reg-subtitle">
-                Complete all fields below. A coach will follow up within 48 hours. A valid Athletics Alberta membership is required before your first session.
+                Tell us a bit about yourself and a coach will follow up within 48 hours.
               </p>
             </div>
 
@@ -124,8 +102,8 @@ export default function RegistrationModal({ isOpen, onClose }) {
               </div>
 
               <div className="reg-field">
-                <label>Phone Number *</label>
-                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+1 (403) 000-0000" required />
+                <label>Phone Number</label>
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+1 (403) 000-0000" />
               </div>
 
               <div className="reg-field">
@@ -139,69 +117,19 @@ export default function RegistrationModal({ isOpen, onClose }) {
               </div>
 
               <div className="reg-field">
-                <label>Date of Birth *</label>
-                <input
-                  type="date"
-                  name="dob"
-                  value={form.dob}
+                <label>Tell Us a Bit About Yourself</label>
+                <textarea
+                  name="message"
+                  value={form.message}
                   onChange={handleChange}
-                  max={new Date().toISOString().split('T')[0]}
-                  min="1900-01-01"
-                  required
+                  rows={4}
+                  placeholder="e.g. Running experience, goals, which program you're interested in..."
+                  style={{ width: '100%', fontFamily: 'inherit', fontSize: '14px', padding: '10px', borderRadius: '8px', border: '1px solid #ccc', resize: 'vertical' }}
                 />
               </div>
 
-              <div className="reg-field">
-                <label>Years Running *</label>
-                <select name="yearsRunning" value={form.yearsRunning} onChange={handleChange} required>
-                  <option value="" disabled>e.g. 3</option>
-                  <option value="0-1">0-1 Years</option>
-                  <option value="2-3">2-3 Years</option>
-                  <option value="4+">4+ Years</option>
-                </select>
-              </div>
-
-              <div className="reg-field">
-                <label>Indoor Goals for 2026 *</label>
-                <input type="text" name="indoorGoals" value={form.indoorGoals} onChange={handleChange} placeholder="e.g. Sub-7.8 in 60m hurdles, qualify for provincials" required />
-              </div>
-
-              <div className="reg-field">
-                <label>Outdoor Goals for 2026 *</label>
-                <input type="text" name="outdoorGoals" value={form.outdoorGoals} onChange={handleChange} placeholder="e.g. Run 100m under 11s, compete at nationals" required />
-              </div>
-
-              <div className="reg-acknowledgements">
-                <h3>ACKNOWLEDGEMENTS *</h3>
-
-                <label className="reg-checkbox-label">
-                  <input type="checkbox" name="ackConduct" checked={form.ackConduct} onChange={handleChange} required />
-                  <span>I have read and understood the <strong>CITC Code of Conduct</strong> and agree to uphold its standards as a member of the club. <em>(Initials confirm agreement)</em></span>
-                </label>
-
-                <label className="reg-checkbox-label">
-                  <input type="checkbox" name="ackVolunteer" checked={form.ackVolunteer} onChange={handleChange} required />
-                  <span>I understand I must provide <strong>12 hours of volunteer commitment</strong> annually (or pay the $300 opt-out fee).</span>
-                </label>
-
-                <label className="reg-checkbox-label">
-                  <input type="checkbox" name="ackFees" checked={form.ackFees} onChange={handleChange} required />
-                  <span>I understand I will be <strong>charged the meet entry fee</strong> for any races I don't run in if CITC has registered me.</span>
-                </label>
-
-                <label className="reg-checkbox-label">
-                  <input type="checkbox" name="ackAttendance" checked={form.ackAttendance} onChange={handleChange} required />
-                  <span>I understand I must <strong>attend 85% of practices</strong> in person to be entered in meets.</span>
-                </label>
-              </div>
-
-              <div className="reg-field">
-                <label>Parent/Guardian Signature <span className="light-text">(if under 18 — type full name)</span></label>
-                <input type="text" name="parentSignature" value={form.parentSignature} onChange={handleChange} placeholder="Full name as signature" />
-              </div>
-
               <button type="submit" className="reg-submit-btn" disabled={loading}>
-                {loading ? 'Submitting...' : 'Submit Registration →'}
+                {loading ? 'Submitting...' : 'Submit Inquiry →'}
               </button>
             </form>
           </>

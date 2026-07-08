@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const { sequelize } = require('./models');
 const authRoutes = require('./routes/authRoutes');
+const inquiryRoutes = require('./routes/inquiryRoutes');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/inquiries', inquiryRoutes);
 
 // ── Start server ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
