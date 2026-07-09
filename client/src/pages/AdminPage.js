@@ -5,7 +5,7 @@ import './AdminPage.css';
 
 const ADMIN_NAV = [
   { label: 'Overview',      to: '/admin',                 icon: '⊞', end: true },
-  { label: 'Athletes',      to: '/admin/athletes',        icon: '🏃' },
+  { label: 'Inquiries',     to: '/admin/inquiries', icon: '📥' },
   { label: 'Programs',      to: '/admin/programs',        icon: '📋' },
   { label: 'Events',        to: '/admin/events',          icon: '📅' },
   { label: 'Announcements', to: '/admin/announcements',   icon: '📢' },

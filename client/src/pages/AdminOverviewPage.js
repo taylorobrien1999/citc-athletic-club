@@ -4,7 +4,6 @@ import './AdminOverviewPage.css';
 
 // Stat cards — values are placeholders until APIs are wired in Sprint 2
 const STATS = [
-  { label: 'Athletes',      value: '—', icon: '🏃', to: '/admin/athletes' },
   { label: 'Programs',      value: '—', icon: '📋', to: '/admin/programs' },
   { label: 'Events',        value: '—', icon: '📅', to: '/admin/events' },
   { label: 'Announcements', value: '—', icon: '📢', to: '/admin/announcements' },
@@ -12,7 +11,7 @@ const STATS = [
 
 // Quick actions — links to the main work areas
 const QUICK_ACTIONS = [
-  { label: 'View Registration Inquiries', to: '/admin/athletes',      icon: '📥' },
+  { label: 'View Registration Inquiries', to: '/admin/inquiries',      icon: '📥' },
   { label: 'Manage Announcements',        to: '/admin/announcements', icon: '📢' },
   { label: 'Upload Resources',            to: '/admin/resources',     icon: '📁' },
   { label: 'Review Feedback',             to: '/admin/feedback',      icon: '💬' },

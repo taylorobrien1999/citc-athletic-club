@@ -10,6 +10,7 @@ import AdminPage          from './pages/AdminPage';
 import AdminOverviewPage  from './pages/AdminOverviewPage';
 import Navbar             from './components/Navbar';
 import ContactPage        from './pages/ContactPage';
+import AdminInquiriesPage from './pages/AdminInquiriesPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route element={<PrivateRoute adminOnly />}>
             <Route path="/admin" element={<AdminPage />}>
               <Route index element={<AdminOverviewPage />} />
+              <Route path="inquiries" element={<AdminInquiriesPage />} />
             </Route>
           </Route>
 
