@@ -9,6 +9,7 @@ import DashboardPage      from './pages/DashboardPage';
 import AdminPage          from './pages/AdminPage';
 import AdminOverviewPage  from './pages/AdminOverviewPage';
 import Navbar             from './components/Navbar';
+import ContactPage        from './pages/ContactPage';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           {/* Public routes */}
           <Route path="/"         element={<HomePage />} />
           <Route path="/login"    element={<LoginPage />} />
+
+          <Route path="/contact" element={<ContactPage />} />
 
           {/* Member-only routes */}
           <Route element={<PrivateRoute />}>

@@ -8,6 +8,8 @@ const Announcement = require('./Announcement');
 const RegistrationInquiry = require('./RegistrationInquiry');
 const Feedback = require('./Feedback');
 const Resource = require('./Resource');
+const ContactMessage = require('./ContactMessage');
+
 
 // Associations
 User.hasOne(Athlete, { foreignKey: 'userId', onDelete: 'CASCADE' });
@@ -27,4 +29,5 @@ module.exports = {
   RegistrationInquiry,
   Feedback,
   Resource,
+  ContactMessage,
 };
