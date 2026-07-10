@@ -14,6 +14,8 @@ import AdminInquiriesPage from './pages/AdminInquiriesPage';
 import CoachesPage        from './pages/CoachesPage';
 import TrainingProgramsPage from './pages/TrainingProgramsPage';
 import TrackMeetsPage from './pages/TrackMeetsPage';
+import MissionPage from './pages/MissionPage';
+import CodeOfConductPage from './pages/CodeOfConductPage';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/the-club/coaches" element={<CoachesPage />} />
           <Route path="/the-club/training" element={<TrainingProgramsPage />} />
           <Route path="/the-club/meets" element={<TrackMeetsPage />} />
+          <Route path="/the-club/mission" element={<MissionPage />} />
+          <Route path="/the-club/conduct" element={<CodeOfConductPage />} />
 
           {/* Member-only routes */}
           <Route element={<PrivateRoute />}>

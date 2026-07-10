@@ -1,0 +1,61 @@
+.conduct-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+}
+
+.conduct-hero { text-align: center; margin-bottom: 40px; }
+
+.conduct-eyebrow {
+  color: var(--citc-purple);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.conduct-title {
+  font-size: 42px;
+  font-weight: 800;
+  font-style: italic;
+  margin: 12px 0;
+  color: #1a1a1a;
+}
+
+.conduct-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.conduct-card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  color: #1a1a1a;
+}
+
+.conduct-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 24px 0 12px;
+  color: var(--citc-purple);
+}
+
+.conduct-card p {
+  color: #444;
+  line-height: 1.7;
+  font-size: 15px;
+  margin: 0 0 14px;
+}
+
+.conduct-list {
+  margin: 0;
+  padding-left: 22px;
+  color: #444;
+  font-size: 14.5px;
+  line-height: 1.8;
+}
+
+.conduct-list li { margin-bottom: 14px; }
