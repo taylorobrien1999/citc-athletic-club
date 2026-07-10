@@ -1,0 +1,142 @@
+.coaches-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+}
+
+.coaches-page-hero {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.coaches-eyebrow {
+  color: var(--citc-purple);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.coaches-title {
+  font-size: 42px;
+  font-weight: 800;
+  font-style: italic;
+  margin: 12px 0;
+}
+
+.coaches-subtitle {
+  color: #555;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.coaches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.coach-full-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.coach-full-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.coach-full-av {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--citc-purple-light);
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.coach-full-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.coach-full-role {
+  color: var(--citc-purple);
+  font-weight: 600;
+  font-size: 14px;
+  margin: 2px 0 0;
+}
+
+.coach-full-bio p {
+  color: #444;
+  line-height: 1.7;
+  margin: 0 0 14px;
+  font-size: 15px;
+}
+
+.coach-full-bio p:last-child { margin-bottom: 0; }
+
+.coach-qualifications {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.coach-qualifications h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.coach-qualifications ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.coaches-jc-tribute {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 48px;
+  padding: 32px;
+  background: #f9f8fc;
+  border-radius: 16px;
+}
+
+.coaches-jc-tribute .jc-logo-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.coaches-jc-tribute .jc-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 6px 0 10px;
+}
+
+.coaches-jc-tribute p:not(.eyebrow) {
+  color: #555;
+  line-height: 1.7;
+  font-size: 15px;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .coaches-jc-tribute { flex-direction: column; text-align: center; }
+}

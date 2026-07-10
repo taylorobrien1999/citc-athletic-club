@@ -136,3 +136,14 @@
   font-weight: 600;
   font-size: 14px;
 }
+
+.coaches-jc-tribute .eyebrow {
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.coaches-jc-tribute .jc-title {
+  color: #1a1a1a;
+}

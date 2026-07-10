@@ -1,0 +1,118 @@
+import './TrainingProgramsPage.css';
+
+const PROGRAM_STRUCTURE_POINTS = [
+  'Speed development',
+  'Strength and athleticism',
+  'Movement quality',
+  'Long-term athlete development',
+];
+
+const PROGRAMS = [
+  {
+    title: 'Sprint Program',
+    intro: "The Sprint program develops athletes for events requiring maximum speed, power, and technical precision. Training prioritizes acceleration, maximal velocity development, and neuromuscular efficiency while building the strength and coordination necessary for elite sprint performance.",
+    focusHeading: 'Athletes focus on:',
+    focus: [
+      'Acceleration and speed development',
+      'Sprint mechanics and movement efficiency',
+      'Strength, power, and elastic reactivity',
+      'Speed endurance and race modeling',
+      'Competition execution and performance consistency',
+    ],
+    closing: 'The objective is to produce fast, resilient athletes capable of sustaining high performance across multiple seasons while minimizing injury risk.',
+  },
+  {
+    title: 'Hurdles Program',
+    intro: 'The Hurdles program combines sprint speed with rhythm, coordination, and technical mastery. Hurdlers are developed as complete speed athletes, emphasizing efficient movement patterns and consistent stride rhythm under race conditions.',
+    focusHeading: 'Training includes:',
+    focus: [
+      'Sprint development and acceleration mechanics',
+      'Technical hurdle skill progression',
+      'Rhythm and stride pattern development',
+      'Strength, mobility, and elastic stability',
+      'Race modeling for sprint and long hurdles',
+    ],
+    closing: "Rather than viewing rhythm and technique as the primary drivers of hurdle success, our philosophy recognizes that speed is the foundation upon which all hurdling qualities are built. Athletes are developed as sprinters first — hurdlers second.",
+  },
+  {
+    title: 'Middle Distance Program',
+    intro: 'The Middle Distance program develops athletes for events where speed, strength, and endurance intersect. Program emphasis is placed on the 600m, 800m, 1000m, and 1500m, where athletes learn to integrate sprint mechanics, aerobic support, and tactical racing ability within a unified performance model.',
+    focusHeading: 'Training emphasizes:',
+    focus: [
+      'Maximum velocity development and anaerobic speed reserve',
+      'Strength, power, and elastic athleticism',
+      'Efficient mechanics and movement quality',
+      'Race-specific energy system development for 600m–1500m, extending to the 3000m for interested athletes',
+      'Tactical awareness, pacing strategy, and competitive decision-making',
+      'Progressive introduction to the Steeplechase for interested athletes',
+    ],
+    closing: 'Cross country is viewed primarily as a developmental base season, used to build aerobic capacity, resilience, and competitive experience in support of track performance. The objective is the development of complete middle distance athletes — fast, durable, and tactically intelligent competitors.',
+  },
+];
+
+const STRENGTH_POINTS = [
+  'Development of maximal strength and force production',
+  'Power and rate of force development',
+  'Elastic stiffness and injury resilience',
+  'Postural control, movement efficiency and all-around athleticism',
+];
+
+export default function TrainingProgramsPage() {
+  return (
+    <div className="training-page">
+      <div className="training-hero">
+        <span className="training-eyebrow">THE CLUB</span>
+        <h1 className="training-title">Training Programs</h1>
+        <p className="training-subtitle">
+          Our training model is built around the development of complete athletes.
+        </p>
+      </div>
+
+      <div className="training-structure-card">
+        <h2>Program Structure</h2>
+        <p>
+          All event groups share a common foundation. Athletes are placed in programs based
+          on event demands, while progression across groups is encouraged as athletes mature
+          and specialize.
+        </p>
+        <ul className="training-structure-list">
+          {PROGRAM_STRUCTURE_POINTS.map((p, i) => <li key={i}>{p}</li>)}
+        </ul>
+      </div>
+
+      <div className="training-programs-list">
+        {PROGRAMS.map((prog) => (
+          <div className="training-program-card" key={prog.title}>
+            <h2>{prog.title}</h2>
+            <p>{prog.intro}</p>
+            <h3>{prog.focusHeading}</h3>
+            <ul>
+              {prog.focus.map((f, i) => <li key={i}>{f}</li>)}
+            </ul>
+            <p className="training-program-closing">{prog.closing}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="training-program-card">
+        <h2>Strength &amp; Weight Training</h2>
+        <p>
+          Strength training is a foundational component of the Calgary International Track
+          Club development model. Across all event groups, athletes participate in structured
+          weight training designed to enhance speed, power, durability, and long-term athletic
+          development. Performance on the track is supported by the physical qualities
+          developed off the track.
+        </p>
+        <h3>Strength programming emphasizes:</h3>
+        <ul>
+          {STRENGTH_POINTS.map((p, i) => <li key={i}>{p}</li>)}
+        </ul>
+        <p className="training-program-closing">
+          Weight training supports all CITC programs — Sprint, Hurdles, and Middle Distance —
+          reinforcing our commitment to developing complete athletes capable of sustaining
+          high performance over time.
+        </p>
+      </div>
+    </div>
+  );
+}

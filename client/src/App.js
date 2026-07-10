@@ -11,6 +11,9 @@ import AdminOverviewPage  from './pages/AdminOverviewPage';
 import Navbar             from './components/Navbar';
 import ContactPage        from './pages/ContactPage';
 import AdminInquiriesPage from './pages/AdminInquiriesPage';
+import CoachesPage        from './pages/CoachesPage';
+import TrainingProgramsPage from './pages/TrainingProgramsPage';
+import TrackMeetsPage from './pages/TrackMeetsPage';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           <Route path="/login"    element={<LoginPage />} />
 
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/the-club/coaches" element={<CoachesPage />} />
+          <Route path="/the-club/training" element={<TrainingProgramsPage />} />
+          <Route path="/the-club/meets" element={<TrackMeetsPage />} />
 
           {/* Member-only routes */}
           <Route element={<PrivateRoute />}>
