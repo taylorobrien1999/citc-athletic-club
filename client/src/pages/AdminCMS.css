@@ -1,0 +1,122 @@
+/* Shared admin CMS styling — matches AdminInquiriesPage color tokens */
+
+.admin-cms { max-width: 1000px; }
+
+.admin-cms-header { margin-bottom: 1.5rem; }
+.admin-cms-header h2 { font-size: 1.4rem; font-weight: 700; color: #1a1a2e; margin: 0 0 0.35rem; }
+.admin-cms-sub { font-size: 0.9rem; color: #6b7280; margin: 0; }
+
+.admin-cms-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.admin-cms-success {
+  background: #f0fdf4;
+  color: #15803d;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* ── Add-new form ── */
+.admin-cms-form {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.admin-cms-field { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 160px; }
+.admin-cms-field label { font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.03em; }
+.admin-cms-field input,
+.admin-cms-field select,
+.admin-cms-field textarea {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+.admin-cms-field textarea { resize: vertical; min-height: 60px; }
+
+.admin-cms-form-full { flex-basis: 100%; }
+
+.admin-cms-submit {
+  background: #6c3baa;
+  color: #fff;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.admin-cms-submit:hover { background: #5a2f8f; }
+.admin-cms-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Table ── */
+.admin-cms-table-wrap {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.admin-cms-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+
+.admin-cms-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: #f4f5f7;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.admin-cms-table td {
+  padding: 12px 16px;
+  border-top: 1px solid #f0f0f0;
+  vertical-align: top;
+  color: #333;
+}
+
+.admin-cms-table a { color: #6c3baa; text-decoration: none; }
+
+.admin-cms-delete-btn {
+  background: none;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.admin-cms-delete-btn:hover { background: #fef2f2; }
+
+.admin-cms-status {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: pointer;
+  background: #fff;
+}
+
+.admin-cms-empty { color: #6b7280; font-size: 0.9rem; padding: 16px; }

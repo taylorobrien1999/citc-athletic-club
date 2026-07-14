@@ -1,8 +1,5 @@
 import './MissionPage.css';
 
-// NOTE: Cindy sent 5 mission statement options and hasn't confirmed which one
-// the club wants live. Defaulting to Option 5 since it echoes the homepage
-// hero tagline ("In the Habit of Excellence") — confirm with Cindy/Tessa.
 const SELECTED_STATEMENT =
   "In the habit of excellence—developing champions in sport and leaders in life.";
 

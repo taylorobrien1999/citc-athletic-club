@@ -16,6 +16,11 @@ import TrainingProgramsPage from './pages/TrainingProgramsPage';
 import TrackMeetsPage from './pages/TrackMeetsPage';
 import MissionPage from './pages/MissionPage';
 import CodeOfConductPage from './pages/CodeOfConductPage';
+import AdminAnnouncementsPage from './pages/AdminAnnouncementsPage';
+import AdminEventsPage from './pages/AdminEventsPage';
+import AdminProgramsPage from './pages/AdminProgramsPage';
+import AdminResourcesPage from './pages/AdminResourcesPage';
+import AdminFeedbackPage from './pages/AdminFeedbackPage';
 
 function App() {
   return (
@@ -44,6 +49,11 @@ function App() {
             <Route path="/admin" element={<AdminPage />}>
               <Route index element={<AdminOverviewPage />} />
               <Route path="inquiries" element={<AdminInquiriesPage />} />
+              <Route path="announcements" element={<AdminAnnouncementsPage />} />
+              <Route path="events" element={<AdminEventsPage />} />
+              <Route path="programs" element={<AdminProgramsPage />} />
+              <Route path="resources" element={<AdminResourcesPage />} />
+              <Route path="feedback" element={<AdminFeedbackPage />} />
             </Route>
           </Route>
 

@@ -8,6 +8,9 @@ const inquiryRoutes = require('./routes/inquiryRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 const eventRoutes = require('./routes/eventRoutes');
+const programRoutes = require('./routes/programRoutes');
+const resourceRoutes = require('./routes/resourceRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
 
 const app = express();
 
@@ -27,6 +30,9 @@ app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/programs', programRoutes);
+app.use('/api/resources', resourceRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // ── Start server ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
