@@ -1,9 +1,13 @@
+import { useState, useEffect } from 'react';
 import citcLogoIcon from '../assets/citc-logo-icon.jpg';
 import './CoachesPage.css';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const COACHES = [
   {
     initials: 'TG',
+    slug: 'tessa',
     name: 'Tessa Gray-Burnett',
     role: 'Coach',
     bio: [
@@ -23,6 +27,7 @@ const COACHES = [
   },
   {
     initials: 'DM',
+    slug: 'dani',
     name: 'Dani Marland',
     role: 'Coach',
     bio: [
@@ -35,6 +40,7 @@ const COACHES = [
   },
   {
     initials: 'NI',
+    slug: 'nicole',
     name: 'Nicole',
     role: 'Coach',
     bio: [
@@ -45,6 +51,15 @@ const COACHES = [
 ];
 
 export default function CoachesPage() {
+  const [siteContent, setSiteContent] = useState({});
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/site-content`)
+      .then(res => res.json())
+      .then(data => setSiteContent(data.content || {}))
+      .catch(() => {});
+  }, []);
+
   return (
     <div className="coaches-page">
       <div className="coaches-page-hero">
@@ -57,30 +72,42 @@ export default function CoachesPage() {
       </div>
 
       <div className="coaches-list">
-        {COACHES.map((c) => (
-          <div className="coach-full-card" key={c.name}>
-            <div className="coach-full-header">
-              <div className="coach-full-av">{c.initials}</div>
-              <div>
-                <h2 className="coach-full-name">{c.name}</h2>
-                <p className="coach-full-role">{c.role}</p>
-              </div>
-            </div>
+        {COACHES.map((c) => {
+          const photoOverride = siteContent[`coach_${c.slug}_photo`];
+          const bioOverride = siteContent[`coach_${c.slug}_bio`];
+          const bioParagraphs = bioOverride
+            ? bioOverride.split('\n\n').filter(Boolean)
+            : c.bio;
 
-            <div className="coach-full-bio">
-              {c.bio.map((para, i) => <p key={i}>{para}</p>)}
-            </div>
-
-            {c.qualifications.length > 0 && (
-              <div className="coach-qualifications">
-                <h3>Qualifications</h3>
-                <ul>
-                  {c.qualifications.map((q, i) => <li key={i}>{q}</li>)}
-                </ul>
+          return (
+            <div className="coach-full-card" key={c.name}>
+              <div className="coach-full-header">
+                {photoOverride ? (
+                  <img src={photoOverride} alt={c.name} className="coach-full-photo" />
+                ) : (
+                  <div className="coach-full-av">{c.initials}</div>
+                )}
+                <div>
+                  <h2 className="coach-full-name">{c.name}</h2>
+                  <p className="coach-full-role">{c.role}</p>
+                </div>
               </div>
-            )}
-          </div>
-        ))}
+
+              <div className="coach-full-bio">
+                {bioParagraphs.map((para, i) => <p key={i}>{para}</p>)}
+              </div>
+
+              {c.qualifications.length > 0 && (
+                <div className="coach-qualifications">
+                  <h3>Qualifications</h3>
+                  <ul>
+                    {c.qualifications.map((q, i) => <li key={i}>{q}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* JC Tribute — old logo lives here per Tessa's request */}

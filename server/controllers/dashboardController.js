@@ -15,14 +15,29 @@ const getAnnouncements = async (req, res) => {
 // Admin only.
 const createAnnouncement = async (req, res) => {
   try {
-    const { title, body, postedBy } = req.body;
+    const { title, body, postedBy, imageUrl } = req.body;
     if (!title || !body) {
       return res.status(400).json({ message: 'Title and body are required.' });
     }
-    const announcement = await Announcement.create({ title, body, postedBy });
+    const announcement = await Announcement.create({ title, body, postedBy, imageUrl });
     return res.status(201).json({ announcement });
   } catch (err) {
     console.error('Create announcement error:', err);
+    return res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+// ── DELETE /api/announcements/:id ─────────────────────────────────────────────
+// Admin only.
+const deleteAnnouncement = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const announcement = await Announcement.findByPk(id);
+    if (!announcement) return res.status(404).json({ message: 'Announcement not found.' });
+    await announcement.destroy();
+    return res.status(200).json({ message: 'Announcement deleted.' });
+  } catch (err) {
+    console.error('Delete announcement error:', err);
     return res.status(500).json({ message: 'Server error.' });
   }
 };
@@ -57,6 +72,7 @@ const createEvent = async (req, res) => {
 module.exports = {
   getAnnouncements,
   createAnnouncement,
+  deleteAnnouncement,
   getEvents,
   createEvent,
 };

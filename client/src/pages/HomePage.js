@@ -61,6 +61,15 @@ const SLIDES = [
 export default function HomePage() {
   const [slide, setSlide] = useState(0);
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
+  const [siteContent, setSiteContent] = useState({});
+
+  useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    fetch(`${API_URL}/api/site-content`)
+      .then(res => res.json())
+      .then(data => setSiteContent(data.content || {}))
+      .catch(() => {}); // fail silently — defaults still render
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -77,11 +86,14 @@ export default function HomePage() {
       <section className="hero">
 
         <div className="hero-slides">
-          {SLIDES.map((src, i) => (
-            <div key={src} className={`slide${i === slide ? ' active' : ''}`}>
-              <img src={src} alt="" aria-hidden="true" />
-            </div>
-          ))}
+          {SLIDES.map((src, i) => {
+            const override = siteContent[`hero_image_${i + 1}`];
+            return (
+              <div key={src} className={`slide${i === slide ? ' active' : ''}`}>
+                <img src={override || src} alt="" aria-hidden="true" />
+              </div>
+            );
+          })}
         </div>
 
         <div className="hero-overlay" />
@@ -100,8 +112,8 @@ export default function HomePage() {
               Excellence
             </h1>
             <p className="hero-sub">
-              A values driven track club since 1993. Developing high-performance athletes
-              and champions in life across Calgary and beyond.
+              {siteContent.home_hero_subtext ||
+                'A values driven track club since 1993. Developing high-performance athletes and champions in life across Calgary and beyond.'}
             </p>
             <div className="hero-btns">
               <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>

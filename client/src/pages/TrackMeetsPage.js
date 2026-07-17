@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import './TrackMeetsPage.css';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const INDOOR_MEETS = [
   { name: 'Dino Meets', when: 'Dec / Jan' },
@@ -18,6 +21,21 @@ const OUTDOOR_MEETS = [
 ];
 
 export default function TrackMeetsPage() {
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [loadingEvents, setLoadingEvents] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/events`)
+      .then(res => res.json())
+      .then(data => {
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const upcoming = (data.events || []).filter(ev => new Date(ev.eventDate) >= today);
+        setUpcomingEvents(upcoming);
+      })
+      .catch(() => {})
+      .finally(() => setLoadingEvents(false));
+  }, []);
+
   return (
     <div className="meets-page">
       <div className="meets-hero">
@@ -57,6 +75,27 @@ export default function TrackMeetsPage() {
           </table>
         </div>
       </div>
+
+      {!loadingEvents && upcomingEvents.length > 0 && (
+        <div className="meets-season-card" style={{ marginTop: 28 }}>
+          <h2>Upcoming Scheduled Meets</h2>
+          <table className="meets-table">
+            <tbody>
+              {upcomingEvents.map((ev) => (
+                <tr key={ev.id}>
+                  <td>
+                    {ev.title}
+                    {ev.location && <span style={{ color: '#999', fontSize: 12 }}> — {ev.location}</span>}
+                  </td>
+                  <td className="meets-when">
+                    {new Date(ev.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <p className="meets-note">
         Exact dates and venues are confirmed closer to each season — check Announcements or

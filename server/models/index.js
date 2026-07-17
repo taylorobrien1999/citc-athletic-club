@@ -9,6 +9,7 @@ const RegistrationInquiry = require('./RegistrationInquiry');
 const Feedback = require('./Feedback');
 const Resource = require('./Resource');
 const ContactMessage = require('./ContactMessage');
+const SiteContent = require('./SiteContent');
 
 
 // Associations
@@ -30,4 +31,5 @@ module.exports = {
   Feedback,
   Resource,
   ContactMessage,
+  SiteContent,
 };

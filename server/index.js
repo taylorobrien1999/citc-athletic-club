@@ -11,6 +11,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const programRoutes = require('./routes/programRoutes');
 const resourceRoutes = require('./routes/resourceRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
+const siteContentRoutes = require('./routes/siteContentRoutes');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/programs', programRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/feedback', feedbackRoutes);
+app.use('/api/site-content', siteContentRoutes);
 
 // ── Start server ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;

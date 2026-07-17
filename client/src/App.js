@@ -21,6 +21,9 @@ import AdminEventsPage from './pages/AdminEventsPage';
 import AdminProgramsPage from './pages/AdminProgramsPage';
 import AdminResourcesPage from './pages/AdminResourcesPage';
 import AdminFeedbackPage from './pages/AdminFeedbackPage';
+import AdminSiteContentPage from './pages/AdminSiteContentPage';
+import NewsPage from './pages/NewsPage';
+import PhotosPage from './pages/PhotosPage';
 
 function App() {
   return (
@@ -38,6 +41,8 @@ function App() {
           <Route path="/the-club/meets" element={<TrackMeetsPage />} />
           <Route path="/the-club/mission" element={<MissionPage />} />
           <Route path="/the-club/conduct" element={<CodeOfConductPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/photos" element={<PhotosPage />} />
 
           {/* Member-only routes */}
           <Route element={<PrivateRoute />}>
@@ -54,6 +59,7 @@ function App() {
               <Route path="programs" element={<AdminProgramsPage />} />
               <Route path="resources" element={<AdminResourcesPage />} />
               <Route path="feedback" element={<AdminFeedbackPage />} />
+              <Route path="site-content" element={<AdminSiteContentPage />} />
             </Route>
           </Route>
 

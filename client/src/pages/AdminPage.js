@@ -11,6 +11,7 @@ const ADMIN_NAV = [
   { label: 'Announcements', to: '/admin/announcements',   icon: '📢' },
   { label: 'Resources',     to: '/admin/resources',       icon: '📁' },
   { label: 'Feedback',      to: '/admin/feedback',        icon: '💬' },
+  { label: 'Site Content',  to: '/admin/site-content', icon: '✏️' },
 ];
 
 export default function AdminPage() {
