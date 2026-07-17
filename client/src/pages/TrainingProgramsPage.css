@@ -79,6 +79,21 @@
   line-height: 1.9;
 }
 
+.training-additional-heading {
+  font-size: 26px;
+  font-weight: 800;
+  font-style: italic;
+  margin: 40px 0 20px;
+  color: #1a1a1a;
+}
+
+.training-program-agegroup {
+  color: var(--citc-purple) !important;
+  font-weight: 600;
+  font-size: 13px !important;
+  margin-bottom: 10px !important;
+}
+
 .training-program-closing {
   font-style: italic;
   color: #555 !important;

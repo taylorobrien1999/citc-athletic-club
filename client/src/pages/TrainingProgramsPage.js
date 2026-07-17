@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import './TrainingProgramsPage.css';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const PROGRAM_STRUCTURE_POINTS = [
   'Speed development',
@@ -58,6 +61,24 @@ const STRENGTH_POINTS = [
 ];
 
 export default function TrainingProgramsPage() {
+  const [additionalPrograms, setAdditionalPrograms] = useState([]);
+  const [loadingExtra, setLoadingExtra] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/programs`);
+        const data = await res.json();
+        if (res.ok) setAdditionalPrograms(data.programs);
+      } catch (err) {
+        // Fail silently — this section is a bonus add-on, not core content
+      } finally {
+        setLoadingExtra(false);
+      }
+    };
+    load();
+  }, []);
+
   return (
     <div className="training-page">
       <div className="training-hero">
@@ -113,6 +134,19 @@ export default function TrainingProgramsPage() {
           high performance over time.
         </p>
       </div>
+
+      {!loadingExtra && additionalPrograms.length > 0 && (
+        <div className="training-programs-list">
+          <h2 className="training-additional-heading">Additional Programs</h2>
+          {additionalPrograms.map((prog) => (
+            <div className="training-program-card" key={prog.id}>
+              <h2>{prog.name}</h2>
+              {prog.ageGroup && <p className="training-program-agegroup">{prog.ageGroup}</p>}
+              <p>{prog.description}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
