@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import FileUploadButton from '../components/FileUploadButton';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -126,13 +127,16 @@ export default function AdminSiteContentPage() {
                   <td>{row.label}</td>
                   <td style={{ minWidth: 320 }}>
                     {row.type === 'image' ? (
-                      <input
-                        type="text"
-                        value={row.value || ''}
-                        placeholder="Image URL"
-                        onChange={(e) => handleValueChange(row.contentKey, e.target.value)}
-                        style={{ width: '100%', padding: '6px 8px', border: '1px solid #d1d5db', borderRadius: 6 }}
-                      />
+                      <>
+                        <input
+                          type="text"
+                          value={row.value || ''}
+                          placeholder="Image URL"
+                          onChange={(e) => handleValueChange(row.contentKey, e.target.value)}
+                          style={{ width: '100%', padding: '6px 8px', border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 6 }}
+                        />
+                        <FileUploadButton accept="image/*" onUploaded={(url) => handleValueChange(row.contentKey, url)} />
+                      </>
                     ) : (
                       <textarea
                         value={row.value || ''}

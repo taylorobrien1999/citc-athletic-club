@@ -12,6 +12,8 @@ const programRoutes = require('./routes/programRoutes');
 const resourceRoutes = require('./routes/resourceRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 const siteContentRoutes = require('./routes/siteContentRoutes');
+const path = require('path');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
 
@@ -27,6 +29,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/upload', uploadRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/announcements', announcementRoutes);
@@ -35,6 +38,7 @@ app.use('/api/programs', programRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/feedback', feedbackRoutes);
 app.use('/api/site-content', siteContentRoutes);
+
 
 // ── Start server ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;

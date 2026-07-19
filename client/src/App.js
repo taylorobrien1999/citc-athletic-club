@@ -20,7 +20,6 @@ import AdminAnnouncementsPage from './pages/AdminAnnouncementsPage';
 import AdminEventsPage from './pages/AdminEventsPage';
 import AdminProgramsPage from './pages/AdminProgramsPage';
 import AdminResourcesPage from './pages/AdminResourcesPage';
-import AdminFeedbackPage from './pages/AdminFeedbackPage';
 import AdminSiteContentPage from './pages/AdminSiteContentPage';
 import NewsPage from './pages/NewsPage';
 import PhotosPage from './pages/PhotosPage';
@@ -58,7 +57,6 @@ function App() {
               <Route path="events" element={<AdminEventsPage />} />
               <Route path="programs" element={<AdminProgramsPage />} />
               <Route path="resources" element={<AdminResourcesPage />} />
-              <Route path="feedback" element={<AdminFeedbackPage />} />
               <Route path="site-content" element={<AdminSiteContentPage />} />
             </Route>
           </Route>

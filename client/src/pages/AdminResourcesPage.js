@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import FileUploadButton from '../components/FileUploadButton';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -65,8 +66,7 @@ export default function AdminResourcesPage() {
       <div className="admin-cms-header">
         <h2>Resources</h2>
         <p className="admin-cms-sub">
-          Add links to photos, PDFs, or other files. (Upload the file to a hosting service like
-          Google Drive first, then paste the shareable link here.)
+          Add photos, PDFs, or links — paste a URL, or upload a file directly below.
         </p>
       </div>
 
@@ -89,7 +89,8 @@ export default function AdminResourcesPage() {
         </div>
         <div className="admin-cms-field">
           <label>URL</label>
-          <input name="url" value={form.url} onChange={handleChange} placeholder="https://..." required />
+          <input name="url" value={form.url} onChange={handleChange} placeholder="https://... (or upload below)" />
+          <FileUploadButton onUploaded={(url) => setForm(prev => ({ ...prev, url }))} />
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Description</label>

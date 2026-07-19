@@ -140,6 +140,7 @@ export default function TrainingProgramsPage() {
           <h2 className="training-additional-heading">Additional Programs</h2>
           {additionalPrograms.map((prog) => (
             <div className="training-program-card" key={prog.id}>
+              {prog.imageUrl && <img src={prog.imageUrl} alt={prog.name} className="training-program-img" />}
               <h2>{prog.name}</h2>
               {prog.ageGroup && <p className="training-program-agegroup">{prog.ageGroup}</p>}
               <p>{prog.description}</p>

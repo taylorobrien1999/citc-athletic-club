@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import FileUploadButton from '../components/FileUploadButton';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -11,7 +12,7 @@ export default function AdminProgramsPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ name: '', ageGroup: '', description: '' });
+  const [form, setForm] = useState({ name: '', ageGroup: '', description: '', imageUrl: '' });
 
   const fetchPrograms = async () => {
     try {
@@ -38,7 +39,7 @@ export default function AdminProgramsPage() {
       });
       const data = await res.json();
       if (!res.ok) { setError(data.message || 'Failed to add program.'); return; }
-      setForm({ name: '', ageGroup: '', description: '' });
+      setForm({ name: '', ageGroup: '', description: '', imageUrl: '' });
       setSuccess('Program added.');
       fetchPrograms();
     } catch (err) {
@@ -83,6 +84,11 @@ export default function AdminProgramsPage() {
           <label>Description</label>
           <textarea name="description" value={form.description} onChange={handleChange} placeholder="Program description..." required />
         </div>
+        <div className="admin-cms-field admin-cms-form-full">
+          <label>Photo (optional)</label>
+          <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="https://... (or upload below)" />
+          <FileUploadButton accept="image/*" onUploaded={(url) => setForm(prev => ({ ...prev, imageUrl: url }))} />
+        </div>
         <button className="admin-cms-submit" disabled={submitting}>
           {submitting ? 'Adding...' : 'Add Program'}
         </button>
@@ -96,11 +102,12 @@ export default function AdminProgramsPage() {
         <div className="admin-cms-table-wrap">
           <table className="admin-cms-table">
             <thead>
-              <tr><th>Name</th><th>Age Group</th><th>Description</th><th></th></tr>
+              <tr><th>Photo</th><th>Name</th><th>Age Group</th><th>Description</th><th></th></tr>
             </thead>
             <tbody>
               {programs.map((p) => (
                 <tr key={p.id}>
+                  <td>{p.imageUrl ? <img src={p.imageUrl} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 6 }} /> : '—'}</td>
                   <td>{p.name}</td>
                   <td>{p.ageGroup || '—'}</td>
                   <td>{p.description}</td>

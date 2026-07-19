@@ -48,6 +48,18 @@ export default function AdminEventsPage() {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`${API_URL}/api/events/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) setEvents(prev => prev.filter(ev => ev.id !== id));
+    } catch (err) {
+      setError('Failed to delete event.');
+    }
+  };
+
   return (
     <div className="admin-cms">
       <div className="admin-cms-header">
@@ -92,7 +104,7 @@ export default function AdminEventsPage() {
         <div className="admin-cms-table-wrap">
           <table className="admin-cms-table">
             <thead>
-              <tr><th>Title</th><th>Date</th><th>Time</th><th>Location</th><th>Notes</th></tr>
+              <tr><th>Title</th><th>Date</th><th>Time</th><th>Location</th><th>Notes</th><th></th></tr>
             </thead>
             <tbody>
               {events.map((ev) => (
@@ -102,6 +114,7 @@ export default function AdminEventsPage() {
                   <td>{ev.startTime || '—'}</td>
                   <td>{ev.location || '—'}</td>
                   <td>{ev.notes || '—'}</td>
+                  <td><button className="admin-cms-delete-btn" onClick={() => handleDelete(ev.id)}>Delete</button></td>
                 </tr>
               ))}
             </tbody>

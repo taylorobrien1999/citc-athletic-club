@@ -14,11 +14,11 @@ const getPrograms = async (req, res) => {
 
 const createProgram = async (req, res) => {
   try {
-    const { name, ageGroup, description } = req.body;
+    const { name, ageGroup, description, imageUrl } = req.body;
     if (!name || !description) {
       return res.status(400).json({ message: 'Name and description are required.' });
     }
-    const program = await Program.create({ name, ageGroup, description });
+    const program = await Program.create({ name, ageGroup, description, imageUrl });
     return res.status(201).json({ program });
   } catch (err) {
     console.error('Create program error:', err);
@@ -32,10 +32,11 @@ const updateProgram = async (req, res) => {
     const program = await Program.findByPk(id);
     if (!program) return res.status(404).json({ message: 'Program not found.' });
 
-    const { name, ageGroup, description } = req.body;
+    const { name, ageGroup, description, imageUrl } = req.body;
     if (name !== undefined) program.name = name;
     if (ageGroup !== undefined) program.ageGroup = ageGroup;
     if (description !== undefined) program.description = description;
+    if (imageUrl !== undefined) program.imageUrl = imageUrl;
     await program.save();
 
     return res.status(200).json({ program });

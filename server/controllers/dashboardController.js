@@ -69,10 +69,26 @@ const createEvent = async (req, res) => {
   }
 };
 
+// ── DELETE /api/events/:id ─────────────────────────────────────────────────
+// Admin only.
+const deleteEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const event = await Event.findByPk(id);
+    if (!event) return res.status(404).json({ message: 'Event not found.' });
+    await event.destroy();
+    return res.status(200).json({ message: 'Event deleted.' });
+  } catch (err) {
+    console.error('Delete event error:', err);
+    return res.status(500).json({ message: 'Server error.' });
+  }
+};
+
 module.exports = {
   getAnnouncements,
   createAnnouncement,
   deleteAnnouncement,
   getEvents,
   createEvent,
+  deleteEvent,
 };

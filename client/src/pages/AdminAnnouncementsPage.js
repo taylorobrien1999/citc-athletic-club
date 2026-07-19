@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import FileUploadButton from '../components/FileUploadButton';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -81,7 +82,8 @@ export default function AdminAnnouncementsPage() {
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Photo URL (optional)</label>
-          <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="https://..." />
+          <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="https://... (or upload below)" />
+          <FileUploadButton accept="image/*" onUploaded={(url) => setForm(prev => ({ ...prev, imageUrl: url }))} />
         </div>
         <button className="admin-cms-submit" disabled={submitting}>
           {submitting ? 'Posting...' : 'Post Announcement'}
