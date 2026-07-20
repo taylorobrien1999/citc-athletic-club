@@ -1,7 +1,11 @@
 .dash-page {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 60px 24px 100px;
+  padding: calc(var(--nav-height) + 32px) 24px 100px;
+}
+
+@media (max-width: 768px) {
+  .dash-page { padding-top: calc(var(--nav-height-mobile) + 24px); }
 }
 
 .dash-hero { margin-bottom: 36px; }

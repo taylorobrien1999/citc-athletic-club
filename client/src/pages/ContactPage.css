@@ -1,7 +1,7 @@
 .contact-page {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 80px 24px 100px;
+  padding: calc(var(--nav-height) + 16px) 24px 100px;
 }
 
 .contact-hero {

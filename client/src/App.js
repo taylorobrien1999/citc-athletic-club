@@ -30,6 +30,7 @@ import RecordsPage from './pages/RecordsPage';
 import CreateAccountPage from './pages/CreateAccountPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import AdminMembersPage from './pages/AdminMembersPage';
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
               <Route path="programs" element={<AdminProgramsPage />} />
               <Route path="resources" element={<AdminResourcesPage />} />
               <Route path="site-content" element={<AdminSiteContentPage />} />
+              <Route path="members" element={<AdminMembersPage />} />
             </Route>
           </Route>
 

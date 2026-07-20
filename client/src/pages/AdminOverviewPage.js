@@ -60,11 +60,6 @@ export default function AdminOverviewPage() {
         </div>
       </div>
 
-      {/* Note for Sprint 2 */}
-      <p className="overview-note">
-        Stat counts will populate once the athlete and registration APIs are wired in Sprint 2 (CACOS-25/27).
-      </p>
-
     </div>
   );
 }

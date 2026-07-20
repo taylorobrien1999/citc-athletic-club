@@ -6,6 +6,7 @@ import './AdminPage.css';
 const ADMIN_NAV = [
   { label: 'Overview',      to: '/admin',                 icon: '⊞', end: true },
   { label: 'Inquiries',     to: '/admin/inquiries', icon: '📥' },
+  { label: 'Members',       to: '/admin/members', icon: '👥' },
   { label: 'Programs',      to: '/admin/programs',        icon: '📋' },
   { label: 'Events',        to: '/admin/events',          icon: '📅' },
   { label: 'Announcements', to: '/admin/announcements',   icon: '📢' },
@@ -28,8 +29,7 @@ export default function AdminPage() {
 
       <aside className={`admin-sidebar${sidebarOpen ? ' open' : ''}`}>
         <div className="admin-sidebar-header">
-          <span className="admin-logo-text">CACOS</span>
-          <span className="admin-role-badge">Admin</span>
+          <span className="admin-logo-text">Admin Portal</span>
         </div>
 
         <nav className="admin-nav">
@@ -78,9 +78,6 @@ export default function AdminPage() {
           >
             ☰
           </button>
-          <h1 className="admin-topbar-title">
-            Calgary Athletic Club Operations System
-          </h1>
         </header>
 
         <main className="admin-content">

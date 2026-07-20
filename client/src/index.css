@@ -11,6 +11,8 @@
   --citc-text-muted:   #666666;
   --citc-error:        #c0392b;
   --citc-success:      #27ae60;
+  --nav-height: 84px;
+  --nav-height-mobile: 72px;
 }
 
 /* Reset / base  */

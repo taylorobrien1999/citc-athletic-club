@@ -16,6 +16,7 @@ const path = require('path');
 const uploadRoutes = require('./routes/uploadRoutes');
 const accountInviteRoutes = require('./routes/accountInviteRoutes');
 const passwordResetRoutes = require('./routes/passwordResetRoutes');
+const memberRoutes = require('./routes/memberRoutes');
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use('/api/feedback', feedbackRoutes);
 app.use('/api/site-content', siteContentRoutes);
 app.use('/api/account-invites', accountInviteRoutes);
 app.use('/api/auth', passwordResetRoutes);
+app.use('/api/members', memberRoutes);
 
 
 // ── Start server ──────────────────────────────────────────────────────────────

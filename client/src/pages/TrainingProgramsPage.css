@@ -1,7 +1,7 @@
 .training-page {
   max-width: 900px;
   margin: 0 auto;
-  padding: 80px 24px 100px;
+  padding: calc(var(--nav-height) + 16px) 24px 100px;
 }
 
 .training-hero { text-align: center; margin-bottom: 48px; }
