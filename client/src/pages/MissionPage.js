@@ -3,6 +3,7 @@ import './MissionPage.css';
 const SELECTED_STATEMENT =
   "In the habit of excellence—developing champions in sport and leaders in life.";
 
+// eslint-disable-next-line no-unused-vars
 const ALL_OPTIONS = [
   {
     label: 'Excellence-Focused',
