@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import RegistrationModal from '../components/RegistrationModal';
+import PasswordInput from '../components/PasswordInput';
 import './AuthPage.css';
 
 export default function LoginPage() {
@@ -60,16 +61,16 @@ export default function LoginPage() {
 
             <div className="auth-field">
               <label htmlFor="password">Password</label>
-              <input
+              <PasswordInput
                 id="password"
                 name="password"
-                type="password"
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
               />
+              <Link to="/forgot-password" className="auth-forgot-link">Forgot password?</Link>
             </div>
 
             <button type="submit" className="auth-btn" disabled={loading}>

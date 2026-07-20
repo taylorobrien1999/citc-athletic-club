@@ -1,0 +1,75 @@
+.create-account-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+}
+
+.create-account-loading { color: #888; }
+
+.create-account-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+.create-account-eyebrow {
+  color: var(--citc-purple);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.create-account-card h1 {
+  font-size: 28px;
+  font-weight: 800;
+  font-style: italic;
+  margin: 10px 0 12px;
+  color: #1a1a1a;
+}
+
+.create-account-sub { color: #555; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+
+.create-account-form { display: flex; flex-direction: column; gap: 16px; }
+
+.create-account-field label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.create-account-field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.create-account-submit {
+  background: var(--citc-purple);
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.create-account-submit:hover { background: var(--citc-purple-dark); }
+.create-account-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.create-account-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}

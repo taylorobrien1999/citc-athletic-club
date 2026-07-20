@@ -23,6 +23,13 @@ import AdminResourcesPage from './pages/AdminResourcesPage';
 import AdminSiteContentPage from './pages/AdminSiteContentPage';
 import NewsPage from './pages/NewsPage';
 import PhotosPage from './pages/PhotosPage';
+import FeesPage from './pages/FeesPage';
+import AthleticsAlbertaPage from './pages/AthleticsAlbertaPage';
+import VolunteerPage from './pages/VolunteerPage';
+import RecordsPage from './pages/RecordsPage';
+import CreateAccountPage from './pages/CreateAccountPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
   return (
@@ -42,6 +49,13 @@ function App() {
           <Route path="/the-club/conduct" element={<CodeOfConductPage />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/photos" element={<PhotosPage />} />
+          <Route path="/membership/fees" element={<FeesPage />} />
+          <Route path="/membership/athletics-alberta" element={<AthleticsAlbertaPage />} />
+          <Route path="/membership/volunteer" element={<VolunteerPage />} />
+          <Route path="/news/records" element={<RecordsPage />} />
+          <Route path="/create-account/:token" element={<CreateAccountPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
 
           {/* Member-only routes */}
           <Route element={<PrivateRoute />}>

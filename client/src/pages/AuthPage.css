@@ -124,3 +124,12 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.auth-forgot-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--citc-purple);
+  text-decoration: none;
+  font-weight: 600;
+}
+.auth-forgot-link:hover { text-decoration: underline; }
