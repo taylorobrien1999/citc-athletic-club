@@ -266,7 +266,7 @@ export default function HomePage() {
             <Link to="/the-club/training">Programs</Link>
             <Link to="/membership/fees">Membership</Link>
             <Link to="/contact">Contact</Link>
-            <a href="https://www.instagram.com/calgaryinternationaltrackclub/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.instagram.com/calgaryinternational/" target="_blank" rel="noreferrer">Instagram</a>
           </div>
           <p className="footer-copy">© {new Date().getFullYear()} Calgary International Track Club. All rights reserved.</p>
         </div>
