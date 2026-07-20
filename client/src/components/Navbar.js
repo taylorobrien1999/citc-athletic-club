@@ -24,7 +24,6 @@ const NAV_ITEMS = [
       { label: 'Athletics Alberta', to: '/membership/athletics-alberta' },
       { label: 'Volunteer',         to: '/membership/volunteer' },
       { divider: true },
-      { label: '2-Week Trial',      to: '/membership/trial' },
       { label: 'Register Now →',    isRegTrigger: true, cta: true },
     ],
   },
@@ -217,7 +216,6 @@ export default function Navbar() {
         <Link to="/membership/fees"              className="drawer-sub" onClick={() => setDrawerOpen(false)}>Fees</Link>
         <Link to="/membership/athletics-alberta" className="drawer-sub" onClick={() => setDrawerOpen(false)}>Athletics Alberta</Link>
         <Link to="/membership/volunteer"         className="drawer-sub" onClick={() => setDrawerOpen(false)}>Volunteer</Link>
-        <Link to="/membership/trial"             className="drawer-sub" onClick={() => setDrawerOpen(false)}>2-Week Trial</Link>
 
         <div className="drawer-section-label">News & Updates</div>
         <Link to="/news"         className="drawer-sub" onClick={() => setDrawerOpen(false)}>News</Link>

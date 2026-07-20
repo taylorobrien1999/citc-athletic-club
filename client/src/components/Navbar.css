@@ -17,7 +17,7 @@
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 2.5rem;
-  height: 70px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -99,10 +99,10 @@
 .nav-btn {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 12px;
-  border-radius: 7px;
-  font-size: 14px;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 15px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
   background: none;
@@ -318,7 +318,7 @@
 @media (max-width: 768px) {
   .nav-links     { display: none; }
   .nav-hamburger { display: flex; }
-  .nav-inner     { padding: 0 1.25rem; }
+  .nav-inner     { padding: 0 1.25rem; height: 72px; }
 }
 
 /* ── Logout toast ── */
