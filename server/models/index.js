@@ -12,6 +12,7 @@ const ContactMessage = require('./ContactMessage');
 const SiteContent = require('./SiteContent');
 const AccountInvite = require('./AccountInvite');
 const PasswordResetToken = require('./PasswordResetToken');
+const ClubRecord = require('./ClubRecord');
 
 // Associations
 User.hasOne(Athlete, { foreignKey: 'userId', onDelete: 'CASCADE' });
@@ -35,4 +36,5 @@ module.exports = {
   SiteContent,
   AccountInvite,
   PasswordResetToken,
+  ClubRecord,
 };

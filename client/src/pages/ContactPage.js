@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './ContactPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -8,6 +8,16 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [siteContent, setSiteContent] = useState({});
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/site-content`)
+      .then(res => res.json())
+      .then(data => setSiteContent(data.content || {}))
+      .catch(() => {});
+  }, []);
+
+  const contactEmail = siteContent.contact_email || 'CalgaryInternationalTrackClub@gmail.com';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -99,8 +109,8 @@ export default function ContactPage() {
 
               <p className="contact-direct-email">
                 Prefer email? Reach us directly at{' '}
-                <a href="mailto:CalgaryInternationalTrackClub@gmail.com">
-                  CalgaryInternationalTrackClub@gmail.com
+                <a href={`mailto:${contactEmail}`}>
+                  {contactEmail}
                 </a>
               </p>
             </>

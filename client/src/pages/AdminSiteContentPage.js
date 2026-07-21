@@ -5,31 +5,93 @@ import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-// Known editable fields the site currently reads from. New keys can also be
-// added ad-hoc via the "Add new field" form below for fields not listed yet.
-const KNOWN_FIELDS = [
-  { key: 'home_hero_subtext', label: 'Home Hero Subtext', type: 'text' },
-  { key: 'mission_statement', label: 'Mission Statement', type: 'text' },
-  { key: 'coach_tessa_bio', label: "Tessa's Bio (separate paragraphs with a blank line)", type: 'text' },
-  { key: 'coach_tessa_photo', label: "Tessa's Photo URL", type: 'image' },
-  { key: 'coach_dani_bio', label: "Dani's Bio (separate paragraphs with a blank line)", type: 'text' },
-  { key: 'coach_dani_photo', label: "Dani's Photo URL", type: 'image' },
-  { key: 'coach_nicole_bio', label: "Nicole's Bio (separate paragraphs with a blank line)", type: 'text' },
-  { key: 'coach_nicole_photo', label: "Nicole's Photo URL", type: 'image' },
-  { key: 'hero_image_1', label: 'Homepage Hero Slide 1', type: 'image' },
-  { key: 'hero_image_2', label: 'Homepage Hero Slide 2', type: 'image' },
-  { key: 'hero_image_3', label: 'Homepage Hero Slide 3', type: 'image' },
-  { key: 'hero_image_4', label: 'Homepage Hero Slide 4', type: 'image' },
-  { key: 'hero_image_5', label: 'Homepage Hero Slide 5', type: 'image' },
+// Every known editable field, grouped by where it appears on the site.
+// New keys can also be added ad-hoc via the "Advanced" form for anything
+// not listed here yet (requires a developer to wire the page to read it).
+const CATEGORIES = [
+  {
+    name: 'Home Page',
+    fields: [
+      { key: 'home_hero_subtext', label: 'Hero Subtext', type: 'text' },
+      { key: 'hero_image_1', label: 'Hero Slide 1', type: 'image' },
+      { key: 'hero_image_2', label: 'Hero Slide 2', type: 'image' },
+      { key: 'hero_image_3', label: 'Hero Slide 3', type: 'image' },
+      { key: 'hero_image_4', label: 'Hero Slide 4', type: 'image' },
+      { key: 'hero_image_5', label: 'Hero Slide 5', type: 'image' },
+      { key: 'home_about_image', label: 'About Section Photo', type: 'image' },
+      { key: 'home_program_sprint_image', label: 'Sprint Program Card Photo', type: 'image' },
+      { key: 'home_program_hurdles_image', label: 'Hurdles Program Card Photo', type: 'image' },
+      { key: 'home_program_middledistance_image', label: 'Middle Distance Program Card Photo', type: 'image' },
+    ],
+  },
+  {
+    name: 'The Club — Coaches',
+    fields: [
+      { key: 'coach_tessa_bio', label: "Tessa's Bio", type: 'text' },
+      { key: 'coach_tessa_photo', label: "Tessa's Photo", type: 'image' },
+      { key: 'coach_dani_bio', label: "Dani's Bio", type: 'text' },
+      { key: 'coach_dani_photo', label: "Dani's Photo", type: 'image' },
+      { key: 'coach_nicole_bio', label: "Nicole's Bio", type: 'text' },
+      { key: 'coach_nicole_photo', label: "Nicole's Photo", type: 'image' },
+    ],
+  },
+  {
+    name: 'The Club — Mission Statement',
+    fields: [
+      { key: 'mission_statement', label: 'Main Mission Statement', type: 'text' },
+      { key: 'mission_dei_text', label: 'Full DEI Section (heading, list, and closing — replaces the whole section below the quote)', type: 'text' },
+    ],
+  },
+  {
+    name: 'The Club — Training Programs',
+    fields: [
+      { key: 'training_sprint_text', label: 'Sprint Program — Full Text', type: 'text' },
+      { key: 'training_sprint_image', label: 'Sprint Program Photo', type: 'image' },
+      { key: 'training_hurdles_text', label: 'Hurdles Program — Full Text', type: 'text' },
+      { key: 'training_hurdles_image', label: 'Hurdles Program Photo', type: 'image' },
+      { key: 'training_middledistance_text', label: 'Middle Distance Program — Full Text', type: 'text' },
+      { key: 'training_middledistance_image', label: 'Middle Distance Program Photo', type: 'image' },
+      { key: 'training_strength_text', label: 'Strength & Weight Training — Full Text', type: 'text' },
+      { key: 'training_strength_image', label: 'Strength & Weight Training Photo', type: 'image' },
+    ],
+  },
+  {
+    name: 'The Club — Track Meets',
+    fields: [
+      { key: 'track_meets_indoor', label: 'Indoor Season Meets List', type: 'text' },
+      { key: 'track_meets_outdoor', label: 'Outdoor Season Meets List', type: 'text' },
+    ],
+  },
+  {
+    name: 'The Club — Code of Conduct',
+    fields: [
+      { key: 'code_of_conduct_full', label: 'Full Code of Conduct Text', type: 'text' },
+    ],
+  },
+  {
+    name: 'Membership — Fees',
+    fields: [
+      { key: 'fees_text', label: 'Fees Page Text', type: 'text' },
+    ],
+  },
+  {
+    name: 'Contact Page',
+    fields: [
+      { key: 'contact_email', label: 'Direct Contact Email', type: 'text' },
+    ],
+  },
 ];
+
+const KNOWN_FIELDS = CATEGORIES.flatMap(cat => cat.fields);
 
 export default function AdminSiteContentPage() {
   const { token } = useAuth();
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [savingKey, setSavingKey] = useState('');
+  const [openCategory, setOpenCategory] = useState(CATEGORIES[0].name);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [newField, setNewField] = useState({ key: '', label: '', type: 'text', value: '' });
 
@@ -41,13 +103,11 @@ export default function AdminSiteContentPage() {
       const data = await res.json();
       if (!res.ok) { setError(data.message || 'Failed to load content.'); return; }
 
-      // Merge known fields (so they show up even if never saved yet) with saved rows
-      const savedKeys = new Set(data.content.map(r => r.contentKey));
-      const missingKnown = KNOWN_FIELDS
-        .filter(f => !savedKeys.has(f.key))
-        .map(f => ({ contentKey: f.key, label: f.label, type: f.type, value: '' }));
+      const byKey = {};
+      KNOWN_FIELDS.forEach(f => { byKey[f.key] = { contentKey: f.key, label: f.label, type: f.type, value: '' }; });
+      data.content.forEach(row => { byKey[row.contentKey] = row; });
 
-      setRows([...data.content, ...missingKnown]);
+      setRows(byKey);
     } catch (err) {
       setError('Failed to load content.');
     } finally {
@@ -58,7 +118,7 @@ export default function AdminSiteContentPage() {
   useEffect(() => { fetchContent(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleValueChange = (key, value) => {
-    setRows(prev => prev.map(r => (r.contentKey === key ? { ...r, value } : r)));
+    setRows(prev => ({ ...prev, [key]: { ...prev[key], value } }));
   };
 
   const handleSave = async (row) => {
@@ -106,8 +166,9 @@ export default function AdminSiteContentPage() {
       <div className="admin-cms-header">
         <h2>Site Content</h2>
         <p className="admin-cms-sub">
-          Edit text and image links used across the public site. Leave blank to use the
-          site's default wording.
+          Edit text and images used across the public site, organized by where they appear.
+          Leave a field blank to use the site's default wording. Press Enter to start a new
+          line — it will show exactly as typed.
         </p>
       </div>
 
@@ -117,50 +178,76 @@ export default function AdminSiteContentPage() {
       {loading ? (
         <p className="admin-cms-empty">Loading...</p>
       ) : (
-        <div className="admin-cms-table-wrap" style={{ marginBottom: 24 }}>
-          <table className="admin-cms-table">
-            <thead>
-              <tr><th>Field</th><th>Value</th><th></th></tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.contentKey}>
-                  <td>{row.label}</td>
-                  <td style={{ minWidth: 320 }}>
-                    {row.type === 'image' ? (
-                      <>
-                        <input
-                          type="text"
-                          value={row.value || ''}
-                          placeholder="Image URL"
-                          onChange={(e) => handleValueChange(row.contentKey, e.target.value)}
-                          style={{ width: '100%', padding: '6px 8px', border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 6 }}
-                        />
-                        <FileUploadButton accept="image/*" onUploaded={(url) => handleValueChange(row.contentKey, url)} />
-                      </>
-                    ) : (
-                      <textarea
-                        value={row.value || ''}
-                        placeholder="Leave blank for default"
-                        onChange={(e) => handleValueChange(row.contentKey, e.target.value)}
-                        rows={2}
-                        style={{ width: '100%', padding: '6px 8px', border: '1px solid #d1d5db', borderRadius: 6, fontFamily: 'inherit' }}
-                      />
-                    )}
-                  </td>
-                  <td>
-                    <button
-                      className="admin-cms-submit"
-                      onClick={() => handleSave(row)}
-                      disabled={savingKey === row.contentKey}
-                    >
-                      {savingKey === row.contentKey ? 'Saving...' : 'Save'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+          {CATEGORIES.map((cat) => {
+            const isOpen = openCategory === cat.name;
+            return (
+              <div key={cat.name} style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+                <button
+                  onClick={() => setOpenCategory(isOpen ? null : cat.name)}
+                  style={{
+                    width: '100%', textAlign: 'left', padding: '14px 18px', background: isOpen ? '#f3eafd' : '#f9fafb',
+                    border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: '0.95rem', color: '#1a1a2e',
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  }}
+                >
+                  <span>{cat.name}</span>
+                  <span style={{ color: '#6c3baa', fontSize: '0.8rem' }}>{isOpen ? '− Collapse' : '+ Expand'}</span>
+                </button>
+
+                {isOpen && (
+                  <div className="admin-cms-table-wrap" style={{ border: 'none', borderRadius: 0 }}>
+                    <table className="admin-cms-table">
+                      <thead>
+                        <tr><th>Field</th><th>Value</th><th></th></tr>
+                      </thead>
+                      <tbody>
+                        {cat.fields.map((f) => {
+                          const row = rows[f.key] || { contentKey: f.key, label: f.label, type: f.type, value: '' };
+                          return (
+                            <tr key={f.key}>
+                              <td>{row.label}</td>
+                              <td style={{ minWidth: 320 }}>
+                                {row.type === 'image' ? (
+                                  <>
+                                    <input
+                                      type="text"
+                                      value={row.value || ''}
+                                      placeholder="Image URL"
+                                      onChange={(e) => handleValueChange(f.key, e.target.value)}
+                                      style={{ width: '100%', padding: '6px 8px', border: '1px solid #d1d5db', borderRadius: 6, marginBottom: 6 }}
+                                    />
+                                    <FileUploadButton accept="image/*" onUploaded={(url) => handleValueChange(f.key, url)} />
+                                  </>
+                                ) : (
+                                  <textarea
+                                    value={row.value || ''}
+                                    placeholder="Leave blank for default"
+                                    onChange={(e) => handleValueChange(f.key, e.target.value)}
+                                    rows={4}
+                                    style={{ width: '100%', padding: '6px 8px', border: '1px solid #d1d5db', borderRadius: 6, fontFamily: 'inherit' }}
+                                  />
+                                )}
+                              </td>
+                              <td>
+                                <button
+                                  className="admin-cms-submit"
+                                  onClick={() => handleSave(row)}
+                                  disabled={savingKey === f.key}
+                                >
+                                  {savingKey === f.key ? 'Saving...' : 'Save'}
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 

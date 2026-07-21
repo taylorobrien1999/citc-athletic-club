@@ -13,6 +13,7 @@ const PROGRAM_STRUCTURE_POINTS = [
 const PROGRAMS = [
   {
     title: 'Sprint Program',
+    slug: 'sprint',
     intro: "The Sprint program develops athletes for events requiring maximum speed, power, and technical precision. Training prioritizes acceleration, maximal velocity development, and neuromuscular efficiency while building the strength and coordination necessary for elite sprint performance.",
     focusHeading: 'Athletes focus on:',
     focus: [
@@ -26,6 +27,7 @@ const PROGRAMS = [
   },
   {
     title: 'Hurdles Program',
+    slug: 'hurdles',
     intro: 'The Hurdles program combines sprint speed with rhythm, coordination, and technical mastery. Hurdlers are developed as complete speed athletes, emphasizing efficient movement patterns and consistent stride rhythm under race conditions.',
     focusHeading: 'Training includes:',
     focus: [
@@ -39,6 +41,7 @@ const PROGRAMS = [
   },
   {
     title: 'Middle Distance Program',
+    slug: 'middledistance',
     intro: 'The Middle Distance program develops athletes for events where speed, strength, and endurance intersect. Program emphasis is placed on the 600m, 800m, 1000m, and 1500m, where athletes learn to integrate sprint mechanics, aerobic support, and tactical racing ability within a unified performance model.',
     focusHeading: 'Training emphasizes:',
     focus: [
@@ -63,6 +66,14 @@ const STRENGTH_POINTS = [
 export default function TrainingProgramsPage() {
   const [additionalPrograms, setAdditionalPrograms] = useState([]);
   const [loadingExtra, setLoadingExtra] = useState(true);
+  const [siteContent, setSiteContent] = useState({});
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/site-content`)
+      .then(res => res.json())
+      .then(data => setSiteContent(data.content || {}))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const load = async () => {
@@ -102,37 +113,57 @@ export default function TrainingProgramsPage() {
       </div>
 
       <div className="training-programs-list">
-        {PROGRAMS.map((prog) => (
-          <div className="training-program-card" key={prog.title}>
-            <h2>{prog.title}</h2>
-            <p>{prog.intro}</p>
-            <h3>{prog.focusHeading}</h3>
-            <ul>
-              {prog.focus.map((f, i) => <li key={i}>{f}</li>)}
-            </ul>
-            <p className="training-program-closing">{prog.closing}</p>
-          </div>
-        ))}
+        {PROGRAMS.map((prog) => {
+          const photoOverride = siteContent[`training_${prog.slug}_image`];
+          const textOverride = siteContent[`training_${prog.slug}_text`];
+          return (
+            <div className="training-program-card" key={prog.title}>
+              {photoOverride && <img src={photoOverride} alt={prog.title} className="training-program-img" />}
+              {textOverride ? (
+                <div style={{ whiteSpace: 'pre-wrap' }}>{textOverride}</div>
+              ) : (
+                <>
+                  <h2>{prog.title}</h2>
+                  <p>{prog.intro}</p>
+                  <h3>{prog.focusHeading}</h3>
+                  <ul>
+                    {prog.focus.map((f, i) => <li key={i}>{f}</li>)}
+                  </ul>
+                  <p className="training-program-closing">{prog.closing}</p>
+                </>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <div className="training-program-card">
-        <h2>Strength &amp; Weight Training</h2>
-        <p>
-          Strength training is a foundational component of the Calgary International Track
-          Club development model. Across all event groups, athletes participate in structured
-          weight training designed to enhance speed, power, durability, and long-term athletic
-          development. Performance on the track is supported by the physical qualities
-          developed off the track.
-        </p>
-        <h3>Strength programming emphasizes:</h3>
-        <ul>
-          {STRENGTH_POINTS.map((p, i) => <li key={i}>{p}</li>)}
-        </ul>
-        <p className="training-program-closing">
-          Weight training supports all CITC programs — Sprint, Hurdles, and Middle Distance —
-          reinforcing our commitment to developing complete athletes capable of sustaining
-          high performance over time.
-        </p>
+        {siteContent.training_strength_image && (
+          <img src={siteContent.training_strength_image} alt="Strength & Weight Training" className="training-program-img" />
+        )}
+        {siteContent.training_strength_text ? (
+          <div style={{ whiteSpace: 'pre-wrap' }}>{siteContent.training_strength_text}</div>
+        ) : (
+          <>
+            <h2>Strength &amp; Weight Training</h2>
+            <p>
+              Strength training is a foundational component of the Calgary International Track
+              Club development model. Across all event groups, athletes participate in structured
+              weight training designed to enhance speed, power, durability, and long-term athletic
+              development. Performance on the track is supported by the physical qualities
+              developed off the track.
+            </p>
+            <h3>Strength programming emphasizes:</h3>
+            <ul>
+              {STRENGTH_POINTS.map((p, i) => <li key={i}>{p}</li>)}
+            </ul>
+            <p className="training-program-closing">
+              Weight training supports all CITC programs — Sprint, Hurdles, and Middle Distance —
+              reinforcing our commitment to developing complete athletes capable of sustaining
+              high performance over time.
+            </p>
+          </>
+        )}
       </div>
 
       {!loadingExtra && additionalPrograms.length > 0 && (

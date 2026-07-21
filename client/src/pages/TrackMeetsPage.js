@@ -23,6 +23,14 @@ const OUTDOOR_MEETS = [
 export default function TrackMeetsPage() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
+  const [siteContent, setSiteContent] = useState({});
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/site-content`)
+      .then(res => res.json())
+      .then(data => setSiteContent(data.content || {}))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     fetch(`${API_URL}/api/events`)
@@ -35,6 +43,9 @@ export default function TrackMeetsPage() {
       .catch(() => {})
       .finally(() => setLoadingEvents(false));
   }, []);
+
+  const indoorOverride = siteContent.track_meets_indoor || null;
+  const outdoorOverride = siteContent.track_meets_outdoor || null;
 
   return (
     <div className="meets-page">
@@ -49,30 +60,38 @@ export default function TrackMeetsPage() {
       <div className="meets-grid">
         <div className="meets-season-card">
           <h2>Indoor Season</h2>
-          <table className="meets-table">
-            <tbody>
-              {INDOOR_MEETS.map((m) => (
-                <tr key={m.name}>
-                  <td>{m.name}</td>
-                  <td className="meets-when">{m.when}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {indoorOverride ? (
+            <div style={{ whiteSpace: 'pre-wrap' }}>{indoorOverride}</div>
+          ) : (
+            <table className="meets-table">
+              <tbody>
+                {INDOOR_MEETS.map((m) => (
+                  <tr key={m.name}>
+                    <td>{m.name}</td>
+                    <td className="meets-when">{m.when}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         <div className="meets-season-card">
           <h2>Outdoor Season</h2>
-          <table className="meets-table">
-            <tbody>
-              {OUTDOOR_MEETS.map((m) => (
-                <tr key={m.name}>
-                  <td>{m.name}</td>
-                  <td className="meets-when">{m.when}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {outdoorOverride ? (
+            <div style={{ whiteSpace: 'pre-wrap' }}>{outdoorOverride}</div>
+          ) : (
+            <table className="meets-table">
+              <tbody>
+                {OUTDOOR_MEETS.map((m) => (
+                  <tr key={m.name}>
+                    <td>{m.name}</td>
+                    <td className="meets-when">{m.when}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 

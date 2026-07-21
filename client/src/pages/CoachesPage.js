@@ -75,9 +75,6 @@ export default function CoachesPage() {
         {COACHES.map((c) => {
           const photoOverride = siteContent[`coach_${c.slug}_photo`];
           const bioOverride = siteContent[`coach_${c.slug}_bio`];
-          const bioParagraphs = bioOverride
-            ? bioOverride.split('\n\n').filter(Boolean)
-            : c.bio;
 
           return (
             <div className="coach-full-card" key={c.name}>
@@ -94,7 +91,10 @@ export default function CoachesPage() {
               </div>
 
               <div className="coach-full-bio">
-                {bioParagraphs.map((para, i) => <p key={i}>{para}</p>)}
+                {bioOverride
+                  ? <div style={{ whiteSpace: 'pre-wrap' }}>{bioOverride}</div>
+                  : c.bio.map((para, i) => <p key={i}>{para}</p>)
+                }
               </div>
 
               {c.qualifications.length > 0 && (

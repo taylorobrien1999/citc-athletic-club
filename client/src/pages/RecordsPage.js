@@ -1,6 +1,28 @@
+import { useState, useEffect } from 'react';
 import './StaticPage.css';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 export default function RecordsPage() {
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/records`)
+      .then(res => res.json())
+      .then(data => setRecords(data.records || []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Group records by athlete, then by event, for a clean readable layout
+  const byAthlete = records.reduce((acc, r) => {
+    acc[r.athleteName] = acc[r.athleteName] || {};
+    acc[r.athleteName][r.event] = acc[r.athleteName][r.event] || [];
+    acc[r.athleteName][r.event].push(r);
+    return acc;
+  }, {});
+
   return (
     <div className="static-page">
       <div className="static-hero">
@@ -8,40 +30,39 @@ export default function RecordsPage() {
         <h1 className="static-title">Club Records</h1>
       </div>
 
-      <div className="static-card">
-        <h2>Keon — Alberta Records</h2>
-
-        <div className="records-table-wrap">
-          <p className="records-event-heading">60m Hurdles</p>
-          <table className="records-table">
-            <tbody>
-              <tr><td>U15</td><td className="records-mark">8.52</td></tr>
-              <tr><td>U16</td><td className="records-mark">8.08</td></tr>
-              <tr><td>U17</td><td className="records-mark">7.77 <span className="records-canadian-tag">Canadian Record</span></td></tr>
-              <tr><td>U18</td><td className="records-mark">7.86</td></tr>
-              <tr><td>U19</td><td className="records-mark">7.86</td></tr>
-              <tr><td>U23</td><td className="records-mark">7.75 <span className="records-canadian-tag">Canadian Record</span></td></tr>
-              <tr><td>Open</td><td className="records-mark">7.85</td></tr>
-            </tbody>
-          </table>
-
-          <p className="records-event-heading">110m Hurdles</p>
-          <table className="records-table">
-            <tbody>
-              <tr><td>U16 (36")</td><td className="records-mark">14.42</td></tr>
-              <tr><td>U19 (39")</td><td className="records-mark">13.84</td></tr>
-              <tr><td>U20 (42")</td><td className="records-mark">14.19</td></tr>
-            </tbody>
-          </table>
-
-          <p className="records-event-heading">100m Sprint</p>
-          <table className="records-table">
-            <tbody>
-              <tr><td>U19</td><td className="records-mark">10.43</td></tr>
-            </tbody>
-          </table>
+      {loading ? (
+        <p className="admin-cms-empty">Loading...</p>
+      ) : Object.keys(byAthlete).length === 0 ? (
+        <div className="static-card">
+          <p>No club records added yet — check back soon.</p>
         </div>
-      </div>
+      ) : (
+        Object.entries(byAthlete).map(([athlete, events]) => (
+          <div className="static-card" key={athlete} style={{ marginBottom: 24 }}>
+            <h2>{athlete} — Alberta Records</h2>
+            <div className="records-table-wrap">
+              {Object.entries(events).map(([eventName, marks]) => (
+                <div key={eventName}>
+                  <p className="records-event-heading">{eventName}</p>
+                  <table className="records-table">
+                    <tbody>
+                      {marks.map((m) => (
+                        <tr key={m.id}>
+                          <td>{m.category}</td>
+                          <td className="records-mark">
+                            {m.mark}
+                            {m.note && <span className="records-canadian-tag">{m.note}</span>}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      )}
 
       <p className="static-note">
         More club records coming soon — check back for updates.

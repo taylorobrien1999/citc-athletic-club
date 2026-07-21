@@ -31,6 +31,7 @@ import CreateAccountPage from './pages/CreateAccountPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import AdminMembersPage from './pages/AdminMembersPage';
+import AdminRecordsPage from './pages/AdminRecordsPage';
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
               <Route path="resources" element={<AdminResourcesPage />} />
               <Route path="site-content" element={<AdminSiteContentPage />} />
               <Route path="members" element={<AdminMembersPage />} />
+              <Route path="records" element={<AdminRecordsPage />} />
             </Route>
           </Route>
 

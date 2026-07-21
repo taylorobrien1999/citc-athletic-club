@@ -32,18 +32,21 @@ const PROGRAMS = [
   {
     tag: 'Program',
     title: 'Sprint & Speed',
+    slug: 'sprint',
     img: '/citc-images/prog-sprint.jpg',
     desc: 'Maximum speed, power, and technical precision. Training prioritizes acceleration mechanics, maximal velocity development, and neuromuscular efficiency.',
   },
   {
     tag: 'Program',
     title: 'Hurdles',
+    slug: 'hurdles',
     img: '/citc-images/prog-hurdles.jpg',
     desc: 'Sprint speed combined with rhythm, coordination, and technical mastery. Athletes are developed as sprinters first — hurdlers second.',
   },
   {
     tag: 'Program',
     title: 'Middle Distance',
+    slug: 'middledistance',
     img: '/citc-images/prog-middledist.jpg',
     desc: 'The 600m–1500m — where speed, strength, and endurance intersect. Fast, durable, and tactically intelligent competitors.',
   },
@@ -164,7 +167,7 @@ export default function HomePage() {
             <Link to="/the-club/mission" className="text-link">Our Mission & Values →</Link>
           </div>
           <div className="about-image-wrap">
-            <img src="/citc-images/about.jpg" alt="CITC athletes — team camaraderie" />
+            <img src={siteContent.home_about_image || "/citc-images/about.jpg"} alt="CITC athletes — team camaraderie" />
             <div className="about-badge">
               <div className="badge-num">1993</div>
               <div className="badge-lbl">Founded</div>
@@ -183,7 +186,7 @@ export default function HomePage() {
               <div className="prog-card" key={p.title}>
                 <div className="prog-img-wrap">
                   <span className="prog-tag">{p.tag}</span>
-                  <img src={p.img} alt={p.title} />
+                  <img src={siteContent[`home_program_${p.slug}_image`] || p.img} alt={p.title} />
                 </div>
                 <div className="prog-body">
                   <div className="prog-title">{p.title}</div>

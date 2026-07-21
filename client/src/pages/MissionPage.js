@@ -56,6 +56,7 @@ export default function MissionPage() {
   }, []);
 
   const displayedStatement = siteContent.mission_statement || SELECTED_STATEMENT;
+  const displayedDeiText = siteContent.mission_dei_text || null;
 
   return (
     <div className="mission-page">
@@ -69,18 +70,24 @@ export default function MissionPage() {
       </div>
 
       <div className="mission-card">
-        <h2>Our Commitment to Diversity, Equity &amp; Inclusion</h2>
-        {DEI_PARAGRAPHS.map((p, i) => <p key={i}>{p}</p>)}
+        {displayedDeiText ? (
+          <div style={{ whiteSpace: 'pre-wrap' }}>{displayedDeiText}</div>
+        ) : (
+          <>
+            <h2>Our Commitment to Diversity, Equity &amp; Inclusion</h2>
+            {DEI_PARAGRAPHS.map((p, i) => <p key={i}>{p}</p>)}
 
-        <h3>As a team, we commit to:</h3>
-        <ul>
-          {DEI_COMMITMENTS.map((c, i) => <li key={i}>{c}</li>)}
-        </ul>
+            <h3>As a team, we commit to:</h3>
+            <ul>
+              {DEI_COMMITMENTS.map((c, i) => <li key={i}>{c}</li>)}
+            </ul>
 
-        <p className="mission-closing">
-          Together, we strive to build not only faster athletes, but a stronger, more
-          inclusive team community.
-        </p>
+            <p className="mission-closing">
+              Together, we strive to build not only faster athletes, but a stronger, more
+              inclusive team community.
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

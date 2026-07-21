@@ -39,80 +39,100 @@
 .coach-full-card {
   background: #fff;
   border: 1px solid #eee;
+  border-top: 4px solid var(--citc-purple);
   border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  padding: 36px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.coach-full-card:hover {
+  box-shadow: 0 6px 28px rgba(0,0,0,0.09);
 }
 
 .coach-full-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 22px;
+  margin-bottom: 24px;
 }
 
 .coach-full-photo {
-  width: 56px;
-  height: 56px;
+  width: 112px;
+  height: 112px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  border: 3px solid var(--citc-purple-light);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
 .coach-full-av {
-  width: 56px;
-  height: 56px;
+  width: 112px;
+  height: 112px;
   border-radius: 50%;
   background: var(--citc-purple-light);
   color: var(--citc-purple);
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: 800;
+  font-size: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
 .coach-full-name {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   margin: 0;
+  color: #1a1a1a;
 }
 
 .coach-full-role {
+  display: inline-block;
   color: var(--citc-purple);
-  font-weight: 600;
-  font-size: 14px;
-  margin: 2px 0 0;
+  background: var(--citc-purple-light);
+  font-weight: 700;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin: 8px 0 0;
 }
 
 .coach-full-bio p {
-  color: #444;
-  line-height: 1.7;
-  margin: 0 0 14px;
-  font-size: 15px;
+  color: #3a3a3a;
+  line-height: 1.75;
+  margin: 0 0 16px;
+  font-size: 15.5px;
 }
 
 .coach-full-bio p:last-child { margin-bottom: 0; }
 
 .coach-qualifications {
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 24px;
+  padding-top: 22px;
   border-top: 1px solid #f0f0f0;
 }
 
 .coach-qualifications h3 {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--citc-purple);
+  margin-bottom: 12px;
 }
 
 .coach-qualifications ul {
   margin: 0;
   padding-left: 20px;
-  color: #555;
-  font-size: 14px;
-  line-height: 1.8;
+  color: #444;
+  font-size: 14.5px;
+  line-height: 1.9;
 }
 
 .coaches-jc-tribute {
@@ -120,31 +140,34 @@
   align-items: center;
   gap: 28px;
   margin-top: 48px;
-  padding: 32px;
-  background: #f9f8fc;
+  padding: 36px;
+  background: linear-gradient(135deg, #f9f8fc 0%, #f3eafd 100%);
   border-radius: 16px;
+  border: 1px solid #ece3f9;
 }
 
 .coaches-jc-tribute .jc-logo-img {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .coaches-jc-tribute .jc-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 6px 0 10px;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 6px 0 12px;
+  color: #1a1a1a;
 }
 
 .coaches-jc-tribute p:not(.eyebrow) {
-  color: #555;
-  line-height: 1.7;
-  font-size: 15px;
+  color: #4a4a4a;
+  line-height: 1.75;
+  font-size: 15.5px;
   margin: 0;
 }
 
 @media (max-width: 640px) {
   .coaches-jc-tribute { flex-direction: column; text-align: center; }
+  .coach-full-header { flex-direction: column; text-align: center; }
 }
