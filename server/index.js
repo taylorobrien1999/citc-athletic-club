@@ -18,6 +18,7 @@ const accountInviteRoutes = require('./routes/accountInviteRoutes');
 const passwordResetRoutes = require('./routes/passwordResetRoutes');
 const memberRoutes = require('./routes/memberRoutes');
 const recordRoutes = require('./routes/recordRoutes');
+const chatProxyRoutes = require('./routes/chatProxyRoutes');
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use('/api/account-invites', accountInviteRoutes);
 app.use('/api/auth', passwordResetRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/records', recordRoutes);
+app.use('/api/chat', chatProxyRoutes);
 
 // ── Serve React build (production) ────────────────────────────────────────────
 const clientBuildPath = path.join(__dirname, 'client-build');

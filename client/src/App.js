@@ -32,12 +32,14 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import AdminMembersPage from './pages/AdminMembersPage';
 import AdminRecordsPage from './pages/AdminRecordsPage';
+import PublicChatWidgetGate from './components/PublicChatWidgetGate';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Navbar />
+        <PublicChatWidgetGate />
         <Routes>
           {/* Public routes */}
           <Route path="/"         element={<HomePage />} />

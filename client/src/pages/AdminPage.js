@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './AdminPage.css';
+import ChatWidget from '../components/ChatWidget';
 
 const ADMIN_NAV = [
   { label: 'Overview',      to: '/admin',                 icon: '⊞', end: true },
@@ -27,7 +28,6 @@ export default function AdminPage() {
 
   return (
     <div className="admin-layout">
-
       <aside className={`admin-sidebar${sidebarOpen ? ' open' : ''}`}>
         <div className="admin-sidebar-header">
           <span className="admin-logo-text">Admin Portal</span>
@@ -83,7 +83,8 @@ export default function AdminPage() {
 
         <main className="admin-content">
           <Outlet />
-        </main>
+          <ChatWidget mode="admin" />
+          </main>
       </div>
     </div>
   );
