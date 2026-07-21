@@ -46,6 +46,16 @@ app.use('/api/auth', passwordResetRoutes);
 app.use('/api/members', memberRoutes);
 
 
+// ── Serve React build (production) ────────────────────────────────────────────
+const clientBuildPath = path.join(__dirname, 'client-build');
+app.use(express.static(clientBuildPath));
+
+// Catch-all: any non-API route falls back to React's index.html so client-side
+// routing (React Router) works correctly on refresh/direct URL access.
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
+
 // ── Start server ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 
