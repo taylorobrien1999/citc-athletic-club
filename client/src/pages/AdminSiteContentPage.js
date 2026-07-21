@@ -9,6 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 // added ad-hoc via the "Add new field" form below for fields not listed yet.
 const KNOWN_FIELDS = [
   { key: 'home_hero_subtext', label: 'Home Hero Subtext', type: 'text' },
+  { key: 'mission_statement', label: 'Mission Statement', type: 'text' },
   { key: 'coach_tessa_bio', label: "Tessa's Bio (separate paragraphs with a blank line)", type: 'text' },
   { key: 'coach_tessa_photo', label: "Tessa's Photo URL", type: 'image' },
   { key: 'coach_dani_bio', label: "Dani's Bio (separate paragraphs with a blank line)", type: 'text' },

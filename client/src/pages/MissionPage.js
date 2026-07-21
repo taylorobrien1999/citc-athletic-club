@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import './MissionPage.css';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const SELECTED_STATEMENT =
   "In the habit of excellence—developing champions in sport and leaders in life.";
@@ -43,6 +46,17 @@ const DEI_COMMITMENTS = [
 ];
 
 export default function MissionPage() {
+  const [siteContent, setSiteContent] = useState({});
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/site-content`)
+      .then(res => res.json())
+      .then(data => setSiteContent(data.content || {}))
+      .catch(() => {});
+  }, []);
+
+  const displayedStatement = siteContent.mission_statement || SELECTED_STATEMENT;
+
   return (
     <div className="mission-page">
       <div className="mission-hero">
@@ -51,7 +65,7 @@ export default function MissionPage() {
       </div>
 
       <div className="mission-statement-card">
-        <p className="mission-statement-text">"{SELECTED_STATEMENT}"</p>
+        <p className="mission-statement-text">"{displayedStatement}"</p>
       </div>
 
       <div className="mission-card">
