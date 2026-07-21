@@ -116,14 +116,15 @@ export default function TrainingProgramsPage() {
         {PROGRAMS.map((prog) => {
           const photoOverride = siteContent[`training_${prog.slug}_image`];
           const textOverride = siteContent[`training_${prog.slug}_text`];
+          const titleOverride = siteContent[`training_${prog.slug}_title`];
           return (
             <div className="training-program-card" key={prog.title}>
               {photoOverride && <img src={photoOverride} alt={prog.title} className="training-program-img" />}
+              <h2>{titleOverride || prog.title}</h2>
               {textOverride ? (
                 <div style={{ whiteSpace: 'pre-wrap' }}>{textOverride}</div>
               ) : (
                 <>
-                  <h2>{prog.title}</h2>
                   <p>{prog.intro}</p>
                   <h3>{prog.focusHeading}</h3>
                   <ul>
@@ -141,11 +142,11 @@ export default function TrainingProgramsPage() {
         {siteContent.training_strength_image && (
           <img src={siteContent.training_strength_image} alt="Strength & Weight Training" className="training-program-img" />
         )}
+        <h2>{siteContent.training_strength_title || 'Strength & Weight Training'}</h2>
         {siteContent.training_strength_text ? (
           <div style={{ whiteSpace: 'pre-wrap' }}>{siteContent.training_strength_text}</div>
         ) : (
           <>
-            <h2>Strength &amp; Weight Training</h2>
             <p>
               Strength training is a foundational component of the Calgary International Track
               Club development model. Across all event groups, athletes participate in structured
