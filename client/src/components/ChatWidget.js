@@ -6,7 +6,7 @@ import './ChatWidget.css';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const PERSONAS = {
-  public: { name: 'Pace', emoji: '🏃', greeting: "Hi, I'm Pace! Ask me anything about CITC — programs, joining, schedules, or locations." },
+  public: { name: 'Pace', emoji: '🏃', greeting: "Hi, I'm Pace! 😊 Ask me anything about joining, programs, or schedules!" },
   admin: { name: 'Coach Byte', emoji: '🥇', greeting: "Hi, I'm Coach Byte! Ask me how to do anything in your Admin Dashboard — like \"How do I add a program?\" or \"Where do I edit the hero image?\"" },
 };
 
@@ -22,22 +22,6 @@ export default function ChatWidget({ mode = 'public' }) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef(null);
-
-  // Auto-open once per browser session (not on every page navigation) — a
-  // common, tasteful pattern used by many chat widgets to offer help proactively.
-  useEffect(() => {
-    const storageKey = `citc_chat_autoopened_${mode}`;
-    const alreadyShown = sessionStorage.getItem(storageKey);
-
-    if (!alreadyShown) {
-      const timer = setTimeout(() => {
-        setOpen(true);
-        sessionStorage.setItem(storageKey, 'true');
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
