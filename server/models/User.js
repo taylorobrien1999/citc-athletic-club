@@ -42,6 +42,30 @@ const User = sequelize.define('User', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
+  phone: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+  emergencyContactName: {
+    type: DataTypes.STRING(150),
+    allowNull: true,
+  },
+  emergencyContactRelation: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
+  emergencyContactPhone: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+  profilePictureUrl: {
+    type: DataTypes.STRING(500),
+    allowNull: true,
+  },
+  dateOfBirth: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+  },
 }, {
   tableName: 'users',
   timestamps: true,

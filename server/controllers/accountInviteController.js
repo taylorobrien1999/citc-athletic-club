@@ -60,6 +60,7 @@ const completeInvite = async (req, res) => {
       lastName: invite.lastName,
       email: invite.email,
       passwordHash,
+      dateOfBirth: invite.dateOfBirth, // verified by admin at inquiry-review time, not re-entered here
       role: 'member',
     });
 

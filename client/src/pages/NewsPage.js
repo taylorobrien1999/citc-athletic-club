@@ -15,7 +15,7 @@ export default function NewsPage() {
     ])
       .then(([annData, resData]) => {
         setAnnouncements(annData.announcements || []);
-        setDocuments((resData.resources || []).filter(r => r.type !== 'photo'));
+        setDocuments((resData.resources || []).filter(r => r.type !== 'photo' && r.visibility !== 'members'));
       })
       .catch(() => {})
       .finally(() => setLoading(false));

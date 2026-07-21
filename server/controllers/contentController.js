@@ -73,11 +73,11 @@ const getResources = async (req, res) => {
 
 const createResource = async (req, res) => {
   try {
-    const { title, type, url, description } = req.body;
+    const { title, type, url, description, visibility } = req.body;
     if (!title || !url) {
       return res.status(400).json({ message: 'Title and URL are required.' });
     }
-    const resource = await Resource.create({ title, type, url, description });
+    const resource = await Resource.create({ title, type, url, description, visibility });
     return res.status(201).json({ resource });
   } catch (err) {
     console.error('Create resource error:', err);

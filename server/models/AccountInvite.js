@@ -6,6 +6,7 @@ const AccountInvite = sequelize.define('AccountInvite', {
   firstName: { type: DataTypes.STRING(100), allowNull: false },
   lastName: { type: DataTypes.STRING(100), allowNull: false },
   email: { type: DataTypes.STRING(255), allowNull: false },
+  dateOfBirth: { type: DataTypes.DATEONLY, allowNull: true },
   token: { type: DataTypes.STRING(255), allowNull: false, unique: true },
   used: { type: DataTypes.BOOLEAN, defaultValue: false },
   expiresAt: { type: DataTypes.DATE, allowNull: false },

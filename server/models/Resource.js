@@ -7,6 +7,7 @@ const Resource = sequelize.define('Resource', {
   type: { type: DataTypes.ENUM('photo', 'pdf', 'link', 'other'), defaultValue: 'link' },
   url: { type: DataTypes.STRING(500), allowNull: false },
   description: { type: DataTypes.TEXT, allowNull: true },
+  visibility: { type: DataTypes.ENUM('public', 'members'), defaultValue: 'public' },
 }, { tableName: 'resources', timestamps: true });
  
 module.exports = Resource;

@@ -120,3 +120,27 @@
 }
 
 .admin-cms-empty { color: #6b7280; font-size: 0.9rem; padding: 16px; }
+
+.members-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.members-search {
+  flex: 1;
+  min-width: 220px;
+  padding: 9px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.members-sort {
+  padding: 9px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: #fff;
+}

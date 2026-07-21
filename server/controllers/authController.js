@@ -111,8 +111,42 @@ function sanitize(user) {
     lastName: user.lastName,
     email: user.email,
     role: user.role,
+    phone: user.phone,
+    emergencyContactName: user.emergencyContactName,
+    emergencyContactRelation: user.emergencyContactRelation,
+    emergencyContactPhone: user.emergencyContactPhone,
+    profilePictureUrl: user.profilePictureUrl,
+    dateOfBirth: user.dateOfBirth,
     createdAt: user.createdAt,
   };
 }
 
-module.exports = { register, login, getMe };
+// ── PATCH /api/auth/me ─────────────────────────────────────────────────────────
+// Any logged-in user can update their own profile. Email is intentionally
+// never editable here — only firstName, lastName, phone, emergency contact,
+// and profile picture. req.user.id (from the JWT) is the only record touched.
+const updateMe = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found.' });
+
+    const { firstName, lastName, phone, emergencyContactName, emergencyContactRelation, emergencyContactPhone, profilePictureUrl } = req.body;
+
+    if (firstName !== undefined) user.firstName = firstName;
+    if (lastName !== undefined) user.lastName = lastName;
+    if (phone !== undefined) user.phone = phone;
+    if (emergencyContactName !== undefined) user.emergencyContactName = emergencyContactName;
+    if (emergencyContactRelation !== undefined) user.emergencyContactRelation = emergencyContactRelation;
+    if (emergencyContactPhone !== undefined) user.emergencyContactPhone = emergencyContactPhone;
+    if (profilePictureUrl !== undefined) user.profilePictureUrl = profilePictureUrl;
+
+    await user.save();
+
+    return res.status(200).json({ message: 'Profile updated.', user: sanitize(user) });
+  } catch (err) {
+    console.error('Update me error:', err);
+    return res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+module.exports = { register, login, getMe, updateMe };

@@ -8,6 +8,7 @@ const RegistrationInquiry = sequelize.define('RegistrationInquiry', {
   email: { type: DataTypes.STRING(255), allowNull: false, validate: { isEmail: true } },
   phone: { type: DataTypes.STRING(30), allowNull: true },
   parentEmail: { type: DataTypes.STRING(255), allowNull: true },
+  dateOfBirth: { type: DataTypes.DATEONLY, allowNull: true },
   message: { type: DataTypes.TEXT, allowNull: true },
   status: { type: DataTypes.ENUM('pending', 'contacted', 'accepted', 'declined'), defaultValue: 'pending' },
 }, { tableName: 'registration_inquiries', timestamps: true });

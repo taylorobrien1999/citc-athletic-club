@@ -10,7 +10,7 @@ export default function PhotosPage() {
   useEffect(() => {
     fetch(`${API_URL}/api/resources`)
       .then(res => res.json())
-      .then(data => setPhotos((data.resources || []).filter(r => r.type === 'photo')))
+      .then(data => setPhotos((data.resources || []).filter(r => r.type === 'photo' && r.visibility !== 'members')))
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);

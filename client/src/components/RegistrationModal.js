@@ -10,6 +10,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
     phone: '',
     email: '',
     parentEmail: '',
+    dateOfBirth: '',
     message: '',
   });
 
@@ -53,7 +54,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
 
   const handleClose = () => {
     setSubmitted(false);
-    setForm({ firstName: '', lastName: '', phone: '', email: '', parentEmail: '', message: '' });
+    setForm({ firstName: '', lastName: '', phone: '', email: '', parentEmail: '', dateOfBirth: '', message: '' });
     setError('');
     onClose();
   };
@@ -99,6 +100,18 @@ export default function RegistrationModal({ isOpen, onClose }) {
                   <label>Last Name *</label>
                   <input type="text" name="lastName" value={form.lastName} onChange={handleChange} placeholder="Last" required />
                 </div>
+              </div>
+
+              <div className="reg-field">
+                <label>Date of Birth *</label>
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  value={form.dateOfBirth}
+                  onChange={handleChange}
+                  max={new Date().toISOString().split('T')[0]}
+                  required
+                />
               </div>
 
               <div className="reg-field">

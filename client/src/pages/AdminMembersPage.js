@@ -10,7 +10,10 @@ export default function AdminMembersPage() {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('newest');
   const [success, setSuccess] = useState('');
+  const [expandedId, setExpandedId] = useState(null);
 
   const fetchMembers = async () => {
     try {
@@ -133,6 +136,25 @@ export default function AdminMembersPage() {
     }
   };
 
+  const displayedMembers = members
+    .filter((m) => {
+      const q = searchQuery.trim().toLowerCase();
+      if (!q) return true;
+      return (
+        `${m.firstName} ${m.lastName}`.toLowerCase().includes(q) ||
+        m.email.toLowerCase().includes(q)
+      );
+    })
+    .sort((a, b) => {
+      if (sortBy === 'newest') return new Date(b.createdAt) - new Date(a.createdAt);
+      if (sortBy === 'oldest') return new Date(a.createdAt) - new Date(b.createdAt);
+      const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+      const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+      if (sortBy === 'az') return nameA.localeCompare(nameB);
+      if (sortBy === 'za') return nameB.localeCompare(nameA);
+      return 0;
+    });
+
   return (
     <div className="admin-cms">
       <div className="admin-cms-header">
@@ -177,20 +199,62 @@ export default function AdminMembersPage() {
         </div>
       )}
 
+      <div className="members-toolbar">
+        <input
+          type="text"
+          className="members-search"
+          placeholder="Search by name or email..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <select className="members-sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="newest">Join Date (Newest)</option>
+          <option value="oldest">Join Date (Oldest)</option>
+          <option value="az">Name (A–Z)</option>
+          <option value="za">Name (Z–A)</option>
+        </select>
+      </div>
+
       {loading ? (
         <p className="admin-cms-empty">Loading...</p>
-      ) : members.length === 0 ? (
-        <p className="admin-cms-empty">No member accounts yet.</p>
+      ) : displayedMembers.length === 0 ? (
+        <p className="admin-cms-empty">{members.length === 0 ? 'No member accounts yet.' : 'No members match your search.'}</p>
       ) : (
         <div className="admin-cms-table-wrap">
           <table className="admin-cms-table">
             <thead>
-              <tr><th>Name</th><th>Email</th><th>Joined</th><th>Status</th><th></th></tr>
+              <tr><th></th><th>Name</th><th>Email</th><th>Joined</th><th>Status</th><th></th></tr>
             </thead>
             <tbody>
-              {members.map((m) => (
+              {displayedMembers.map((m) => {
+                const isExpanded = expandedId === m.id;
+                const hasExtraInfo = m.phone || m.emergencyContactName || m.emergencyContactPhone;
+                return (
+                <>
                 <tr key={m.id}>
-                  <td>{m.firstName} {m.lastName}</td>
+                  <td>
+                    {m.profilePictureUrl ? (
+                      <img src={m.profilePictureUrl} alt="" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover' }} />
+                    ) : (
+                      <div style={{
+                        width: 36, height: 36, borderRadius: '50%', background: '#f3eafd', color: '#6c3baa',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 13,
+                      }}>
+                        {m.firstName?.[0]}{m.lastName?.[0]}
+                      </div>
+                    )}
+                  </td>
+                  <td>
+                    {m.firstName} {m.lastName}
+                    {hasExtraInfo && (
+                      <button
+                        onClick={() => setExpandedId(isExpanded ? null : m.id)}
+                        style={{ background: 'none', border: 'none', color: '#6c3baa', fontSize: 11, marginLeft: 8, cursor: 'pointer', fontWeight: 700 }}
+                      >
+                        {isExpanded ? '▲ Less' : '▼ More'}
+                      </button>
+                    )}
+                  </td>
                   <td>{m.email}</td>
                   <td>{new Date(m.createdAt).toLocaleDateString()}</td>
                   <td>
@@ -222,7 +286,24 @@ export default function AdminMembersPage() {
                     </button>
                   </td>
                 </tr>
-              ))}
+                {isExpanded && (
+                  <tr key={`${m.id}-expanded`}>
+                    <td colSpan={6} style={{ background: '#f9f8fc', padding: '12px 16px', fontSize: 13 }}>
+                      {m.phone && <div><strong>Phone:</strong> {m.phone}</div>}
+                      {m.dateOfBirth && <div><strong>Date of Birth:</strong> {new Date(m.dateOfBirth).toLocaleDateString(undefined, { timeZone: 'UTC' })}</div>}
+                      {m.emergencyContactName && (
+                        <div>
+                          <strong>Emergency Contact:</strong> {m.emergencyContactName}
+                          {m.emergencyContactRelation && ` (${m.emergencyContactRelation})`}
+                        </div>
+                      )}
+                      {m.emergencyContactPhone && <div><strong>Emergency Phone:</strong> {m.emergencyContactPhone}</div>}
+                    </td>
+                  </tr>
+                )}
+                </>
+                );
+              })}
             </tbody>
           </table>
         </div>

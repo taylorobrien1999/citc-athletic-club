@@ -6,7 +6,7 @@ const getMembers = async (req, res) => {
   try {
     const members = await User.findAll({
       where: { role: 'member' },
-      attributes: ['id', 'firstName', 'lastName', 'email', 'isActive', 'createdAt'],
+      attributes: ['id', 'firstName', 'lastName', 'email', 'isActive', 'phone', 'emergencyContactName', 'emergencyContactRelation', 'emergencyContactPhone', 'profilePictureUrl', 'dateOfBirth', 'createdAt'],
       order: [['createdAt', 'DESC']],
     });
     return res.status(200).json({ members });

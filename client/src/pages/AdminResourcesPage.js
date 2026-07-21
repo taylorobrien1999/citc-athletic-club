@@ -12,7 +12,7 @@ export default function AdminResourcesPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ title: '', type: 'link', url: '', description: '' });
+  const [form, setForm] = useState({ title: '', type: 'link', url: '', description: '', visibility: 'public' });
 
   const fetchResources = async () => {
     try {
@@ -39,7 +39,7 @@ export default function AdminResourcesPage() {
       });
       const data = await res.json();
       if (!res.ok) { setError(data.message || 'Failed to add resource.'); return; }
-      setForm({ title: '', type: 'link', url: '', description: '' });
+      setForm({ title: '', type: 'link', url: '', description: '', visibility: 'public' });
       setSuccess('Resource added.');
       fetchResources();
     } catch (err) {
@@ -66,7 +66,10 @@ export default function AdminResourcesPage() {
       <div className="admin-cms-header">
         <h2>Resources</h2>
         <p className="admin-cms-sub">
-          Add photos, PDFs, or links — paste a URL, or upload a file directly below.
+          Add photos, PDFs, or links — paste a URL, or upload a file directly below. Choose
+          <strong> Public Website</strong> to show it on the public site (Photos/News page), or
+          <strong> Members Only</strong> to show it exclusively in the Member Dashboard — each
+          resource appears in one place, not both.
         </p>
       </div>
 
@@ -85,6 +88,13 @@ export default function AdminResourcesPage() {
             <option value="photo">Photo</option>
             <option value="pdf">PDF</option>
             <option value="other">Other</option>
+          </select>
+        </div>
+        <div className="admin-cms-field">
+          <label>Visibility</label>
+          <select name="visibility" value={form.visibility} onChange={handleChange}>
+            <option value="public">Public Website</option>
+            <option value="members">Members Only (Dashboard)</option>
           </select>
         </div>
         <div className="admin-cms-field">
@@ -109,13 +119,22 @@ export default function AdminResourcesPage() {
         <div className="admin-cms-table-wrap">
           <table className="admin-cms-table">
             <thead>
-              <tr><th>Title</th><th>Type</th><th>Link</th><th>Description</th><th></th></tr>
+              <tr><th>Title</th><th>Type</th><th>Visibility</th><th>Link</th><th>Description</th><th></th></tr>
             </thead>
             <tbody>
               {resources.map((r) => (
                 <tr key={r.id}>
                   <td>{r.title}</td>
                   <td>{r.type}</td>
+                  <td>
+                    <span style={{
+                      fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 6,
+                      background: r.visibility === 'members' ? '#fef3c7' : '#f3eafd',
+                      color: r.visibility === 'members' ? '#92400e' : '#6c3baa',
+                    }}>
+                      {r.visibility === 'members' ? 'Members Only' : 'Public'}
+                    </span>
+                  </td>
                   <td><a href={r.url} target="_blank" rel="noreferrer">Open</a></td>
                   <td>{r.description || '—'}</td>
                   <td><button className="admin-cms-delete-btn" onClick={() => handleDelete(r.id)}>Delete</button></td>

@@ -25,6 +25,11 @@ export function AuthProvider({ children }) {
     localStorage.setItem('citc_user', JSON.stringify(userData));
   };
 
+  const updateUser = (userData) => {
+    setUser(userData);
+    localStorage.setItem('citc_user', JSON.stringify(userData));
+  };
+
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -38,7 +43,7 @@ export function AuthProvider({ children }) {
   const isMember = user?.role === 'member' || isAdmin;
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, logout, isAdmin, isMember, showLogoutToast }}>
+    <AuthContext.Provider value={{ user, token, loading, login, logout, updateUser, isAdmin, isMember, showLogoutToast }}>
       {children}
     </AuthContext.Provider>
   );

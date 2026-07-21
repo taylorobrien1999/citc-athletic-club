@@ -112,6 +112,7 @@ export default function AdminInquiriesPage() {
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Date of Birth</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Message</th>
@@ -128,6 +129,7 @@ export default function AdminInquiriesPage() {
                 return (
                   <tr key={inq.id}>
                     <td>{inq.firstName} {inq.lastName}</td>
+                    <td>{inq.dateOfBirth ? new Date(inq.dateOfBirth).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '—'}</td>
                     <td><a href={`mailto:${inq.email}`}>{inq.email}</a></td>
                     <td>{inq.phone || '—'}</td>
                     <td className="inquiries-message-cell">{inq.message || '—'}</td>

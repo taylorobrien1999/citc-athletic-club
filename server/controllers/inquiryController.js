@@ -6,10 +6,14 @@ const { sendMail } = require('../utils/mailer');
 // Public — no auth required. Guests use this to express interest in joining.
 const createInquiry = async (req, res) => {
   try {
-    const { firstName, lastName, email, phone, parentEmail, message } = req.body;
+    const { firstName, lastName, email, phone, parentEmail, dateOfBirth, message } = req.body;
 
-    if (!firstName || !lastName || !email) {
-      return res.status(400).json({ message: 'First name, last name, and email are required.' });
+    if (!firstName || !lastName || !email || !dateOfBirth) {
+      return res.status(400).json({ message: 'First name, last name, email, and date of birth are required.' });
+    }
+
+    if (new Date(dateOfBirth) > new Date()) {
+      return res.status(400).json({ message: 'Date of birth cannot be in the future.' });
     }
 
     const inquiry = await RegistrationInquiry.create({
@@ -18,6 +22,7 @@ const createInquiry = async (req, res) => {
       email,
       phone,
       parentEmail,
+      dateOfBirth,
       message,
     });
 
@@ -77,6 +82,7 @@ const updateInquiryStatus = async (req, res) => {
           firstName: inquiry.firstName,
           lastName: inquiry.lastName,
           email: inquiry.email,
+          dateOfBirth: inquiry.dateOfBirth,
           token,
           expiresAt,
         });
