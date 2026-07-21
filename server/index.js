@@ -26,11 +26,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// ── Routes ────────────────────────────────────────────────────────────────────
-app.get('/', (req, res) => {
-  res.json({ message: 'CITC API running' });
-});
-
+// ── API routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/inquiries', inquiryRoutes);
@@ -44,7 +40,6 @@ app.use('/api/site-content', siteContentRoutes);
 app.use('/api/account-invites', accountInviteRoutes);
 app.use('/api/auth', passwordResetRoutes);
 app.use('/api/members', memberRoutes);
-
 
 // ── Serve React build (production) ────────────────────────────────────────────
 const clientBuildPath = path.join(__dirname, 'client-build');
@@ -61,8 +56,8 @@ const PORT = process.env.PORT || 5000;
 
 sequelize.authenticate()
   .then(() => {
-    console.log('MySQL connected.');
-    return sequelize.sync({ alter: true }); // alter:true updates tables without dropping
+    console.log('Database connected.');
+    return sequelize.sync({ alter: true });
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
