@@ -25,6 +25,8 @@ jobs:
           cd client
           npm install
           npm run build
+        env:
+          REACT_APP_API_URL: 'https://calgaryinternational-dkb0cfa3fmg8g9bb.canadacentral-01.azurewebsites.net'
 
       - name: Install server dependencies
         run: |
