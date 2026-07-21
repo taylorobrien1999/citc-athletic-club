@@ -23,7 +23,8 @@ const requestPasswordReset = async (req, res) => {
 
       await PasswordResetToken.create({ userId: user.id, token, expiresAt });
 
-      const resetLink = `${process.env.CLIENT_URL || 'http://localhost:3000'}/reset-password/${token}`;
+      const baseUrl = (process.env.CLIENT_URL || 'http://localhost:3000').replace(/\/+$/, '');
+      const resetLink = `${baseUrl}/reset-password/${token}`;
 
       try {
         await sendMail({

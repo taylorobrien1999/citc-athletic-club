@@ -81,7 +81,8 @@ const updateInquiryStatus = async (req, res) => {
           expiresAt,
         });
 
-        const inviteLink = `${process.env.CLIENT_URL || 'http://localhost:3000'}/create-account/${token}`;
+        const baseUrl = (process.env.CLIENT_URL || 'http://localhost:3000').replace(/\/+$/, '');
+        const inviteLink = `${baseUrl}/create-account/${token}`;
 
         try {
           await sendMail({
