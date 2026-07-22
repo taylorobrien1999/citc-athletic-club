@@ -348,3 +348,9 @@
 
 /* ── Small icon-only link back to public site, mobile admin topbar ── */
 [data-theme="dark"] .admin-exit-link { color: #e8e8ef !important; }
+
+/* ── Mobile hamburger icon (public Navbar) — once scrolled, lines switch to
+   dark navy for light mode's white scrolled bar, but in dark mode the
+   scrolled bar is dark too, making the lines (and the X state) nearly
+   invisible. Force them back to light. ── */
+[data-theme="dark"] .nav.scrolled .nav-hamburger span { background: rgba(255, 255, 255, 0.9) !important; }
