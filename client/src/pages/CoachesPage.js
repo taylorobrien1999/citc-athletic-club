@@ -97,7 +97,7 @@ export default function CoachesPage() {
                 }
               </div>
 
-              {c.qualifications.length > 0 && (
+              {!bioOverride && c.qualifications.length > 0 && (
                 <div className="coach-qualifications">
                   <h3>Qualifications</h3>
                   <ul>

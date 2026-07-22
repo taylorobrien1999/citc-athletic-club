@@ -42,3 +42,5 @@ button {
   font-family: 'Inter', sans-serif;
   cursor: pointer;
 }
+
+@import './darkMode.css';

@@ -182,7 +182,7 @@ export default function AdminMembersPage() {
                     <td>{a.email}</td>
                     <td>
                       {a.isSuperAdmin ? (
-                        <span style={{ color: '#6c3baa', fontWeight: 600, fontSize: '0.8rem' }}>
+                        <span className="protected-badge" style={{ color: '#6c3baa', fontWeight: 600, fontSize: '0.8rem' }}>
                           Protected
                         </span>
                       ) : (
@@ -236,7 +236,7 @@ export default function AdminMembersPage() {
                     {m.profilePictureUrl ? (
                       <img src={m.profilePictureUrl} alt="" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover' }} />
                     ) : (
-                      <div style={{
+                      <div className="member-avatar-fallback" style={{
                         width: 36, height: 36, borderRadius: '50%', background: '#f3eafd', color: '#6c3baa',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 13,
                       }}>
@@ -248,6 +248,7 @@ export default function AdminMembersPage() {
                     {m.firstName} {m.lastName}
                     {hasExtraInfo && (
                       <button
+                        className="more-toggle-btn"
                         onClick={() => setExpandedId(isExpanded ? null : m.id)}
                         style={{ background: 'none', border: 'none', color: '#6c3baa', fontSize: 11, marginLeft: 8, cursor: 'pointer', fontWeight: 700 }}
                       >
@@ -258,7 +259,7 @@ export default function AdminMembersPage() {
                   <td>{m.email}</td>
                   <td>{new Date(m.createdAt).toLocaleDateString()}</td>
                   <td>
-                    <span style={{
+                    <span className="status-badge" style={{
                       color: m.isActive ? '#15803d' : '#b91c1c',
                       fontWeight: 600,
                       fontSize: '0.8rem',
@@ -268,7 +269,7 @@ export default function AdminMembersPage() {
                   </td>
                   <td style={{ display: 'flex', gap: 8 }}>
                     <button
-                      className="admin-cms-delete-btn"
+                      className="admin-cms-delete-btn promote-btn"
                       style={{ borderColor: '#c4b5fd', color: '#6c3baa' }}
                       onClick={() => handlePromote(m)}
                     >
@@ -288,7 +289,7 @@ export default function AdminMembersPage() {
                 </tr>
                 {isExpanded && (
                   <tr key={`${m.id}-expanded`}>
-                    <td colSpan={6} style={{ background: '#f9f8fc', padding: '12px 16px', fontSize: 13 }}>
+                    <td colSpan={6} className="expanded-details-row" style={{ background: '#f9f8fc', padding: '12px 16px', fontSize: 13 }}>
                       {m.phone && <div><strong>Phone:</strong> {m.phone}</div>}
                       {m.dateOfBirth && <div><strong>Date of Birth:</strong> {new Date(m.dateOfBirth).toLocaleDateString(undefined, { timeZone: 'UTC' })}</div>}
                       {m.emergencyContactName && (

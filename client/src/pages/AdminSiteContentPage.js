@@ -186,8 +186,9 @@ export default function AdminSiteContentPage() {
           {CATEGORIES.map((cat) => {
             const isOpen = openCategory === cat.name;
             return (
-              <div key={cat.name} style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+              <div className="site-content-category-card" key={cat.name} style={{ border: '1px solid #e5e7eb', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
                 <button
+                  className="site-content-category-header"
                   onClick={() => setOpenCategory(isOpen ? null : cat.name)}
                   style={{
                     width: '100%', textAlign: 'left', padding: '14px 18px', background: isOpen ? '#f3eafd' : '#f9fafb',
@@ -196,7 +197,7 @@ export default function AdminSiteContentPage() {
                   }}
                 >
                   <span>{cat.name}</span>
-                  <span style={{ color: '#6c3baa', fontSize: '0.8rem' }}>{isOpen ? '− Collapse' : '+ Expand'}</span>
+                  <span className="site-content-expand-label" style={{ color: '#6c3baa', fontSize: '0.8rem' }}>{isOpen ? '− Collapse' : '+ Expand'}</span>
                 </button>
 
                 {isOpen && (
@@ -256,6 +257,7 @@ export default function AdminSiteContentPage() {
       )}
 
       <button
+        className="site-content-advanced-toggle"
         onClick={() => setShowAdvanced(prev => !prev)}
         style={{ background: 'none', border: 'none', color: '#6c3baa', fontSize: '0.85rem', cursor: 'pointer', padding: 0, marginBottom: 12 }}
       >

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import citcLogo from '../assets/citc-logo-full.png';
+import ThemeToggle from './ThemeToggle';
 import './Navbar.css';
 import RegistrationModal from './RegistrationModal';
 
@@ -190,6 +191,10 @@ export default function Navbar() {
                 </li>
               </>
             )}
+
+            <li className="nav-item nav-theme-item">
+              <ThemeToggle />
+            </li>
           </ul>
 
           <button
@@ -244,6 +249,11 @@ export default function Navbar() {
             </button>
           </>
         )}
+
+        <div className="drawer-theme-item">
+          <ThemeToggle />
+          <span>Toggle dark mode</span>
+        </div>
       </div>
     </>
   );

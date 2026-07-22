@@ -1,0 +1,338 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   DARK MODE — every rule scoped under [data-theme="dark"], so none of it
+   ever applies when that attribute is absent (default/light mode untouched).
+   !important is used deliberately here: this file's entire purpose is to
+   decisively override each page's own colors regardless of specificity or
+   load order — the standard, correct approach for a theme-override sheet.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] { color-scheme: dark; }
+
+[data-theme="dark"] body { background: #14141c !important; color: #e8e8ef !important; }
+
+/* ── Navbar ── */
+[data-theme="dark"] .nav.scrolled { background: rgba(20, 20, 28, 0.97) !important; box-shadow: 0 1px 0 rgba(255,255,255,0.08); }
+[data-theme="dark"] .nav.scrolled .nav-btn { color: #e8e8ef !important; }
+[data-theme="dark"] .nav.scrolled .logo-img { filter: brightness(0) invert(1) !important; }
+[data-theme="dark"] .dropdown { background: #1e1e2a !important; border-color: #333 !important; }
+[data-theme="dark"] .dropdown a, [data-theme="dark"] .dropdown button { color: #e8e8ef !important; }
+[data-theme="dark"] .dropdown hr { border-color: #333 !important; }
+[data-theme="dark"] .nav-drawer { background: #14141c !important; }
+[data-theme="dark"] .drawer-link, [data-theme="dark"] .drawer-sub { color: #e8e8ef !important; }
+
+/* ── Eyebrow labels (THE CLUB / MEMBERSHIP / NEWS & UPDATES etc) — every page ── */
+[data-theme="dark"] .eyebrow,
+[data-theme="dark"] .coaches-eyebrow, [data-theme="dark"] .conduct-eyebrow,
+[data-theme="dark"] .contact-eyebrow, [data-theme="dark"] .create-account-eyebrow,
+[data-theme="dark"] .cta-eyebrow, [data-theme="dark"] .dash-eyebrow,
+[data-theme="dark"] .meets-eyebrow, [data-theme="dark"] .mission-eyebrow,
+[data-theme="dark"] .news-eyebrow, [data-theme="dark"] .photos-eyebrow,
+[data-theme="dark"] .static-eyebrow, [data-theme="dark"] .training-eyebrow {
+  color: #A78BFA !important;
+}
+
+/* ── Text links on page/card backgrounds (not solid buttons) ── */
+[data-theme="dark"] .text-link, [data-theme="dark"] .prog-link,
+[data-theme="dark"] .static-card a, [data-theme="dark"] .contact-direct-email a,
+[data-theme="dark"] .news-instagram a, [data-theme="dark"] .admin-cms-table a,
+[data-theme="dark"] .auth-forgot-link, [data-theme="dark"] .auth-footer-link,
+[data-theme="dark"] .dash-profile-note a {
+  color: #A78BFA !important;
+}
+
+/* Chat widget assistant links (mailto/contact links Pace & Coach Byte send) */
+[data-theme="dark"] .chat-bubble--assistant a { color: #A78BFA !important; text-decoration: underline; }
+
+/* ── Home page ── */
+[data-theme="dark"] .about-section, [data-theme="dark"] .coaches-section { background: #14141c !important; }
+[data-theme="dark"] .programs-section { background: #1a1a24 !important; }
+[data-theme="dark"] .about-text, [data-theme="dark"] .section-title,
+[data-theme="dark"] .cta-title, [data-theme="dark"] .hero-title { color: #f5f5fa !important; }
+[data-theme="dark"] .body-text { color: #cfcfe0 !important; }
+
+[data-theme="dark"] .prog-card, [data-theme="dark"] .coach-card {
+  background: #1e1e2a !important; border-color: #303040 !important;
+}
+[data-theme="dark"] .prog-title, [data-theme="dark"] .coach-name { color: #f5f5fa !important; }
+[data-theme="dark"] .prog-desc, [data-theme="dark"] .coach-role { color: #a8a8c0 !important; }
+
+[data-theme="dark"] .coaches-jc-tribute {
+  background: linear-gradient(135deg, #1e1e2a 0%, #22203a 100%) !important;
+  border-color: #303040 !important;
+}
+[data-theme="dark"] .jc-title { color: #f5f5fa !important; }
+[data-theme="dark"] .jc-text p:not(.eyebrow) { color: #cfcfe0 !important; }
+
+/* Bottom CTA + footer — tone down so it's not "eye-burning" bright against dark bg */
+[data-theme="dark"] .cta-section { background: #241645 !important; }
+[data-theme="dark"] .cta-eyebrow { color: #A78BFA !important; }
+[data-theme="dark"] .cta-title, [data-theme="dark"] .cta-sub { color: #f0eafc !important; }
+[data-theme="dark"] .footer { background: #14141c !important; }
+[data-theme="dark"] .footer-badge { background: #4C1D95 !important; color: #f0eafc !important; }
+[data-theme="dark"] .footer-copy, [data-theme="dark"] .footer-tag,
+[data-theme="dark"] .footer-links a { color: #a8a8c0 !important; }
+
+/* ── Coaches page ── */
+[data-theme="dark"] .coaches-title, [data-theme="dark"] .coaches-subtitle { color: #f5f5fa !important; }
+[data-theme="dark"] .coaches-subtitle { color: #a8a8c0 !important; }
+[data-theme="dark"] .coach-full-card { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .coach-full-name { color: #f5f5fa !important; }
+[data-theme="dark"] .coach-full-role { color: #A78BFA !important; background: #2a2340 !important; }
+[data-theme="dark"] .coach-full-bio p { color: #cfcfe0 !important; }
+[data-theme="dark"] .coach-qualifications { border-color: #303040 !important; }
+[data-theme="dark"] .coach-qualifications h3 { color: #A78BFA !important; }
+[data-theme="dark"] .coach-qualifications ul, [data-theme="dark"] .coach-qualifications li { color: #cfcfe0 !important; }
+
+/* ── Shared static-style pages: Fees, Athletics Alberta, Volunteer, Records ── */
+[data-theme="dark"] .static-title, [data-theme="dark"] .mission-title,
+[data-theme="dark"] .conduct-title, [data-theme="dark"] .training-title,
+[data-theme="dark"] .meets-title, [data-theme="dark"] .news-title,
+[data-theme="dark"] .photos-title, [data-theme="dark"] .contact-title {
+  color: #f5f5fa !important;
+}
+[data-theme="dark"] .static-subtitle, [data-theme="dark"] .meets-subtitle,
+[data-theme="dark"] .news-subtitle, [data-theme="dark"] .photos-subtitle,
+[data-theme="dark"] .training-subtitle, [data-theme="dark"] .contact-subtitle {
+  color: #a8a8c0 !important;
+}
+
+[data-theme="dark"] .static-card, [data-theme="dark"] .mission-card,
+[data-theme="dark"] .conduct-card, [data-theme="dark"] .training-program-card,
+[data-theme="dark"] .training-structure-card, [data-theme="dark"] .meets-season-card,
+[data-theme="dark"] .news-card, [data-theme="dark"] .contact-form-card,
+[data-theme="dark"] .contact-info-card {
+  background: #1e1e2a !important; border-color: #303040 !important;
+}
+[data-theme="dark"] .static-card p, [data-theme="dark"] .static-card h2,
+[data-theme="dark"] .static-card ul, [data-theme="dark"] .static-card li,
+[data-theme="dark"] .mission-card p, [data-theme="dark"] .mission-card h2,
+[data-theme="dark"] .mission-card h3, [data-theme="dark"] .mission-card ul,
+[data-theme="dark"] .mission-card li, [data-theme="dark"] .mission-closing,
+[data-theme="dark"] .conduct-card p, [data-theme="dark"] .conduct-card h2,
+[data-theme="dark"] .conduct-card h3, [data-theme="dark"] .conduct-list,
+[data-theme="dark"] .conduct-list li,
+[data-theme="dark"] .training-program-card p, [data-theme="dark"] .training-program-card h2,
+[data-theme="dark"] .training-program-card h3, [data-theme="dark"] .training-program-card ul,
+[data-theme="dark"] .training-program-card li, [data-theme="dark"] .training-program-closing,
+[data-theme="dark"] .training-structure-card p, [data-theme="dark"] .training-structure-card h2,
+[data-theme="dark"] .training-structure-list, [data-theme="dark"] .training-structure-list li,
+[data-theme="dark"] .meets-season-card h2, [data-theme="dark"] .meets-table td,
+[data-theme="dark"] .news-card h2, [data-theme="dark"] .news-card p {
+  color: #e0e0ec !important;
+}
+[data-theme="dark"] .static-note, [data-theme="dark"] .news-meta,
+[data-theme="dark"] .news-empty, [data-theme="dark"] .photos-empty,
+[data-theme="dark"] .meets-when, [data-theme="dark"] .meets-note,
+[data-theme="dark"] .training-additional-heading {
+  color: #8a8aa0 !important;
+}
+[data-theme="dark"] .records-mark { color: #f5f5fa !important; }
+[data-theme="dark"] .records-canadian-tag { background: #2a2340 !important; color: #A78BFA !important; }
+[data-theme="dark"] .records-table td { border-color: #303040 !important; }
+[data-theme="dark"] .records-event-heading { color: #A78BFA !important; }
+
+/* ── News: documents & links section ── */
+[data-theme="dark"] .news-documents { background: #1a1a24 !important; border-color: #303040 !important; }
+[data-theme="dark"] .news-documents-heading { color: #f5f5fa !important; }
+[data-theme="dark"] .news-document-item { background: #1e1e2a !important; border-color: #303040 !important; color: #e0e0ec !important; }
+[data-theme="dark"] .news-document-type { background: #2a2340 !important; color: #A78BFA !important; }
+
+/* ── Contact page ── */
+[data-theme="dark"] .contact-form-heading, [data-theme="dark"] .contact-location h3 { color: #f5f5fa !important; }
+[data-theme="dark"] .contact-info-intro, [data-theme="dark"] .contact-location p,
+[data-theme="dark"] .contact-schedule span, [data-theme="dark"] .contact-schedule {
+  color: #cfcfe0 !important;
+}
+[data-theme="dark"] .contact-field label { color: #a8a8c0 !important; }
+[data-theme="dark"] .contact-social a { color: #A78BFA !important; }
+
+/* ── Registration / Inquiry modal ── */
+[data-theme="dark"] .reg-modal-card { background: #1e1e2a !important; }
+[data-theme="dark"] .reg-title, [data-theme="dark"] .reg-subtitle,
+[data-theme="dark"] .reg-success-title, [data-theme="dark"] .reg-success-body {
+  color: #f5f5fa !important;
+}
+[data-theme="dark"] .reg-field label { color: #cfcfe0 !important; }
+[data-theme="dark"] .reg-modal-close { color: #cfcfe0 !important; }
+[data-theme="dark"] .reg-season-tag { color: #A78BFA !important; }
+[data-theme="dark"] .light-text { color: #8a8aa0 !important; }
+
+/* ── Auth pages (Login, Create Account, Forgot/Reset Password) ── */
+[data-theme="dark"] .auth-page { background: #14141c !important; }
+[data-theme="dark"] .auth-card, [data-theme="dark"] .create-account-card { background: #1e1e2a !important; }
+[data-theme="dark"] .auth-title, [data-theme="dark"] .auth-subtitle,
+[data-theme="dark"] .auth-field label, [data-theme="dark"] .create-account-card h1,
+[data-theme="dark"] .create-account-field label { color: #e8e8ef !important; }
+[data-theme="dark"] .create-account-sub, [data-theme="dark"] .auth-footer { color: #a8a8c0 !important; }
+
+/* ── Forms: inputs, textareas, selects everywhere (sitewide, generic) ── */
+[data-theme="dark"] input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
+[data-theme="dark"] textarea, [data-theme="dark"] select {
+  background: #22222e !important; border-color: #3a3a4a !important; color: #e8e8ef !important;
+}
+[data-theme="dark"] input::placeholder, [data-theme="dark"] textarea::placeholder { color: #6a6a80 !important; }
+[data-theme="dark"] input:disabled { background: #1a1a24 !important; color: #6a6a80 !important; }
+
+/* ── Member Dashboard ── */
+[data-theme="dark"] .dash-page { background: #14141c !important; }
+[data-theme="dark"] .dash-title { color: #f5f5fa !important; }
+[data-theme="dark"] .dash-subtitle { color: #a8a8c0 !important; }
+[data-theme="dark"] .dash-card { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .dash-card h2 { color: #f5f5fa !important; }
+[data-theme="dark"] .dash-summary-item { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .dash-summary-value { color: #A78BFA !important; }
+[data-theme="dark"] .dash-summary-label { color: #9a9ab0 !important; }
+[data-theme="dark"] .dash-empty { color: #8a8aa0 !important; }
+[data-theme="dark"] .dash-announcement, [data-theme="dark"] .dash-event { border-color: #303040 !important; }
+[data-theme="dark"] .dash-announcement h3, [data-theme="dark"] .dash-event-details h3,
+[data-theme="dark"] .dash-profile-name { color: #f5f5fa !important; }
+[data-theme="dark"] .dash-announcement p { color: #cfcfe0 !important; }
+[data-theme="dark"] .dash-meta { color: #9a9ab0 !important; }
+[data-theme="dark"] .dash-event-date { background: #2a2340 !important; color: #A78BFA !important; }
+[data-theme="dark"] .dash-resource { background: #22203a !important; border-color: #3a3050 !important; color: #e8e8ef !important; }
+[data-theme="dark"] .dash-profile-emergency { border-color: #303040 !important; }
+[data-theme="dark"] .dash-profile-emergency-label { color: #A78BFA !important; }
+[data-theme="dark"] .dash-profile-note { border-color: #303040 !important; color: #8a8aa0 !important; }
+[data-theme="dark"] .dash-edit-btn { background: transparent !important; color: #A78BFA !important; border-color: #A78BFA !important; }
+[data-theme="dark"] .dash-cancel-btn { background: transparent !important; color: #cfcfe0 !important; border-color: #3a3a4a !important; }
+[data-theme="dark"] .dash-profile-success { background: #14301f !important; color: #4ade80 !important; }
+
+/* ── Admin dashboard shell ── */
+[data-theme="dark"] .admin-layout { background: #14141c !important; }
+[data-theme="dark"] .admin-topbar { background: #1e1e2a !important; border-color: #303040 !important; }
+
+/* ── Admin Overview ── */
+[data-theme="dark"] .overview-heading { color: #f5f5fa !important; }
+[data-theme="dark"] .overview-sub { color: #a8a8c0 !important; }
+[data-theme="dark"] .stat-card { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .stat-value { color: #f5f5fa !important; }
+[data-theme="dark"] .stat-label { color: #9a9ab0 !important; }
+[data-theme="dark"] .overview-section-title { color: #9a9ab0 !important; }
+[data-theme="dark"] .overview-section-link { color: #A78BFA !important; }
+[data-theme="dark"] .overview-feed-item { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .overview-feed-title { color: #f5f5fa !important; }
+[data-theme="dark"] .overview-feed-meta { color: #9a9ab0 !important; }
+[data-theme="dark"] .overview-empty { background: #1e1e2a !important; border-color: #303040 !important; color: #8a8aa0 !important; }
+[data-theme="dark"] .overview-alert { background: #3a2f0f !important; border-color: #6b5a1f !important; color: #fcd34d !important; }
+
+/* ── Admin CMS shared (Programs, Events, Announcements, Resources, Records, Site Content) ── */
+[data-theme="dark"] .admin-cms-header h2 { color: #f5f5fa !important; }
+[data-theme="dark"] .admin-cms-sub { color: #9a9ab0 !important; }
+[data-theme="dark"] .admin-cms-form { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .admin-cms-field label { color: #9a9ab0 !important; }
+[data-theme="dark"] .admin-cms-table-wrap { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .admin-cms-table thead { background: #22222e !important; }
+[data-theme="dark"] .admin-cms-table th { color: #9a9ab0 !important; }
+[data-theme="dark"] .admin-cms-table td { color: #dcdce6 !important; border-color: #262632 !important; }
+[data-theme="dark"] .admin-cms-empty { color: #8a8aa0 !important; }
+[data-theme="dark"] .admin-cms-delete-btn { background: transparent !important; color: #f87171 !important; border-color: #7f4444 !important; }
+
+/* ── Admin Inquiries ── */
+[data-theme="dark"] .inquiries-table-wrap { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .inquiries-table th { color: #9a9ab0 !important; background: #22222e !important; }
+[data-theme="dark"] .inquiries-table td { color: #dcdce6 !important; border-color: #262632 !important; }
+[data-theme="dark"] .inquiries-message-cell { color: #b8b8cc !important; }
+[data-theme="dark"] .inquiries-sub { color: #9a9ab0 !important; }
+[data-theme="dark"] .inquiries-empty { color: #8a8aa0 !important; }
+[data-theme="dark"] .inquiries-delete-btn { background: transparent !important; color: #f87171 !important; border-color: #7f4444 !important; }
+
+/* ── Admin Members: toolbar + name/email/status text softened (not pure white) ── */
+[data-theme="dark"] .members-search, [data-theme="dark"] .members-sort {
+  background: #22222e !important; border-color: #3a3a4a !important; color: #e8e8ef !important;
+}
+[data-theme="dark"] .admin-cms-table td { color: #c8c8dc !important; }
+[data-theme="dark"] .protected-badge { color: #A78BFA !important; }
+[data-theme="dark"] .more-toggle-btn { color: #A78BFA !important; }
+[data-theme="dark"] .member-avatar-fallback { background: #2a2340 !important; color: #A78BFA !important; }
+[data-theme="dark"] .promote-btn { border-color: #4a3a70 !important; color: #A78BFA !important; }
+[data-theme="dark"] .expanded-details-row { background: #22222e !important; color: #dcdce6 !important; }
+[data-theme="dark"] .status-badge { filter: brightness(1.3); }
+
+/* ── Admin Site Content: category cards + advanced section ── */
+[data-theme="dark"] .site-content-category-card { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .site-content-category-header { background: #22222e !important; color: #e8e8ef !important; }
+[data-theme="dark"] .site-content-expand-label { color: #A78BFA !important; }
+[data-theme="dark"] .site-content-advanced-toggle { color: #A78BFA !important; }
+
+/* ── Chat widget message area ── */
+[data-theme="dark"] .chat-panel { background: #1e1e2a !important; }
+[data-theme="dark"] .chat-messages { background: #14141c !important; }
+[data-theme="dark"] .chat-bubble--assistant { background: #22222e !important; border-color: #303040 !important; color: #e8e8ef !important; }
+[data-theme="dark"] .chat-input-row { border-color: #303040 !important; }
+
+/* ── Follow-up fixes: real bugs found on second review pass ── */
+
+/* Resource type pill (member dashboard) — was still light-mode purple */
+[data-theme="dark"] .dash-resource-type { background: #6d4aa8 !important; }
+
+/* Mission statement quote card + admin Save buttons — tone down brightness
+   so they read as intentional accents, not eye-straining blocks */
+[data-theme="dark"] .mission-statement-card { background: #3d2a6b !important; }
+[data-theme="dark"] .admin-cms-submit { background: #4a3570 !important; }
+[data-theme="dark"] .admin-cms-submit:hover { background: #3d2c5c !important; }
+
+/* Contact page: the "Prefer email?" surrounding text, not just the link */
+[data-theme="dark"] .contact-direct-email { color: #cfcfe0 !important; }
+
+/* Member dashboard summary numbers — switch from purple to clean white,
+   removing the "which blue/purple is this" ambiguity entirely */
+[data-theme="dark"] .dash-summary-value { color: #f5f5fa !important; }
+
+/* Admin Inquiries: real gaps — separate header class, mailto links, and
+   redundant table background reinforcement */
+[data-theme="dark"] .inquiries-header h2 { color: #f5f5fa !important; }
+[data-theme="dark"] .inquiries-sub { color: #9a9ab0 !important; }
+[data-theme="dark"] .inquiries-table a { color: #A78BFA !important; }
+[data-theme="dark"] .inquiries-message-cell { color: #b8b8cc !important; }
+[data-theme="dark"] .admin-cms-table-wrap, [data-theme="dark"] .admin-cms-table,
+[data-theme="dark"] .inquiries-table-wrap, [data-theme="dark"] .inquiries-table {
+  background: #1e1e2a !important;
+}
+
+/* Chat widget: bold text and inline code were hardcoded dark/near-white,
+   invisible against the dark bubble background */
+[data-theme="dark"] .chat-bubble--assistant strong { color: #f5f5fa !important; }
+[data-theme="dark"] .chat-bubble--assistant code {
+  background: #2a2340 !important;
+  color: #e0d4fc !important;
+}
+
+/* ── Third review pass: remaining real gaps found ── */
+
+/* Training Programs: age group text used !important in light mode too,
+   and the news Instagram callout uses --citc-purple-light directly (a
+   variable I never redefined for dark mode) */
+[data-theme="dark"] .training-program-agegroup { color: #A78BFA !important; }
+[data-theme="dark"] .news-instagram { background: #241b3d !important; color: #cfcfe0 !important; }
+
+/* Pace's panel header — was still raw bright purple; Coach Byte's navy was
+   already fine, so only the public (non-admin) widget needs toning down */
+[data-theme="dark"] .chat-panel-header { background: #3d2a6b !important; }
+
+/* Markdown headings inside assistant replies (e.g. "Option 1: ...") were
+   still the light-mode medium-purple, unreadable on the dark bubble */
+[data-theme="dark"] .chat-bubble--assistant h1,
+[data-theme="dark"] .chat-bubble--assistant h2,
+[data-theme="dark"] .chat-bubble--assistant h3 { color: #C9B8F5 !important; }
+
+/* ── Navbar hover states — the "blinding pill" bug: both the scrolled nav
+   links and the dropdown menu items used a bright light-lavender hover
+   background completely unrelated to dark mode ── */
+[data-theme="dark"] .nav.scrolled .nav-btn:hover {
+  background: #2a2340 !important;
+  color: #C4B5FD !important;
+}
+[data-theme="dark"] .dropdown a:hover {
+  background: #2a2340 !important;
+  color: #C4B5FD !important;
+}
+
+/* Pace's header — darkened further, closer to Coach Byte's already-good navy */
+[data-theme="dark"] .chat-panel-header { background: #2a2050 !important; }
+
+/* ── The actual table header bug: background was set on each <th> cell
+   directly in the original CSS, not just the parent <thead> — my earlier
+   fix only touched the parent, which the child's own background painted
+   over completely. This is the real fix. ── */
+[data-theme="dark"] .admin-cms-table th { background: #22222e !important; }
+[data-theme="dark"] .inquiries-table th { background: #22222e !important; }

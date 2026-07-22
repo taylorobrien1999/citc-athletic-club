@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import PrivateRoute from './components/PrivateRoute';
 
 // Pages
@@ -37,6 +38,7 @@ import PublicChatWidgetGate from './components/PublicChatWidgetGate';
 function App() {
   return (
     <AuthProvider>
+      <ThemeProvider>
       <BrowserRouter>
         <Navbar />
         <PublicChatWidgetGate />
@@ -85,6 +87,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
+    </ThemeProvider>
     </AuthProvider>
   );
 }

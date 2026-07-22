@@ -358,3 +358,17 @@
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+.nav-theme-item {
+  display: flex;
+  align-items: center;
+}
+
+.drawer-theme-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  font-size: 14px;
+  color: #fff;
+}
+.drawer-theme-item button { color: #fff; }
