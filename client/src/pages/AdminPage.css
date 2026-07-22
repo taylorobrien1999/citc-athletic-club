@@ -240,3 +240,10 @@
 }
 
 }
+.admin-exit-link {
+  margin-left: auto;
+  color: #1a1a2e;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+}

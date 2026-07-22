@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 export function AuthProvider({ children }) {
   const [user, setUser]           = useState(null);
   const [token, setToken]         = useState(null);
@@ -11,9 +13,30 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const storedToken = localStorage.getItem('citc_token');
     const storedUser  = localStorage.getItem('citc_user');
+
     if (storedToken && storedUser) {
       setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+      setUser(JSON.parse(storedUser)); // show the cached version immediately, no flash of logged-out state
+
+      // Then immediately re-check the REAL current role/status from the server —
+      // the cached copy could be stale if an admin promoted/demoted/deactivated
+      // this account since the last login. This is what makes a role change
+      // take effect on the next refresh instead of requiring a fresh login.
+      fetch(`${API_URL}/api/auth/me`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(data => {
+          setUser(data.user);
+          localStorage.setItem('citc_user', JSON.stringify(data.user));
+        })
+        .catch(() => {
+          // Token invalid/expired or account deactivated — log out cleanly.
+          setUser(null);
+          setToken(null);
+          localStorage.removeItem('citc_token');
+          localStorage.removeItem('citc_user');
+        });
     }
     setLoading(false);
   }, []);

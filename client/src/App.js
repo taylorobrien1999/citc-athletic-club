@@ -9,7 +9,7 @@ import LoginPage          from './pages/LoginPage';
 import DashboardPage      from './pages/DashboardPage';
 import AdminPage          from './pages/AdminPage';
 import AdminOverviewPage  from './pages/AdminOverviewPage';
-import Navbar             from './components/Navbar';
+import NavbarGate         from './components/NavbarGate';
 import ContactPage        from './pages/ContactPage';
 import AdminInquiriesPage from './pages/AdminInquiriesPage';
 import CoachesPage        from './pages/CoachesPage';
@@ -40,7 +40,7 @@ function App() {
     <AuthProvider>
       <ThemeProvider>
       <BrowserRouter>
-        <Navbar />
+        <NavbarGate />
         <PublicChatWidgetGate />
         <Routes>
           {/* Public routes */}

@@ -336,3 +336,15 @@
    over completely. This is the real fix. ── */
 [data-theme="dark"] .admin-cms-table th { background: #22222e !important; }
 [data-theme="dark"] .inquiries-table th { background: #22222e !important; }
+
+/* ── Admin mobile hamburger + new "Admin Portal" label — was hardcoded dark
+   navy, invisible against the dark topbar background. The public site's
+   own hamburger no longer appears on admin routes at all now (NavbarGate),
+   so this is the only one left to fix. ── */
+[data-theme="dark"] .admin-menu-btn { color: #e8e8ef !important; }
+[data-theme="dark"] .admin-topbar-label { color: #e8e8ef !important; }
+
+
+
+/* ── Small icon-only link back to public site, mobile admin topbar ── */
+[data-theme="dark"] .admin-exit-link { color: #e8e8ef !important; }
