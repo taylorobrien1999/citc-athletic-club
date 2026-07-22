@@ -27,9 +27,6 @@ export default function TrainingProgramsPage() {
       <div className="training-hero">
         <span className="training-eyebrow">THE CLUB</span>
         <h1 className="training-title">Training Programs</h1>
-        <p className="training-subtitle">
-          Our training model is built around the development of complete athletes.
-        </p>
       </div>
 
       <div className="training-structure-card">
@@ -50,12 +47,20 @@ export default function TrainingProgramsPage() {
         <p className="admin-cms-empty">No programs added yet.</p>
       ) : (
         <div className="training-programs-list">
-          {programs.map((prog) => (
-            <div className="training-program-card" key={prog.id}>
-              {prog.imageUrl && <img src={prog.imageUrl} alt={prog.name} className="training-program-img" />}
-              <h2>{prog.name}</h2>
-              {prog.ageGroup && <p className="training-program-agegroup">{prog.ageGroup}</p>}
-              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: prog.description }} />
+          {programs.map((prog, i) => (
+            <div className={`training-program-card${i % 2 === 1 ? ' training-program-card--reverse' : ''}`} key={prog.id}>
+              <div className="training-program-media">
+                {prog.imageUrl ? (
+                  <img src={prog.imageUrl} alt={prog.name} className="training-program-img" />
+                ) : (
+                  <div className="training-program-card-noimg">{prog.name}</div>
+                )}
+              </div>
+              <div className="training-program-body">
+                <h2>{prog.name}</h2>
+                {prog.ageGroup && <p className="training-program-agegroup">{prog.ageGroup}</p>}
+                <div className="rtf-content" dangerouslySetInnerHTML={{ __html: prog.description }} />
+              </div>
             </div>
           ))}
         </div>

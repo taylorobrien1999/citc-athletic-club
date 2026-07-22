@@ -40,7 +40,7 @@
 
 /* Dropdown ITEMS (the open list) show each font's own name */
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="inter"]::before { content: 'Inter'; }
-.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="barlow"]::before { content: 'Barlow Condensed'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="barlow"]::before { content: 'Barlow'; }
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="georgia"]::before { content: 'Georgia'; }
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before { content: 'Monospace'; }
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item:not([data-value])::before { content: 'Default'; }
@@ -50,7 +50,7 @@
    has been chosen yet. No !important here — attribute-selector specificity
    naturally lets the specific data-value rules win over the fallback. */
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="inter"]::before { content: 'Inter'; }
-.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="barlow"]::before { content: 'Barlow Condensed'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="barlow"]::before { content: 'Barlow'; }
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="georgia"]::before { content: 'Georgia'; }
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before { content: 'Monospace'; }
 .rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label:not([data-value])::before { content: 'Font'; }

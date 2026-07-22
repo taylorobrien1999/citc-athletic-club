@@ -51,8 +51,7 @@ button {
    past the box. ── */
 .rtf-content {
   max-width: 100%;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .rtf-content img {
   max-width: 100%;
@@ -61,8 +60,9 @@ button {
   margin: 8px 0;
   display: block;
 }
-.rtf-content p { margin: 0 0 8px; max-width: 100%; }
+.rtf-content p { margin: 0 0 16px; max-width: 100%; }
 .rtf-content p:last-child { margin-bottom: 0; }
+.rtf-content p:empty { min-height: 1em; }
 .rtf-content ul, .rtf-content ol {
   padding-left: 20px;
   max-width: 100%;
@@ -70,6 +70,5 @@ button {
 .rtf-content li { max-width: 100%; }
 .rtf-content h2, .rtf-content h3, .rtf-content h4 {
   max-width: 100%;
-  overflow-wrap: anywhere;
 }
-.rtf-content a { word-break: break-all; }
+.rtf-content a { overflow-wrap: break-word; }

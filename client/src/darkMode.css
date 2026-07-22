@@ -302,7 +302,7 @@
 /* Training Programs: age group text used !important in light mode too,
    and the news Instagram callout uses --citc-purple-light directly (a
    variable I never redefined for dark mode) */
-[data-theme="dark"] .training-program-agegroup { color: #A78BFA !important; }
+[data-theme="dark"] .training-program-agegroup { color: #A78BFA !important; background: #2a2340 !important; }
 [data-theme="dark"] .news-instagram { background: #241b3d !important; color: #cfcfe0 !important; }
 
 /* Pace's panel header — was still raw bright purple; Coach Byte's navy was
@@ -379,3 +379,18 @@
   border-color: #3a3a4a !important;
 }
 [data-theme="dark"] .rich-text-editor .ql-snow .ql-picker-item { color: #cfcfe0 !important; }
+
+/* ── Training Programs redesign: new gradient/pill elements ── */
+[data-theme="dark"] .training-structure-card {
+  background: linear-gradient(135deg, #1e1e2a 0%, #22203a 100%) !important;
+  border-color: #303040 !important;
+}
+[data-theme="dark"] .training-structure-list li {
+  background: #22203a !important;
+  border-color: #3a3050 !important;
+  color: #C4B5FD !important;
+}
+[data-theme="dark"] .training-program-card-noimg {
+  background: linear-gradient(135deg, #22203a 0%, #2a2340 100%) !important;
+  color: #C4B5FD !important;
+}
