@@ -11,34 +11,40 @@ export function AuthProvider({ children }) {
   const [showLogoutToast, setShowLogoutToast] = useState(false);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('citc_token');
-    const storedUser  = localStorage.getItem('citc_user');
+    const init = async () => {
+      const storedToken = localStorage.getItem('citc_token');
+      const storedUser  = localStorage.getItem('citc_user');
 
-    if (storedToken && storedUser) {
+      if (!storedToken || !storedUser) {
+        setLoading(false);
+        return;
+      }
+
       setToken(storedToken);
       setUser(JSON.parse(storedUser)); // show the cached version immediately, no flash of logged-out state
 
-      // Then immediately re-check the REAL current role/status from the server —
-      // the cached copy could be stale if an admin promoted/demoted/deactivated
-      // this account since the last login. This is what makes a role change
-      // take effect on the next refresh instead of requiring a fresh login.
-      fetch(`${API_URL}/api/auth/me`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-        .then(res => res.ok ? res.json() : Promise.reject())
-        .then(data => {
-          setUser(data.user);
-          localStorage.setItem('citc_user', JSON.stringify(data.user));
-        })
-        .catch(() => {
-          // Token invalid/expired or account deactivated — log out cleanly.
-          setUser(null);
-          setToken(null);
-          localStorage.removeItem('citc_token');
-          localStorage.removeItem('citc_user');
+      // Now confirm the REAL current role/status from the server before
+      // letting any route guard make a decision — this is what closes the
+      // race condition where a stale cached role got used for a split
+      // second before the fresh check finished.
+      try {
+        const res = await fetch(`${API_URL}/api/auth/me`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
         });
-    }
-    setLoading(false);
+        if (!res.ok) throw new Error('Invalid session');
+        const data = await res.json();
+        setUser(data.user);
+        localStorage.setItem('citc_user', JSON.stringify(data.user));
+      } catch (err) {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem('citc_token');
+        localStorage.removeItem('citc_user');
+      } finally {
+        setLoading(false);
+      }
+    };
+    init();
   }, []);
 
   const login = (userData, jwtToken) => {
