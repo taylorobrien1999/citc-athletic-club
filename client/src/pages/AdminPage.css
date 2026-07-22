@@ -173,12 +173,14 @@
 }
 
 @media (max-width: 768px) {
-  .admin-layout { padding-top: var(--nav-height-mobile); }
+  /* No public Navbar renders on mobile admin routes (see NavbarGate.js),
+     so there's nothing above admin-layout to reserve space for. */
+  .admin-layout { padding-top: 0; }
 
   .admin-sidebar {
     position: fixed;
-    top: var(--nav-height-mobile);
-    height: calc(100vh - var(--nav-height-mobile));
+    top: 0;
+    height: 100vh;
     left: -240px;
     transition: left 0.25s ease;
   }
