@@ -44,3 +44,32 @@ button {
 }
 
 @import './darkMode.css';
+
+/* ── Rich text content wrapper: applied wherever admin-formatted content is
+   publicly displayed. Constrains everything to the parent card's width so
+   long words, links, or wide pasted content can never overflow/overlap
+   past the box. ── */
+.rtf-content {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.rtf-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+  display: block;
+}
+.rtf-content p { margin: 0 0 8px; max-width: 100%; }
+.rtf-content p:last-child { margin-bottom: 0; }
+.rtf-content ul, .rtf-content ol {
+  padding-left: 20px;
+  max-width: 100%;
+}
+.rtf-content li { max-width: 100%; }
+.rtf-content h2, .rtf-content h3, .rtf-content h4 {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.rtf-content a { word-break: break-all; }

@@ -41,7 +41,7 @@ export default function NewsPage() {
             <div className="news-card" key={a.id}>
               <h2>{a.title}</h2>
               {a.imageUrl && <img src={a.imageUrl} alt="" className="news-card-img" />}
-              <p>{a.body}</p>
+              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
               <span className="news-meta">
                 {a.postedBy ? `${a.postedBy} · ` : ''}
                 {new Date(a.createdAt).toLocaleDateString()}

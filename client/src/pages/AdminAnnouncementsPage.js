@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
+import RichTextEditor from '../components/RichTextEditor';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+const BLANK_FORM = { title: '', body: '', imageUrl: '' };
 
 export default function AdminAnnouncementsPage() {
   const { token, user } = useAuth();
@@ -12,7 +15,8 @@ export default function AdminAnnouncementsPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ title: '', body: '', imageUrl: '' });
+  const [form, setForm] = useState(BLANK_FORM);
+  const [editingId, setEditingId] = useState(null);
 
   const fetchAnnouncements = async () => {
     try {
@@ -28,25 +32,40 @@ export default function AdminAnnouncementsPage() {
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
+  const resetForm = () => { setForm(BLANK_FORM); setEditingId(null); };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(''); setSuccess(''); setSubmitting(true);
     try {
-      const res = await fetch(`${API_URL}/api/announcements`, {
-        method: 'POST',
+      const url = editingId ? `${API_URL}/api/announcements/${editingId}` : `${API_URL}/api/announcements`;
+      const method = editingId ? 'PATCH' : 'POST';
+      const body = editingId
+        ? form
+        : { ...form, postedBy: `${user?.firstName || ''} ${user?.lastName || ''}`.trim() };
+
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ ...form, postedBy: `${user?.firstName || ''} ${user?.lastName || ''}`.trim() }),
+        body: JSON.stringify(body),
       });
       const data = await res.json();
-      if (!res.ok) { setError(data.message || 'Failed to post announcement.'); return; }
-      setForm({ title: '', body: '', imageUrl: '' });
-      setSuccess('Announcement posted.');
+      if (!res.ok) { setError(data.message || 'Failed to save announcement.'); return; }
+
+      resetForm();
+      setSuccess(editingId ? 'Announcement updated.' : 'Announcement posted.');
       fetchAnnouncements();
     } catch (err) {
-      setError('Failed to post announcement.');
+      setError('Failed to save announcement.');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleEdit = (a) => {
+    setForm({ title: a.title, body: a.body, imageUrl: a.imageUrl || '' });
+    setEditingId(a.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id) => {
@@ -55,7 +74,10 @@ export default function AdminAnnouncementsPage() {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.ok) setAnnouncements(prev => prev.filter(a => a.id !== id));
+      if (res.ok) {
+        setAnnouncements(prev => prev.filter(a => a.id !== id));
+        if (editingId === id) resetForm();
+      }
     } catch (err) {
       setError('Failed to delete announcement.');
     }
@@ -78,7 +100,11 @@ export default function AdminAnnouncementsPage() {
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Message</label>
-          <textarea name="body" value={form.body} onChange={handleChange} placeholder="Details for members..." required />
+          <RichTextEditor
+            value={form.body}
+            onChange={(html) => setForm(prev => ({ ...prev, body: html }))}
+            placeholder="Details for members..."
+          />
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Photo URL (optional)</label>
@@ -86,8 +112,11 @@ export default function AdminAnnouncementsPage() {
           <FileUploadButton accept="image/*" onUploaded={(url) => setForm(prev => ({ ...prev, imageUrl: url }))} />
         </div>
         <button className="admin-cms-submit" disabled={submitting}>
-          {submitting ? 'Posting...' : 'Post Announcement'}
+          {submitting ? 'Saving...' : editingId ? 'Update Announcement' : 'Post Announcement'}
         </button>
+        {editingId && (
+          <button type="button" className="admin-cms-delete-btn" onClick={resetForm}>Cancel Edit</button>
+        )}
       </form>
 
       {loading ? (
@@ -104,11 +133,14 @@ export default function AdminAnnouncementsPage() {
               {announcements.map((a) => (
                 <tr key={a.id}>
                   <td>{a.title}</td>
-                  <td>{a.body}</td>
+                  <td>{a.body.replace(/<[^>]+>/g, ' ').trim().slice(0, 80)}{a.body.replace(/<[^>]+>/g, '').length > 80 ? '...' : ''}</td>
                   <td>{a.imageUrl ? <img src={a.imageUrl} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 6 }} /> : '—'}</td>
                   <td>{a.postedBy || '—'}</td>
                   <td>{new Date(a.createdAt).toLocaleDateString()}</td>
-                  <td><button className="admin-cms-delete-btn" onClick={() => handleDelete(a.id)}>Delete</button></td>
+                  <td style={{ display: 'flex', gap: 8 }}>
+                    <button className="admin-cms-submit" style={{ padding: '5px 12px', fontSize: '0.78rem' }} onClick={() => handleEdit(a)}>Edit</button>
+                    <button className="admin-cms-delete-btn" onClick={() => handleDelete(a.id)}>Delete</button>
+                  </td>
                 </tr>
               ))}
             </tbody>

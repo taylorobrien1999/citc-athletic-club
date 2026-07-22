@@ -1,0 +1,56 @@
+.rich-text-editor {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+}
+
+.rich-text-editor .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-family: inherit;
+}
+
+.rich-text-editor .ql-container.ql-snow {
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.rich-text-editor .ql-editor {
+  min-height: 140px;
+  color: #1a1a1a;
+}
+
+.rich-text-editor .ql-editor.ql-blank::before {
+  color: #9ca3af;
+  font-style: normal;
+}
+
+.rich-text-editor .ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  z-index: 20;
+}
+
+/* ── Font whitelist: map Quill's class-based font selection to real fonts
+   inside the actual editor content ── */
+.ql-font-inter, .ql-font-inter::before { font-family: 'Inter', sans-serif; }
+.ql-font-barlow, .ql-font-barlow::before { font-family: 'Barlow Condensed', sans-serif; }
+.ql-font-georgia, .ql-font-georgia::before { font-family: Georgia, serif; }
+.ql-font-monospace, .ql-font-monospace::before { font-family: 'Courier New', monospace; }
+
+/* Dropdown ITEMS (the open list) show each font's own name */
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="inter"]::before { content: 'Inter'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="barlow"]::before { content: 'Barlow Condensed'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="georgia"]::before { content: 'Georgia'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before { content: 'Monospace'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-item:not([data-value])::before { content: 'Default'; }
+
+/* The closed LABEL button — shows the ACTUAL current selection dynamically,
+   exactly like Headings already do. Only falls back to "Font" when nothing
+   has been chosen yet. No !important here — attribute-selector specificity
+   naturally lets the specific data-value rules win over the fallback. */
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="inter"]::before { content: 'Inter'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="barlow"]::before { content: 'Barlow Condensed'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="georgia"]::before { content: 'Georgia'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before { content: 'Monospace'; }
+.rich-text-editor .ql-snow .ql-picker.ql-font .ql-picker-label:not([data-value])::before { content: 'Font'; }

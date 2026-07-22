@@ -4,60 +4,16 @@ import './CoachesPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-const COACHES = [
-  {
-    initials: 'TG',
-    slug: 'tessa',
-    name: 'Tessa Gray-Burnett',
-    role: 'Coach',
-    bio: [
-      "Tessa Gray-Burnett was born and raised in Calgary, Alberta, where she developed a lifelong passion for sport and the outdoors. She pursued a degree in Kinesiology at the University of Calgary and currently works as a personal trainer and strength coach.",
-      "Tessa competed in track and field for 17 years, specializing in the 400m hurdles, representing Alberta and Canada at the Western Canada Summer Games (2003) and Canada Summer Games (2005), and competing at the Senior Canadian Championships seven times, placing 4th nationally in 2007, 2008, and 2011.",
-      "While competing for the University of Calgary Dinos, she earned multiple All-Canadian honors, several Canada West team championships, and served as team captain for three years.",
-      "Since retiring from competition in 2013, Tessa has coached youth, provincial, and national-level athletes with Calgary International Track Club, focusing on speed development, technical skill, and athlete confidence.",
-    ],
-    qualifications: [
-      'Bachelor of Kinesiology (Pedagogy Major), University of Calgary',
-      'Certified Strength and Conditioning Specialist (CSCS)',
-      'NCCP Certified Athletics Performance Track and Field Coach',
-      'NCCP Trained Olympic Weightlifting Coach',
-      'Ki-Hara Level 2 Resistance Stretching Practitioner',
-      'Precision Nutrition Level 1 Certified Coach (Pn1)',
-    ],
-  },
-  {
-    initials: 'DM',
-    slug: 'dani',
-    name: 'Dani Marland',
-    role: 'Coach',
-    bio: [
-      "I coach because I genuinely love it. I enjoy working with athletes and helping individuals reach their full potential both on and off the track. I strongly believe in the power of sport to shape an individual's character for life — teaching discipline, resilience, teamwork, and accountability that extend far beyond competition.",
-      "The values that guide my coaching are hard work, teamwork, respect, honesty, and accountability. Although track and field is often viewed as an individual sport, I place a strong emphasis on teamwork, creating an environment where athletes support and push each other to improve.",
-      "My coaching approach is built around a speed-first philosophy, with a strong emphasis on proper running mechanics and technical execution. In sprinting and hurdling especially, small technical improvements can make a significant difference in performance.",
-      "Success for me isn't only measured by wins or results, but by the growth of my athletes as both competitors and individuals.",
-    ],
-    qualifications: [],
-  },
-  {
-    initials: 'NI',
-    slug: 'nicole',
-    name: 'Nicole',
-    role: 'Coach',
-    bio: [
-      "Nicole brings energy and expertise across all event groups, contributing to CITC's culture of excellence, discipline, and athlete development.",
-    ],
-    qualifications: [],
-  },
-];
-
 export default function CoachesPage() {
-  const [siteContent, setSiteContent] = useState({});
+  const [coaches, setCoaches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/site-content`)
+    fetch(`${API_URL}/api/team-coaches`)
       .then(res => res.json())
-      .then(data => setSiteContent(data.content || {}))
-      .catch(() => {});
+      .then(data => setCoaches(data.coaches || []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -71,44 +27,50 @@ export default function CoachesPage() {
         </p>
       </div>
 
-      <div className="coaches-list">
-        {COACHES.map((c) => {
-          const photoOverride = siteContent[`coach_${c.slug}_photo`];
-          const bioOverride = siteContent[`coach_${c.slug}_bio`];
+      {loading ? (
+        <p className="admin-cms-empty">Loading...</p>
+      ) : (
+        <div className="coaches-list">
+          {coaches.map((c) => {
+            const qualificationsList = c.qualifications
+              ? c.qualifications.split('\n').map(q => q.trim()).filter(Boolean)
+              : [];
 
-          return (
-            <div className="coach-full-card" key={c.name}>
-              <div className="coach-full-header">
-                {photoOverride ? (
-                  <img src={photoOverride} alt={c.name} className="coach-full-photo" />
-                ) : (
-                  <div className="coach-full-av">{c.initials}</div>
+            return (
+              <div className="coach-full-card" key={c.id}>
+                <div className="coach-full-header">
+                  {c.photoUrl ? (
+                    <img src={c.photoUrl} alt={c.name} className="coach-full-photo" />
+                  ) : (
+                    <div className="coach-full-av">
+                      {c.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                    </div>
+                  )}
+                  <div>
+                    <h2 className="coach-full-name">{c.name}</h2>
+                    <p className="coach-full-role">{c.role || 'Coach'}</p>
+                  </div>
+                </div>
+
+                {c.fullBio && (
+                  <div className="coach-full-bio">
+                    <div style={{ whiteSpace: 'pre-wrap' }}>{c.fullBio}</div>
+                  </div>
                 )}
-                <div>
-                  <h2 className="coach-full-name">{c.name}</h2>
-                  <p className="coach-full-role">{c.role}</p>
-                </div>
-              </div>
 
-              <div className="coach-full-bio">
-                {bioOverride
-                  ? <div style={{ whiteSpace: 'pre-wrap' }}>{bioOverride}</div>
-                  : c.bio.map((para, i) => <p key={i}>{para}</p>)
-                }
+                {qualificationsList.length > 0 && (
+                  <div className="coach-qualifications">
+                    <h3>Qualifications</h3>
+                    <ul>
+                      {qualificationsList.map((q, i) => <li key={i}>{q}</li>)}
+                    </ul>
+                  </div>
+                )}
               </div>
-
-              {!bioOverride && c.qualifications.length > 0 && (
-                <div className="coach-qualifications">
-                  <h3>Qualifications</h3>
-                  <ul>
-                    {c.qualifications.map((q, i) => <li key={i}>{q}</li>)}
-                  </ul>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* JC Tribute — old logo lives here per Tessa's request */}
       <div className="coaches-jc-tribute">

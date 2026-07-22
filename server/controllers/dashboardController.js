@@ -42,6 +42,26 @@ const deleteAnnouncement = async (req, res) => {
   }
 };
 
+// ── PATCH /api/announcements/:id ─────────────────────────────────────────────────
+const updateAnnouncement = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const announcement = await Announcement.findByPk(id);
+    if (!announcement) return res.status(404).json({ message: 'Announcement not found.' });
+
+    const { title, body, imageUrl } = req.body;
+    if (title !== undefined) announcement.title = title;
+    if (body !== undefined) announcement.body = body;
+    if (imageUrl !== undefined) announcement.imageUrl = imageUrl;
+    await announcement.save();
+
+    return res.status(200).json({ announcement });
+  } catch (err) {
+    console.error('Update announcement error:', err);
+    return res.status(500).json({ message: 'Server error.' });
+  }
+};
+
 // ── GET /api/events ────────────────────────────────────────────────────────────
 const getEvents = async (req, res) => {
   try {
@@ -87,6 +107,7 @@ const deleteEvent = async (req, res) => {
 module.exports = {
   getAnnouncements,
   createAnnouncement,
+  updateAnnouncement,
   deleteAnnouncement,
   getEvents,
   createEvent,

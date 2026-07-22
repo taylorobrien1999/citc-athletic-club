@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
+import RichTextEditor from '../components/RichTextEditor';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+const BLANK_FORM = { name: '', ageGroup: '', description: '', imageUrl: '' };
 
 export default function AdminProgramsPage() {
   const { token } = useAuth();
@@ -12,7 +15,8 @@ export default function AdminProgramsPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ name: '', ageGroup: '', description: '', imageUrl: '' });
+  const [form, setForm] = useState(BLANK_FORM);
+  const [editingId, setEditingId] = useState(null);
 
   const fetchPrograms = async () => {
     try {
@@ -28,25 +32,37 @@ export default function AdminProgramsPage() {
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
+  const resetForm = () => { setForm(BLANK_FORM); setEditingId(null); };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(''); setSuccess(''); setSubmitting(true);
     try {
-      const res = await fetch(`${API_URL}/api/programs`, {
-        method: 'POST',
+      const url = editingId ? `${API_URL}/api/programs/${editingId}` : `${API_URL}/api/programs`;
+      const method = editingId ? 'PATCH' : 'POST';
+
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify(form),
       });
       const data = await res.json();
-      if (!res.ok) { setError(data.message || 'Failed to add program.'); return; }
-      setForm({ name: '', ageGroup: '', description: '', imageUrl: '' });
-      setSuccess('Program added.');
+      if (!res.ok) { setError(data.message || 'Failed to save program.'); return; }
+
+      resetForm();
+      setSuccess(editingId ? 'Program updated.' : 'Program added.');
       fetchPrograms();
     } catch (err) {
-      setError('Failed to add program.');
+      setError('Failed to save program.');
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleEdit = (p) => {
+    setForm({ name: p.name, ageGroup: p.ageGroup || '', description: p.description, imageUrl: p.imageUrl || '' });
+    setEditingId(p.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id) => {
@@ -55,7 +71,10 @@ export default function AdminProgramsPage() {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.ok) setPrograms(prev => prev.filter(p => p.id !== id));
+      if (res.ok) {
+        setPrograms(prev => prev.filter(p => p.id !== id));
+        if (editingId === id) resetForm();
+      }
     } catch (err) {
       setError('Failed to delete program.');
     }
@@ -82,7 +101,11 @@ export default function AdminProgramsPage() {
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Description</label>
-          <textarea name="description" value={form.description} onChange={handleChange} placeholder="Program description..." required />
+          <RichTextEditor
+            value={form.description}
+            onChange={(html) => setForm(prev => ({ ...prev, description: html }))}
+            placeholder="Program description..."
+          />
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Photo (optional)</label>
@@ -90,8 +113,11 @@ export default function AdminProgramsPage() {
           <FileUploadButton accept="image/*" onUploaded={(url) => setForm(prev => ({ ...prev, imageUrl: url }))} />
         </div>
         <button className="admin-cms-submit" disabled={submitting}>
-          {submitting ? 'Adding...' : 'Add Program'}
+          {submitting ? 'Saving...' : editingId ? 'Update Program' : 'Add Program'}
         </button>
+        {editingId && (
+          <button type="button" className="admin-cms-delete-btn" onClick={resetForm}>Cancel Edit</button>
+        )}
       </form>
 
       {loading ? (
@@ -110,8 +136,11 @@ export default function AdminProgramsPage() {
                   <td>{p.imageUrl ? <img src={p.imageUrl} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 6 }} /> : '—'}</td>
                   <td>{p.name}</td>
                   <td>{p.ageGroup || '—'}</td>
-                  <td>{p.description}</td>
-                  <td><button className="admin-cms-delete-btn" onClick={() => handleDelete(p.id)}>Delete</button></td>
+                  <td>{p.description.replace(/<[^>]+>/g, ' ').trim().slice(0, 80)}{p.description.replace(/<[^>]+>/g, '').length > 80 ? '...' : ''}</td>
+                  <td style={{ display: 'flex', gap: 8 }}>
+                    <button className="admin-cms-submit" style={{ padding: '5px 12px', fontSize: '0.78rem' }} onClick={() => handleEdit(p)}>Edit</button>
+                    <button className="admin-cms-delete-btn" onClick={() => handleDelete(p.id)}>Delete</button>
+                  </td>
                 </tr>
               ))}
             </tbody>

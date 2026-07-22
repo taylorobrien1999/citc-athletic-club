@@ -136,7 +136,7 @@ export default function DashboardPage() {
                 <div className="dash-announcement" key={a.id}>
                   {a.imageUrl && <img src={a.imageUrl} alt="" className="dash-announcement-img" />}
                   <h3>{a.title}</h3>
-                  <p>{a.body}</p>
+                  <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
                   <span className="dash-meta">
                     {a.postedBy ? `${a.postedBy} · ` : ''}
                     {new Date(a.createdAt).toLocaleDateString()}

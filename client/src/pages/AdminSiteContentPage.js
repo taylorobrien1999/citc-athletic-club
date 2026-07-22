@@ -25,38 +25,10 @@ const CATEGORIES = [
     ],
   },
   {
-    name: 'The Club — Coaches',
-    fields: [
-      { key: 'coach_tessa_bio', label: "Tessa's Bio", type: 'text' },
-      { key: 'coach_tessa_photo', label: "Tessa's Photo", type: 'image' },
-      { key: 'coach_dani_bio', label: "Dani's Bio", type: 'text' },
-      { key: 'coach_dani_photo', label: "Dani's Photo", type: 'image' },
-      { key: 'coach_nicole_bio', label: "Nicole's Bio", type: 'text' },
-      { key: 'coach_nicole_photo', label: "Nicole's Photo", type: 'image' },
-    ],
-  },
-  {
     name: 'The Club — Mission Statement',
     fields: [
       { key: 'mission_statement', label: 'Main Mission Statement', type: 'text' },
       { key: 'mission_dei_text', label: 'Full DEI Section (heading, list, and closing — replaces the whole section below the quote)', type: 'text' },
-    ],
-  },
-  {
-    name: 'The Club — Training Programs',
-    fields: [
-      { key: 'training_sprint_title', label: 'Sprint Program — Title', type: 'text' },
-      { key: 'training_sprint_text', label: 'Sprint Program — Body Text', type: 'text' },
-      { key: 'training_sprint_image', label: 'Sprint Program Photo', type: 'image' },
-      { key: 'training_hurdles_title', label: 'Hurdles Program — Title', type: 'text' },
-      { key: 'training_hurdles_text', label: 'Hurdles Program — Body Text', type: 'text' },
-      { key: 'training_hurdles_image', label: 'Hurdles Program Photo', type: 'image' },
-      { key: 'training_middledistance_title', label: 'Middle Distance Program — Title', type: 'text' },
-      { key: 'training_middledistance_text', label: 'Middle Distance Program — Body Text', type: 'text' },
-      { key: 'training_middledistance_image', label: 'Middle Distance Program Photo', type: 'image' },
-      { key: 'training_strength_title', label: 'Strength & Weight Training — Title', type: 'text' },
-      { key: 'training_strength_text', label: 'Strength & Weight Training — Body Text', type: 'text' },
-      { key: 'training_strength_image', label: 'Strength & Weight Training Photo', type: 'image' },
     ],
   },
   {
@@ -95,7 +67,7 @@ export default function AdminSiteContentPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [savingKey, setSavingKey] = useState('');
-  const [openCategory, setOpenCategory] = useState(CATEGORIES[0].name);
+  const [openCategory, setOpenCategory] = useState(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [newField, setNewField] = useState({ key: '', label: '', type: 'text', value: '' });
 

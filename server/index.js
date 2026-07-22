@@ -19,6 +19,7 @@ const passwordResetRoutes = require('./routes/passwordResetRoutes');
 const memberRoutes = require('./routes/memberRoutes');
 const recordRoutes = require('./routes/recordRoutes');
 const chatProxyRoutes = require('./routes/chatProxyRoutes');
+const teamCoachRoutes = require('./routes/teamCoachRoutes');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use('/api/auth', passwordResetRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/records', recordRoutes);
 app.use('/api/chat', chatProxyRoutes);
+app.use('/api/team-coaches', teamCoachRoutes);
 
 // ── Serve React build (production) ────────────────────────────────────────────
 const clientBuildPath = path.join(__dirname, 'client-build');

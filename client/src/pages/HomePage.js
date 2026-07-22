@@ -5,29 +5,7 @@ import citcLogoIcon from '../assets/citc-logo-icon.jpg';
 import RegistrationModal from '../components/RegistrationModal';
 import './HomePage.css';
 
-// Coaches (revised per Tessa, Dani, Cindy)  1.1
-const COACHES = [
-  {
-    initials: 'TG',
-    name: 'Tessa Gray-Burnett',
-    role: 'Coach',
-    bio: 'Former 400m hurdles athlete with 17 years of competitive experience. 4× All-Canadian, Team Canada representative, and NCCP Certified Performance Coach.',
-  },
-  {
-    initials: 'DM',
-    name: 'Dani Marland',
-    role: 'Coach',
-    bio: 'Coaches all event groups from 60m to 6k XC. Passionate about speed-first development and helping athletes reach their full potential on and off the track.',
-  },
-  {
-    initials: 'NI',
-    name: 'Nicole',
-    role: 'Coach',
-    bio: "Brings energy and expertise across all event groups, contributing to CITC's culture of excellence, discipline, and athlete development.",
-  },
-];
-
-// ── Programs 
+// ── Programs
 const PROGRAMS = [
   {
     tag: 'Program',
@@ -65,6 +43,7 @@ export default function HomePage() {
   const [slide, setSlide] = useState(0);
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [siteContent, setSiteContent] = useState({});
+  const [teamCoaches, setTeamCoaches] = useState([]);
 
   useEffect(() => {
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -72,6 +51,14 @@ export default function HomePage() {
       .then(res => res.json())
       .then(data => setSiteContent(data.content || {}))
       .catch(() => {}); // fail silently — defaults still render
+  }, []);
+
+  useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    fetch(`${API_URL}/api/team-coaches`)
+      .then(res => res.json())
+      .then(data => setTeamCoaches(data.coaches || []))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -103,7 +90,6 @@ export default function HomePage() {
 
         <div className="hero-body">
           <div className="hero-content-wrap">
-            {/* Logo in hero — swap src for new logo when Tessa sends it */}
             <img
               src={citcLogoFull}
               alt="Calgary International Track Club"
@@ -205,13 +191,19 @@ export default function HomePage() {
           <p className="eyebrow">Coaching Staff</p>
           <h2 className="section-title">World-Class Coaches.<br />Personal Development.</h2>
           <div className="coaches-grid">
-            {COACHES.map((c) => (
-              <div className="coach-card" key={c.name}>
-                <div className="coach-av">{c.initials}</div>
+            {teamCoaches.map((c) => (
+              <Link to="/the-club/coaches" className="coach-card" key={c.id}>
+                {c.photoUrl ? (
+                  <img src={c.photoUrl} alt={c.name} className="coach-av coach-av-photo" />
+                ) : (
+                  <div className="coach-av">
+                    {c.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                  </div>
+                )}
                 <div className="coach-name">{c.name}</div>
-                <div className="coach-role">{c.role}</div>
-                <p className="coach-detail">{c.bio}</p>
-              </div>
+                <div className="coach-role">{c.role || 'Coach'}</div>
+                <p className="coach-detail">{c.homepageSummary}</p>
+              </Link>
             ))}
           </div>
 
@@ -241,11 +233,20 @@ export default function HomePage() {
       <section className="cta-section">
         <div className="cta-inner">
           <p className="cta-eyebrow">Join the Club</p>
-          <h2 className="cta-title">Start Your<br />Free Trial</h2>
+          <h2 className="cta-title">
+            {siteContent.home_cta_title
+              ? <span dangerouslySetInnerHTML={{ __html: siteContent.home_cta_title.replace(/\n/g, '<br />') }} />
+              : <>Start Your<br />Journey</>
+            }
+          </h2>
           <p className="cta-sub">
-            New athletes are invited to experience CITC's training environment, coaching
-            style, and team culture through our 2-week trial. A valid Athletics Alberta
-            membership is required before your first session.
+            {siteContent.home_cta_sub || (
+              <>
+                New athletes and parents are invited to submit a Registration Inquiry — a coach
+                will follow up within 48 hours to discuss the best training option for you. A
+                valid Athletics Alberta membership is required before your first session.
+              </>
+            )}
           </p>
           <div className="cta-btns">
             <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>

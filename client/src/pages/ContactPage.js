@@ -123,29 +123,41 @@ export default function ContactPage() {
           <p className="contact-info-intro">Calgary International Track Club trains year-round in Calgary.</p>
 
           <div className="contact-location">
-            <h3>Indoor Season</h3>
-            <p>MNP Sports Centre</p>
-            <p>2225 Macleod Trail SE</p>
-            <p>Calgary, AB T2G 5B6</p>
-            <div className="contact-schedule">
-              <p><span>Monday</span> 4:30–6pm</p>
-              <p><span>Wednesday</span> 4:30–6:30pm</p>
-              <p><span>Friday</span> 4:30–6pm</p>
-              <p><span>Saturday</span> 1:30–2:30pm</p>
-            </div>
+            {siteContent.contact_indoor_location ? (
+              <div style={{ whiteSpace: 'pre-wrap' }}>{siteContent.contact_indoor_location}</div>
+            ) : (
+              <>
+                <h3>Indoor Season</h3>
+                <p>MNP Sports Centre</p>
+                <p>2225 Macleod Trail SE</p>
+                <p>Calgary, AB T2G 5B6</p>
+                <div className="contact-schedule">
+                  <p><span>Monday</span> 4:30–6pm</p>
+                  <p><span>Wednesday</span> 4:30–6:30pm</p>
+                  <p><span>Friday</span> 4:30–6pm</p>
+                  <p><span>Saturday</span> 1:30–2:30pm</p>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="contact-location">
-            <h3>Outdoor Season</h3>
-            <p>Glenmore Track (Glenmore Athletic Park)</p>
-            <p>5300 19 Street SW</p>
-            <p>Calgary, AB T3E 1P6</p>
-            <div className="contact-schedule">
-              <p><span>Monday</span> 5–7pm</p>
-              <p><span>Wednesday</span> 5–7pm</p>
-              <p><span>Friday</span> 5–7pm</p>
-              <p><span>Saturday</span> 2–3:30pm</p>
-            </div>
+            {siteContent.contact_outdoor_location ? (
+              <div style={{ whiteSpace: 'pre-wrap' }}>{siteContent.contact_outdoor_location}</div>
+            ) : (
+              <>
+                <h3>Outdoor Season</h3>
+                <p>Glenmore Track (Glenmore Athletic Park)</p>
+                <p>5300 19 Street SW</p>
+                <p>Calgary, AB T3E 1P6</p>
+                <div className="contact-schedule">
+                  <p><span>Monday</span> 5–7pm</p>
+                  <p><span>Wednesday</span> 5–7pm</p>
+                  <p><span>Friday</span> 5–7pm</p>
+                  <p><span>Saturday</span> 2–3:30pm</p>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="contact-social">

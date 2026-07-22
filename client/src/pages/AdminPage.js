@@ -11,6 +11,7 @@ const ADMIN_NAV = [
   { label: 'Inquiries',     to: '/admin/inquiries', icon: '📥' },
   { label: 'Members',       to: '/admin/members', icon: '👥' },
   { label: 'Programs',      to: '/admin/programs',        icon: '📋' },
+  { label: 'Coaches',       to: '/admin/coaches',         icon: '🎽' },
   { label: 'Events',        to: '/admin/events',          icon: '📅' },
   { label: 'Announcements', to: '/admin/announcements',   icon: '📢' },
   { label: 'Resources',     to: '/admin/resources',       icon: '📁' },

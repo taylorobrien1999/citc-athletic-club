@@ -354,3 +354,28 @@
    scrolled bar is dark too, making the lines (and the X state) nearly
    invisible. Force them back to light. ── */
 [data-theme="dark"] .nav.scrolled .nav-hamburger span { background: rgba(255, 255, 255, 0.9) !important; }
+/* ── Rich Text Editor: typed text was invisible (dark text on the editor's
+   light background remained light-mode-only by design, but needs to flip
+   in dark mode so admins can actually see what they're typing) ── */
+[data-theme="dark"] .rich-text-editor {
+  border-color: #3a3a4a !important;
+}
+[data-theme="dark"] .rich-text-editor .ql-toolbar.ql-snow {
+  background: #22222e !important;
+  border-color: #3a3a4a !important;
+}
+[data-theme="dark"] .rich-text-editor .ql-editor {
+  background: #22222e !important;
+  color: #e8e8ef !important;
+}
+[data-theme="dark"] .rich-text-editor .ql-editor.ql-blank::before {
+  color: #6a6a80 !important;
+}
+[data-theme="dark"] .rich-text-editor .ql-snow .ql-stroke { stroke: #cfcfe0 !important; }
+[data-theme="dark"] .rich-text-editor .ql-snow .ql-fill { fill: #cfcfe0 !important; }
+[data-theme="dark"] .rich-text-editor .ql-snow .ql-picker { color: #cfcfe0 !important; }
+[data-theme="dark"] .rich-text-editor .ql-snow .ql-picker-options {
+  background: #22222e !important;
+  border-color: #3a3a4a !important;
+}
+[data-theme="dark"] .rich-text-editor .ql-snow .ql-picker-item { color: #cfcfe0 !important; }
