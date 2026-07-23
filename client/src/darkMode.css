@@ -537,3 +537,7 @@
 [data-theme="dark"] .meets-list-name { color: #e0e0ec !important; }
 [data-theme="dark"] .meets-list-when { background: #2a2340 !important; color: #C4B5FD !important; }
 [data-theme="dark"] .meets-season-card .rtf-content { color: #cfcfe0 !important; }
+
+/* ── Member Dashboard: remaining missing icon/symbol coverage ── */
+[data-theme="dark"] .dash-heading-icon { color: #C4B5FD !important; }
+[data-theme="dark"] .dash-meta-location { color: #9a9ab0 !important; }

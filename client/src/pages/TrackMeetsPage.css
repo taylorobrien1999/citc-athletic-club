@@ -184,4 +184,6 @@
   max-height: 380px;
   overflow-y: auto;
   padding-right: 4px;
+  scroll-snap-type: y proximity;
 }
+.meets-scroll-box > * { scroll-snap-align: start; }

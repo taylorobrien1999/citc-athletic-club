@@ -379,11 +379,15 @@
 
 /* Fixed-height scroll box — keeps the card the same size no matter how many
    items exist (even hypothetically 100), scrolling internally instead of
-   growing the whole page. Applies to Announcements, Schedule, and Resources. */
+   growing the whole page. Applies to Announcements, Schedule, and Resources.
+   scroll-snap ensures scrolling always settles on a complete item boundary
+   instead of stopping with an item cut in half. */
 .dash-scroll-box {
   overflow-y: auto;
   padding-right: 4px;
+  scroll-snap-type: y proximity;
 }
+.dash-scroll-box > * { scroll-snap-align: start; }
 
 /* Announcements include images + longer text, so this restores roughly the
    original unbounded feel while still capping for very long lists */
