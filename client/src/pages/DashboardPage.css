@@ -71,6 +71,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+  align-items: start;
 }
 
 @media (max-width: 800px) {
@@ -83,6 +84,20 @@
   border-radius: 16px;
   padding: 28px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+/* Cards with a scrollable list inside get a real max-height, and the
+   scroll-box fills whatever space remains via flex — this ties the two
+   together properly instead of an independent pixel value that can
+   mismatch the card's actual height. */
+.dash-card--scrollable {
+  display: flex;
+  flex-direction: column;
+  max-height: 460px;
+}
+.dash-card--scrollable .dash-scroll-box {
+  flex: 1;
+  min-height: 0;
 }
 
 .dash-card h2 {
@@ -379,7 +394,10 @@
 
 /* Fixed-height scroll box — keeps the card the same size no matter how many
    items exist (even hypothetically 100), scrolling internally instead of
-   growing the whole page. Applies to Announcements, Schedule, and Resources.
+   growing the whole page. Applies to Announcements, Schedule, and Resources. */
+/* Fixed-height scroll box — the card itself (.dash-card--scrollable) sets
+   the real max-height; this box just fills whatever space remains via
+   flex: 1 (set above), so it can never mismatch the card's actual size.
    scroll-snap ensures scrolling always settles on a complete item boundary
    instead of stopping with an item cut in half. */
 .dash-scroll-box {
@@ -388,17 +406,6 @@
   scroll-snap-type: y proximity;
 }
 .dash-scroll-box > * { scroll-snap-align: start; }
-
-/* Announcements include images + longer text, so this restores roughly the
-   original unbounded feel while still capping for very long lists */
-.dash-announcement-list.dash-scroll-box { max-height: 640px; }
-
-/* Schedule rows are a similar height to what was already confirmed working */
-.dash-event-list.dash-scroll-box { max-height: 380px; }
-
-/* Resource rows are compact — a shorter cap so scrolling actually kicks in
-   at a similar few-item threshold instead of needing 10+ items first */
-.dash-resource-list.dash-scroll-box { max-height: 260px; }
 
 .dash-announcement-footer {
   display: flex;
