@@ -90,6 +90,20 @@
   font-weight: 700;
   margin: 0 0 18px;
   color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash-heading-icon {
+  color: var(--citc-purple);
+  flex-shrink: 0;
+}
+
+.dash-meta-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .dash-empty { color: #888; font-size: 14px; }
@@ -353,4 +367,82 @@
   letter-spacing: 0.4px;
   color: var(--citc-purple);
   margin-bottom: 4px;
+}
+
+.dash-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.dash-card-header h2 { margin-bottom: 0; }
+
+/* Fixed-height scroll box — keeps the card the same size no matter how many
+   items exist (even hypothetically 100), scrolling internally instead of
+   growing the whole page. Applies to Announcements, Schedule, and Resources. */
+.dash-scroll-box {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.dash-announcement-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.dash-announcement-meta {
+  display: block;
+  margin-top: 6px;
+}
+
+/* Collapsed by default, same fade-mask pattern used on Training Programs
+   and Coaches, so long announcements don't stretch the whole dashboard */
+.dash-rtf-wrap {
+  max-height: 90px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.3s ease;
+}
+.dash-rtf-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+  pointer-events: none;
+}
+.dash-rtf-wrap.expanded {
+  max-height: 2000px;
+}
+.dash-rtf-wrap.expanded::after {
+  display: none;
+}
+
+.dash-readmore-link {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 6px 0 0;
+  text-decoration: none;
+}
+.dash-readmore-link:hover { text-decoration: underline; }
+
+.dash-members-tag {
+  display: inline-block;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
 }

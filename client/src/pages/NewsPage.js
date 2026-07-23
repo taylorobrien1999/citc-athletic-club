@@ -8,6 +8,8 @@ export default function NewsPage() {
   const [announcements, setAnnouncements] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [expandedIds, setExpandedIds] = useState({});
+  const toggleExpanded = (id) => setExpandedIds(prev => ({ ...prev, [id]: !prev[id] }));
 
   useEffect(() => {
     Promise.all([
@@ -15,7 +17,7 @@ export default function NewsPage() {
       fetch(`${API_URL}/api/resources`).then(res => res.json()),
     ])
       .then(([annData, resData]) => {
-        setAnnouncements(annData.announcements || []);
+        setAnnouncements((annData.announcements || []).filter(a => a.visibility !== 'members'));
         setDocuments((resData.resources || []).filter(r => r.type !== 'photo' && r.visibility !== 'members'));
       })
       .catch(() => {})
@@ -39,17 +41,25 @@ export default function NewsPage() {
         <p className="news-empty">No news posted yet. Check back soon.</p>
       ) : (
         <div className="news-list">
-          {announcements.map((a) => (
-            <div className="news-card" key={a.id}>
-              <h2>{a.title}</h2>
-              {a.imageUrl && <img src={a.imageUrl} alt="" className="news-card-img" />}
-              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
-              <span className="news-meta">
-                {a.postedBy ? `${a.postedBy} · ` : ''}
-                {new Date(a.createdAt).toLocaleDateString()}
-              </span>
-            </div>
-          ))}
+          {announcements.map((a) => {
+            const isExpanded = !!expandedIds[a.id];
+            return (
+              <div className="news-card" key={a.id}>
+                <h2>{a.title}</h2>
+                {a.imageUrl && <img src={a.imageUrl} alt="" className="news-card-img" />}
+                <div className={`news-rtf-wrap${isExpanded ? ' expanded' : ''}`}>
+                  <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
+                </div>
+                <button className="news-readmore-link" onClick={() => toggleExpanded(a.id)}>
+                  {isExpanded ? 'Show less ↑' : 'Read more ↓'}
+                </button>
+                <span className="news-meta">
+                  {a.postedBy ? `${a.postedBy} · ` : ''}
+                  {new Date(a.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+            );
+          })}
         </div>
       )}
 

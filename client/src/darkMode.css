@@ -506,3 +506,17 @@
    background was dark-mode-covered but the actual paragraph text color
    inside it never was, causing dark-on-dark unreadable text. ── */
 [data-theme="dark"] .coach-full-card .rtf-content { color: #cfcfe0 !important; }
+/* ── Member Dashboard: View All, collapse/expand, members-only tag ── */
+[data-theme="dark"] .dash-view-all-btn { border-color: #C4B5FD !important; color: #C4B5FD !important; }
+[data-theme="dark"] .dash-view-all-btn:hover { background: #2a2340 !important; }
+[data-theme="dark"] .dash-rtf-wrap::after {
+  background: linear-gradient(to bottom, rgba(30,30,42,0), #1e1e2a) !important;
+}
+[data-theme="dark"] .dash-readmore-link { color: #C4B5FD !important; }
+[data-theme="dark"] .dash-members-tag { background: #3a2f0f !important; color: #fcd34d !important; }
+
+/* ── News page: collapse/expand ── */
+[data-theme="dark"] .news-rtf-wrap::after {
+  background: linear-gradient(to bottom, rgba(30,30,42,0), #1e1e2a) !important;
+}
+[data-theme="dark"] .news-readmore-link { color: #C4B5FD !important; }

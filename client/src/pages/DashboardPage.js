@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
 import { parseLocalDate } from '../utils/dateUtils';
@@ -13,6 +14,12 @@ export default function DashboardPage() {
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  // Per-announcement expand state — only relevant for Members Only posts,
+  // since Public ones link out to the News page instead of expanding here.
+  const [expandedAnnouncementIds, setExpandedAnnouncementIds] = useState({});
+  const toggleAnnouncementExpanded = (id) =>
+    setExpandedAnnouncementIds(prev => ({ ...prev, [id]: !prev[id] }));
 
   // Profile edit state
   const [editingProfile, setEditingProfile] = useState(false);
@@ -89,6 +96,7 @@ export default function DashboardPage() {
   const upcomingEvents = events.filter(ev => parseLocalDate(ev.eventDate) >= today);
   const nextEvent = upcomingEvents[0];
 
+
   return (
     <div className="dash-page">
       <div className="dash-hero">
@@ -126,37 +134,73 @@ export default function DashboardPage() {
       <div className="dash-grid">
         {/* ── ANNOUNCEMENTS ── */}
         <div className="dash-card">
-          <h2>Announcements</h2>
+          <div className="dash-card-header">
+            <h2>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dash-heading-icon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Announcements
+            </h2>
+          </div>
           {loading ? (
             <p className="dash-empty">Loading...</p>
           ) : announcements.length === 0 ? (
             <p className="dash-empty">No announcements yet. Check back soon.</p>
           ) : (
-            <div className="dash-announcement-list">
-              {announcements.map((a) => (
-                <div className="dash-announcement" key={a.id}>
-                  {a.imageUrl && <img src={a.imageUrl} alt="" className="dash-announcement-img" />}
-                  <h3>{a.title}</h3>
-                  <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
-                  <span className="dash-meta">
-                    {a.postedBy ? `${a.postedBy} · ` : ''}
-                    {new Date(a.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-              ))}
+            <div className="dash-announcement-list dash-scroll-box">
+              {announcements.map((a) => {
+                const isPublic = a.visibility !== 'members';
+                const isExpanded = !!expandedAnnouncementIds[a.id];
+                return (
+                  <div className="dash-announcement" key={a.id}>
+                    {a.imageUrl && <img src={a.imageUrl} alt="" className="dash-announcement-img" />}
+                    <h3>{a.title}</h3>
+
+                    {isPublic ? (
+                      <>
+                        <div className="dash-rtf-wrap">
+                          <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
+                        </div>
+                        <Link to="/news" className="dash-readmore-link">Read more on News →</Link>
+                      </>
+                    ) : (
+                      <>
+                        <div className={`dash-rtf-wrap${isExpanded ? ' expanded' : ''}`}>
+                          <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
+                        </div>
+                        <div className="dash-announcement-footer">
+                          <button className="dash-readmore-link" onClick={() => toggleAnnouncementExpanded(a.id)}>
+                            {isExpanded ? 'Show less ↑' : 'Read more ↓'}
+                          </button>
+                          <span className="dash-members-tag">Members Only</span>
+                        </div>
+                        {isExpanded && (
+                          <span className="dash-meta dash-announcement-meta">
+                            {a.postedBy ? `${a.postedBy} · ` : ''}
+                            {new Date(a.createdAt).toLocaleDateString()}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
 
         {/* ── SCHEDULE ── */}
         <div className="dash-card">
-          <h2>Upcoming Schedule</h2>
+          <div className="dash-card-header">
+            <h2>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dash-heading-icon"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Upcoming Schedule
+            </h2>
+          </div>
           {loading ? (
             <p className="dash-empty">Loading...</p>
           ) : upcomingEvents.length === 0 ? (
             <p className="dash-empty">No upcoming events scheduled yet.</p>
           ) : (
-            <div className="dash-event-list">
+            <div className="dash-event-list dash-scroll-box">
               {upcomingEvents.map((ev) => (
                 <div className="dash-event" key={ev.id}>
                   <div className="dash-event-date">
@@ -166,7 +210,12 @@ export default function DashboardPage() {
                   </div>
                   <div className="dash-event-details">
                     <h3>{ev.title}</h3>
-                    {ev.location && <p className="dash-meta">{ev.location}</p>}
+                    {ev.location && (
+                      <p className="dash-meta dash-meta-location">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        {ev.location}
+                      </p>
+                    )}
                     {ev.startTime && <p className="dash-meta">{ev.startTime}</p>}
                   </div>
                 </div>
@@ -177,13 +226,18 @@ export default function DashboardPage() {
 
         {/* ── RESOURCES ── */}
         <div className="dash-card">
-          <h2>Resources</h2>
+          <div className="dash-card-header">
+            <h2>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dash-heading-icon"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              Resources
+            </h2>
+          </div>
           {loading ? (
             <p className="dash-empty">Loading...</p>
           ) : resources.length === 0 ? (
             <p className="dash-empty">No resources shared yet.</p>
           ) : (
-            <div className="dash-resource-list">
+            <div className="dash-resource-list dash-scroll-box">
               {resources.map((r) => (
                 <a
                   href={r.url}
@@ -203,7 +257,10 @@ export default function DashboardPage() {
         {/* ── PROFILE ── */}
         <div className="dash-card">
           <div className="dash-profile-header">
-            <h2>My Profile</h2>
+            <h2>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="dash-heading-icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              My Profile
+            </h2>
             {!editingProfile && (
               <button className="dash-edit-btn" onClick={() => setEditingProfile(true)}>Edit</button>
             )}

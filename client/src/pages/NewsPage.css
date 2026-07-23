@@ -92,3 +92,36 @@
   color: #555;
 }
 .news-instagram a { color: var(--citc-purple); font-weight: 600; }
+
+.news-rtf-wrap {
+  max-height: 140px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.35s ease;
+}
+.news-rtf-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+  pointer-events: none;
+}
+.news-rtf-wrap.expanded {
+  max-height: 3000px;
+}
+.news-rtf-wrap.expanded::after {
+  display: none;
+}
+
+.news-readmore-link {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 10px 0 4px;
+}
+.news-readmore-link:hover { text-decoration: underline; }

@@ -4,7 +4,7 @@
   padding: calc(var(--nav-height) + 16px) 24px 100px;
 }
 
-.meets-hero { text-align: center; margin-bottom: 48px; }
+.meets-hero { text-align: center; margin-bottom: 40px; }
 
 .meets-eyebrow {
   color: var(--citc-purple);
@@ -28,10 +28,72 @@
   line-height: 1.6;
 }
 
+/* ── Upcoming scheduled meets — highlighted gradient card, same language
+   as Program Structure / Fees-style intro cards ── */
+.meets-upcoming-card {
+  background: linear-gradient(135deg, #faf8ff 0%, #f3eafd 100%);
+  border: 1px solid #ece3f9;
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 20px rgba(91, 33, 182, 0.06);
+  margin-top: 32px;
+}
+
+.meets-upcoming-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--citc-purple);
+  font-weight: 800;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.meets-upcoming-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.meets-upcoming-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.meets-upcoming-date {
+  background: var(--citc-purple);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12.5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.meets-upcoming-name {
+  font-weight: 700;
+  font-size: 14.5px;
+  color: #1a1a1a;
+}
+
+.meets-upcoming-location {
+  font-size: 12.5px;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* ── Season cards ── */
 .meets-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 28px;
+  gap: 24px;
 }
 
 @media (max-width: 700px) {
@@ -41,34 +103,77 @@
 .meets-season-card {
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 28px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
 }
 
 .meets-season-card h2 {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 16px;
-  color: var(--citc-purple);
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0 0 18px;
+  color: #1a1a1a;
 }
 
-.meets-table { width: 100%; border-collapse: collapse; }
+.meets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-.meets-table td {
-  padding: 10px 0;
+.meets-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
   border-top: 1px solid #f0f0f0;
-  font-size: 14px;
+}
+.meets-list-item:first-child { border-top: none; }
+
+.meets-list-name {
+  font-weight: 600;
+  font-size: 14.5px;
   color: #333;
 }
 
-.meets-table tr:first-child td { border-top: none; }
+.meets-list-when {
+  background: var(--citc-purple-light);
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
 
-.meets-when { text-align: right; color: #777; }
+.meets-season-card .rtf-content {
+  color: #444;
+  line-height: 1.75;
+  font-size: 14.5px;
+}
 
 .meets-note {
   text-align: center;
   color: #888;
   font-size: 13px;
   margin-top: 32px;
+}
+
+.meets-season-card h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meets-heading-icon {
+  color: var(--citc-purple);
+  flex-shrink: 0;
+}
+
+.meets-upcoming-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
