@@ -8,7 +8,8 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 export default function CoachesPage() {
   const [coaches, setCoaches] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [openId, setOpenId] = useState(null);
+  const [current, setCurrent] = useState(0);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/api/team-coaches`)
@@ -18,7 +19,17 @@ export default function CoachesPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const toggleOpen = (id) => setOpenId(prev => (prev === id ? null : id));
+  const goTo = (index) => {
+    setCurrent(index);
+    setExpanded(false);
+  };
+  const goPrev = () => goTo((current - 1 + coaches.length) % coaches.length);
+  const goNext = () => goTo((current + 1) % coaches.length);
+
+  const coach = coaches[current];
+  const qualificationsList = coach?.qualifications
+    ? coach.qualifications.split('\n').map(q => q.trim()).filter(Boolean)
+    : [];
 
   return (
     <>
@@ -33,55 +44,66 @@ export default function CoachesPage() {
         ) : coaches.length === 0 ? (
           <p className="admin-cms-empty">No coaches added yet.</p>
         ) : (
-          <div className="coaches-grid">
-            {coaches.map((c) => {
-              const isOpen = openId === c.id;
-              const qualificationsList = c.qualifications
-                ? c.qualifications.split('\n').map(q => q.trim()).filter(Boolean)
-                : [];
+          <div className="coaches-carousel">
+            <div className="coach-full-card">
+              {coach.photoUrl ? (
+                <img src={coach.photoUrl} alt={coach.name} className="coach-full-photo" />
+              ) : (
+                <div className="coach-full-av-lg">
+                  {coach.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+                </div>
+              )}
 
-              return (
-                <div className={`coach-card${isOpen ? ' open' : ''}`} key={c.id}>
-                  <div className="coach-card-photo">
-                    {c.photoUrl ? (
-                      <img src={c.photoUrl} alt={c.name} />
-                    ) : (
-                      <div className="coaches-photo-noimg">
-                        {c.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
-                      </div>
-                    )}
-                  </div>
+              <div className="coach-full-body">
+                <h2 className="coach-full-name">{coach.name}</h2>
+                <p className="coach-full-role">{coach.role || 'Coach'}</p>
 
-                  <button className="coach-card-caption" onClick={() => toggleOpen(c.id)}>
-                    <span className="coach-card-text">
-                      <span className="coach-card-name">{c.name}</span>
-                      <span className="coach-card-role">{c.role || 'Coach'}</span>
-                    </span>
-                    <span className="coach-card-icon">{isOpen ? '−' : '+'}</span>
-                  </button>
-
-                  {isOpen && (
-                    <div className="coach-card-body">
-                      {c.fullBio && (
-                        <div className="rtf-content" dangerouslySetInnerHTML={{ __html: c.fullBio }} />
-                      )}
-                      {qualificationsList.length > 0 && (
-                        <div className="coach-qualifications">
-                          <h3>Qualifications</h3>
-                          <ul>
-                            {qualificationsList.map((q, i) => <li key={i}>{q}</li>)}
-                          </ul>
-                        </div>
-                      )}
+                <div className={`coach-rtf-wrap${expanded ? ' expanded' : ''}`}>
+                  {coach.fullBio && (
+                    <div className="rtf-content" dangerouslySetInnerHTML={{ __html: coach.fullBio }} />
+                  )}
+                  {qualificationsList.length > 0 && (
+                    <div className="coach-qualifications">
+                      <h3>Qualifications</h3>
+                      <ul>
+                        {qualificationsList.map((q, i) => <li key={i}>{q}</li>)}
+                      </ul>
                     </div>
                   )}
                 </div>
-              );
-            })}
+
+                {(coach.fullBio || qualificationsList.length > 0) && (
+                  <button className="coach-expand-btn" onClick={() => setExpanded(prev => !prev)}>
+                    {expanded ? 'Show less ↑' : 'Read more ↓'}
+                  </button>
+                )}
+              </div>
+
+              {coaches.length > 1 && (
+                <>
+                  <button className="training-arrow training-arrow-prev" onClick={goPrev} aria-label="Previous coach">‹</button>
+                  <button className="training-arrow training-arrow-next" onClick={goNext} aria-label="Next coach">›</button>
+                </>
+              )}
+            </div>
+
+            {coaches.length > 1 && (
+              <div className="training-dots">
+                {coaches.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`training-dot${i === current ? ' active' : ''}`}
+                    onClick={() => goTo(i)}
+                    aria-label={`Coach ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
 
-        {/* JC Tribute — its own static section */}
+        {/* JC Tribute — old logo lives here per Tessa's request. Kept as its
+            own static section, same as Program Structure on the Programs page. */}
         <div className="coaches-jc-tribute">
           <div className="jc-logo">
             <img src={citcLogoIcon} alt="CITC legacy logo" className="jc-logo-img" />

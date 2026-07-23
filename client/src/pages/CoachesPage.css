@@ -1,12 +1,12 @@
 .coaches-page {
-  max-width: 1000px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: calc(var(--nav-height) + 16px) 24px 100px;
 }
 
 .coaches-page-hero {
   text-align: center;
-  margin-bottom: 44px;
+  margin-bottom: 48px;
 }
 
 .coaches-eyebrow {
@@ -23,148 +23,190 @@
   margin: 12px 0 0;
 }
 
-/* ── Coach cards — photo, caption with name/role + toggle, expanding bio ── */
-.coaches-grid {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 48px;
-}
-
-.coach-card {
-  flex: 1 1 240px;
-  min-width: 220px;
-  max-width: 320px;
-}
-
-.coach-card-photo {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 14px;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--citc-purple-light) 0%, #ece3f9 100%);
-}
-
-.coach-card-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-  display: block;
-}
-
-.coaches-photo-noimg {
-  width: 100%;
-  height: 100%;
-  color: var(--citc-purple);
-  font-weight: 800;
-  font-size: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.coach-card-caption {
-  width: 100%;
-  background: none;
-  border: none;
-  border-top: 1px solid #eee;
-  margin-top: 14px;
-  padding: 14px 0 4px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  cursor: pointer;
-  text-align: left;
-}
-
-.coach-card-text {
+/* ── Carousel ── */
+.coaches-carousel {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
 }
 
-.coach-card-name {
-  font-size: 17px;
+.coach-full-card {
+  position: relative;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eee;
+  border-top: 4px solid var(--citc-purple);
+  border-radius: 20px;
+  padding: 48px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.coach-full-photo {
+  width: 220px;
+  height: 220px;
+  border-radius: 16px;
+  object-fit: cover;
+  object-position: center 15%;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.coach-full-av-lg {
+  width: 220px;
+  height: 220px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--citc-purple-light) 0%, #ece3f9 100%);
+  color: var(--citc-purple);
   font-weight: 800;
-  color: #1a1a1a;
-  line-height: 1.25;
-}
-
-.coach-card-role {
-  color: var(--citc-purple);
-  font-weight: 600;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
-
-.coach-card-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--citc-purple-light);
-  color: var(--citc-purple);
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.coach-card.open .coach-card-icon {
-  background: var(--citc-purple);
-  color: #fff;
+.coach-full-body {
+  flex: 1;
+  min-width: 0;
 }
 
-.coach-card-body {
-  padding: 16px 0 4px;
-  animation: coachAccordionIn 0.25s ease;
+.coach-full-name {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0;
+  color: #1a1a1a;
 }
 
-@keyframes coachAccordionIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+.coach-full-role {
+  display: inline-block;
+  color: var(--citc-purple);
+  background: var(--citc-purple-light);
+  font-weight: 700;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin: 10px 0 20px;
 }
 
-.coach-card-body .rtf-content {
+/* Collapsed by default, same pattern as Training Programs */
+.coach-rtf-wrap {
+  max-height: 180px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.35s ease;
+}
+.coach-rtf-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+  pointer-events: none;
+}
+.coach-rtf-wrap.expanded {
+  max-height: 3000px;
+}
+.coach-rtf-wrap.expanded::after {
+  display: none;
+}
+
+.coach-full-card .rtf-content {
   color: #3a3a3a;
   line-height: 1.75;
-  font-size: 15px;
+  font-size: 15.5px;
 }
 
 .coach-qualifications {
-  margin-top: 18px;
-  padding-top: 16px;
+  margin-top: 24px;
+  padding-top: 22px;
   border-top: 1px solid #f0f0f0;
 }
 
 .coach-qualifications h3 {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--citc-purple);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .coach-qualifications ul {
   margin: 0;
   padding-left: 20px;
   color: #444;
-  font-size: 14px;
-  line-height: 1.85;
+  font-size: 14.5px;
+  line-height: 1.9;
 }
 
-/* ── John Cannon legacy tribute ── */
+.coach-expand-btn {
+  display: block;
+  margin: 16px 0 0;
+  background: none;
+  border: none;
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+.coach-expand-btn:hover { text-decoration: underline; }
+
+/* ── Arrows + dots — same visual language as Training Programs carousel ── */
+.training-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #eee;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--citc-purple);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+.training-arrow:hover { background: #fff; }
+.training-arrow-prev { left: 14px; }
+.training-arrow-next { right: 14px; }
+
+.training-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 22px;
+}
+.training-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+.training-dot.active {
+  background: var(--citc-purple);
+  transform: scale(1.25);
+}
+
+/* ── John Cannon legacy tribute — kept as its own static section ── */
 .coaches-jc-tribute {
   display: flex;
   align-items: center;
   gap: 28px;
-  margin-top: 56px;
+  margin-top: 48px;
   padding: 36px;
   background: linear-gradient(135deg, #f9f8fc 0%, #f3eafd 100%);
   border-radius: 16px;
@@ -192,7 +234,12 @@
   margin: 0;
 }
 
+@media (max-width: 800px) {
+  .coach-full-card { flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; }
+  .coach-full-photo, .coach-full-av-lg { width: 160px; height: 160px; }
+  .training-arrow { width: 44px; height: 44px; font-size: 22px; }
+}
+
 @media (max-width: 640px) {
   .coaches-jc-tribute { flex-direction: column; text-align: center; }
-  .coach-card { flex: 1 1 100%; max-width: 100%; }
 }
