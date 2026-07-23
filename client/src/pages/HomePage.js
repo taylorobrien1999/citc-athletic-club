@@ -214,7 +214,7 @@ export default function HomePage() {
                 )}
                 <div className="coach-name">{c.name}</div>
                 <div className="coach-role">{c.role || 'Coach'}</div>
-                <p className="coach-detail">{c.homepageSummary}</p>
+                <div className="coach-detail rtf-content" dangerouslySetInnerHTML={{ __html: c.homepageSummary }} />
               </Link>
             ))}
           </div>
@@ -254,15 +254,15 @@ export default function HomePage() {
               : <>Start Your<br />Journey</>
             }
           </h2>
-          <p className="cta-sub">
-            {siteContent.home_cta_sub || (
-              <>
-                New athletes and parents are invited to submit a Registration Inquiry — a coach
-                will follow up within 48 hours to discuss the best training option for you. A
-                valid Athletics Alberta membership is required before your first session.
-              </>
-            )}
-          </p>
+          {siteContent.home_cta_sub ? (
+            <div className="cta-sub rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.home_cta_sub }} />
+          ) : (
+            <p className="cta-sub">
+              New athletes and parents are invited to submit a Registration Inquiry — a coach
+              will follow up within 48 hours to discuss the best training option for you. A
+              valid Athletics Alberta membership is required before your first session.
+            </p>
+          )}
           <div className="cta-btns">
             <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
             <Link to="/contact" className="btn-outline-dark">Contact Us</Link>

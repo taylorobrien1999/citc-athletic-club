@@ -24,10 +24,10 @@ const CATEGORIES = [
       { key: 'home_program_sprint_image', label: 'Sprint Program Card Photo', type: 'image' },
       { key: 'home_program_hurdles_image', label: 'Hurdles Program Card Photo', type: 'image' },
       { key: 'home_program_middledistance_image', label: 'Middle Distance Program Card Photo', type: 'image' },
-      { key: 'home_about_text', label: 'About Section Text (replaces both paragraphs)', type: 'text' },
-      { key: 'jc_tribute_text', label: "Coach John Cannon Tribute (shared — updates both the Homepage and the Coaches page automatically)", type: 'text' },
-      { key: 'home_cta_title', label: 'Bottom CTA Headline (shown on Home, Coaches, Programs, and other pages)', type: 'text' },
-      { key: 'home_cta_sub', label: 'Bottom CTA Body Text (shown on Home, Coaches, Programs, and other pages)', type: 'text' },
+      { key: 'home_about_text', label: 'About Section Text', type: 'text' },
+      { key: 'jc_tribute_text', label: 'Coach John Cannon Tribute', type: 'text' },
+      { key: 'home_cta_title', label: 'Bottom CTA Headline', type: 'text' },
+      { key: 'home_cta_sub', label: 'Bottom CTA Body Text', type: 'text' },
     ],
   },
   {
@@ -106,7 +106,18 @@ export default function AdminSiteContentPage() {
   const handleSave = async (row) => {
     setError(''); setSuccess(''); setSavingKey(row.contentKey);
     try {
-      const cleanedValue = row.type === 'text' ? cleanRichText(row.value) : row.value;
+      let cleanedValue = row.type === 'text' ? cleanRichText(row.value) : row.value;
+
+      // Quill saves a "deleted" field as something like "<p><br></p>" — not
+      // a true empty string — so the "|| default" fallback on public pages
+      // never triggers. Detect that and save a genuine empty string instead.
+      if (row.type === 'text' && cleanedValue) {
+        const temp = document.createElement('div');
+        temp.innerHTML = cleanedValue;
+        const textOnly = (temp.textContent || '').trim();
+        if (!textOnly) cleanedValue = '';
+      }
+
       const res = await fetch(`${API_URL}/api/site-content/${row.contentKey}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },

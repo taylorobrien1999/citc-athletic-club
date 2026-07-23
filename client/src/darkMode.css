@@ -54,7 +54,7 @@
   background: #1e1e2a !important; border-color: #303040 !important;
 }
 [data-theme="dark"] .prog-title, [data-theme="dark"] .coach-name { color: #f5f5fa !important; }
-[data-theme="dark"] .prog-desc, [data-theme="dark"] .coach-role { color: #a8a8c0 !important; }
+[data-theme="dark"] .prog-desc, [data-theme="dark"] .coach-role, [data-theme="dark"] .coach-detail { color: #a8a8c0 !important; }
 
 [data-theme="dark"] .coaches-jc-tribute {
   background: linear-gradient(135deg, #1e1e2a 0%, #22203a 100%) !important;
