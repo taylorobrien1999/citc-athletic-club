@@ -7,30 +7,6 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 const SELECTED_STATEMENT =
   "In the habit of excellence—developing champions in sport and leaders in life.";
 
-// eslint-disable-next-line no-unused-vars
-const ALL_OPTIONS = [
-  {
-    label: 'Excellence-Focused',
-    text: 'To develop disciplined, high-performing athletes by fostering a culture of teamwork, integrity, and competitive excellence—on and off the track.',
-  },
-  {
-    label: 'Access & Opportunity Focused',
-    text: 'To make high-performance track and field accessible to athletes of all backgrounds, empowering them to pursue excellence through expert coaching, character development, and opportunity.',
-  },
-  {
-    label: 'Athlete Development Focused',
-    text: "To maximize every athlete's potential through structured training, mentorship, and a commitment to personal growth, sportsmanship, and lifelong success.",
-  },
-  {
-    label: 'Community & Legacy Focused',
-    text: 'To build a legacy of excellence in Canadian athletics by developing principled competitors, strengthening community partnerships, and inspiring the next generation of track and field athletes.',
-  },
-  {
-    label: 'Short & Powerful',
-    text: 'In the habit of excellence—developing champions in sport and leaders in life.',
-  },
-];
-
 const DEI_PARAGRAPHS = [
   "Our track and field program is committed to creating an environment where every athlete feels valued, respected, and supported in reaching their full potential.",
   "We believe that diversity strengthens our team. We welcome athletes of all backgrounds, identities, and experiences, and recognize that each individual brings unique strengths that contribute to our collective success.",
@@ -67,12 +43,6 @@ export default function MissionPage() {
         <h1 className="mission-title">Our Mission</h1>
       </div>
 
-      <div className="mission-statement-card">
-        <div className="mission-statement-text">
-          "<span dangerouslySetInnerHTML={{ __html: displayedStatement }} />"
-        </div>
-      </div>
-
       <div className="mission-card">
         {displayedDeiText ? (
           <div className="rtf-content" dangerouslySetInnerHTML={{ __html: displayedDeiText }} />
@@ -92,6 +62,12 @@ export default function MissionPage() {
             </p>
           </>
         )}
+      </div>
+
+      <div className="mission-statement-card">
+        <div className="mission-statement-text">
+          <span dangerouslySetInnerHTML={{ __html: displayedStatement }} />
+        </div>
       </div>
     </div>
     <ClosingCTA />

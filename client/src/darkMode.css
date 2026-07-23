@@ -541,3 +541,9 @@
 /* ── Member Dashboard: remaining missing icon/symbol coverage ── */
 [data-theme="dark"] .dash-heading-icon { color: #C4B5FD !important; }
 [data-theme="dark"] .dash-meta-location { color: #9a9ab0 !important; }
+
+/* ── Mission page: heading icon + pill-style commitment cards (new) ── */
+[data-theme="dark"] .mission-heading-icon { color: #C4B5FD !important; }
+[data-theme="dark"] .mission-commitment-card { background: #2a2340 !important; }
+[data-theme="dark"] .mission-commitment-card svg { color: #C4B5FD !important; }
+[data-theme="dark"] .mission-commitment-card span { color: #e0d4fc !important; }
