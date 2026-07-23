@@ -418,3 +418,86 @@
   background: #A78BFA !important;
   color: #14141c !important;
 }
+
+/* ── Coaches carousel (new elements from the redesign) ── */
+[data-theme="dark"] .coach-full-av-lg {
+  background: linear-gradient(135deg, #2a2340 0%, #22203a 100%) !important;
+  color: #C4B5FD !important;
+}
+[data-theme="dark"] .coach-rtf-wrap::after {
+  background: linear-gradient(to bottom, rgba(30,30,42,0), #1e1e2a) !important;
+}
+[data-theme="dark"] .coach-expand-btn { color: #C4B5FD !important; }
+
+/* ── Coaches: photo-row + expand panel (new design) ── */
+[data-theme="dark"] .coach-tile { box-shadow: 0 4px 18px rgba(0,0,0,0.3) !important; }
+[data-theme="dark"] .coach-tile-noimg {
+  background: linear-gradient(135deg, #2a2340 0%, #22203a 100%) !important;
+  color: #C4B5FD !important;
+}
+[data-theme="dark"] .coach-tile-plus { background: rgba(30,30,42,0.9) !important; color: #C4B5FD !important; }
+
+[data-theme="dark"] .coach-detail-panel { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .coach-detail-inner h2 { color: #f5f5fa !important; }
+[data-theme="dark"] .coach-detail-role { color: #C4B5FD !important; background: #2a2340 !important; }
+[data-theme="dark"] .coach-detail-panel .rtf-content { color: #cfcfe0 !important; }
+[data-theme="dark"] .coach-qualifications { border-color: #303040 !important; }
+[data-theme="dark"] .coach-qualifications h3 { color: #C4B5FD !important; }
+[data-theme="dark"] .coach-qualifications ul { color: #cfcfe0 !important; }
+
+/* ── Fix: any custom text color an admin picks via the RTF color picker is a
+   fixed choice — it can't know which theme the visitor is using, so a color
+   that looks fine in light mode (e.g. black) can become invisible in dark
+   mode (or vice versa). Rather than restrict the color picker, force any
+   inline-colored text to just inherit the surrounding dark-mode-safe color
+   instead, wherever rich text content is displayed. Light mode is untouched. ── */
+[data-theme="dark"] .rtf-content span,
+[data-theme="dark"] .rtf-content strong,
+[data-theme="dark"] .rtf-content em,
+[data-theme="dark"] .rtf-content b,
+[data-theme="dark"] .rtf-content i,
+[data-theme="dark"] .rtf-content u {
+  color: inherit !important;
+}
+
+/* ── Coach detail panel: repeated identity photo/avatar ── */
+[data-theme="dark"] .coach-detail-avatar { border-color: #2a2340 !important; }
+[data-theme="dark"] .coach-detail-avatar-fallback {
+  background: #2a2340 !important;
+  color: #C4B5FD !important;
+}
+
+/* ── Coaches: modest photo circles + modal (new design) ── */
+[data-theme="dark"] .coach-circle-noimg {
+  background: linear-gradient(135deg, #2a2340 0%, #22203a 100%) !important;
+  color: #C4B5FD !important;
+}
+[data-theme="dark"] .coach-circle-name { color: #f5f5fa !important; }
+[data-theme="dark"] .coach-circle-role { color: #C4B5FD !important; }
+
+[data-theme="dark"] .coach-modal { background: #1e1e2a !important; }
+[data-theme="dark"] .coach-modal-close { background: #22222e !important; color: #cfcfe0 !important; }
+[data-theme="dark"] .coach-modal-close:hover { background: #2a2340 !important; color: #C4B5FD !important; }
+[data-theme="dark"] .coach-modal-header h2 { color: #f5f5fa !important; }
+[data-theme="dark"] .coach-modal-role { color: #C4B5FD !important; background: #2a2340 !important; }
+[data-theme="dark"] .coach-modal-photo-fallback { background: #2a2340 !important; color: #C4B5FD !important; }
+[data-theme="dark"] .coach-modal-body .rtf-content { color: #cfcfe0 !important; }
+[data-theme="dark"] .coach-qualifications { border-color: #303040 !important; }
+[data-theme="dark"] .coach-qualifications h3 { color: #C4B5FD !important; }
+[data-theme="dark"] .coach-qualifications ul { color: #cfcfe0 !important; }
+
+/* ── Coaches: photo row + accordion (Sabi-inspired rebuild) ── */
+[data-theme="dark"] .coaches-photo-noimg {
+  background: linear-gradient(135deg, #2a2340 0%, #22203a 100%) !important;
+  color: #C4B5FD !important;
+}
+[data-theme="dark"] .coaches-accordion { border-color: #303040 !important; }
+[data-theme="dark"] .coach-accordion-item { border-color: #303040 !important; }
+[data-theme="dark"] .coach-accordion-name { color: #f5f5fa !important; }
+[data-theme="dark"] .coach-accordion-role { color: #C4B5FD !important; }
+[data-theme="dark"] .coach-accordion-icon { background: #2a2340 !important; color: #C4B5FD !important; }
+[data-theme="dark"] .coach-accordion-item.open .coach-accordion-icon { background: #C4B5FD !important; color: #14141c !important; }
+[data-theme="dark"] .coach-accordion-body .rtf-content { color: #cfcfe0 !important; }
+[data-theme="dark"] .coach-qualifications { border-color: #303040 !important; }
+[data-theme="dark"] .coach-qualifications h3 { color: #C4B5FD !important; }
+[data-theme="dark"] .coach-qualifications ul { color: #cfcfe0 !important; }

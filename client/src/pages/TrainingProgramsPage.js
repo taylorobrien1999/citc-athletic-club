@@ -57,8 +57,10 @@ export default function TrainingProgramsPage() {
               )}
 
               <div className="training-program-body">
-                <h2>{prog.name}</h2>
-                {prog.ageGroup && <p className="training-program-agegroup">{prog.ageGroup}</p>}
+                <div className="training-program-title-row">
+                  <h2>{prog.name}</h2>
+                  {prog.ageGroup && <span className="training-program-agegroup">{prog.ageGroup}</span>}
+                </div>
 
                 <div className={`training-rtf-wrap${expanded ? ' expanded' : ''}`}>
                   <div className="rtf-content" dangerouslySetInnerHTML={{ __html: prog.description }} />

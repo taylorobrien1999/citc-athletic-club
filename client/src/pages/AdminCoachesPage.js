@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
+import RichTextEditor from '../components/RichTextEditor';
+import { cleanRichText } from '../utils/htmlUtils';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -39,13 +41,18 @@ export default function AdminCoachesPage() {
     e.preventDefault();
     setError(''); setSuccess(''); setSubmitting(true);
     try {
+      const cleanedForm = {
+        ...form,
+        homepageSummary: cleanRichText(form.homepageSummary),
+        fullBio: cleanRichText(form.fullBio),
+      };
       const url = editingId ? `${API_URL}/api/team-coaches/${editingId}` : `${API_URL}/api/team-coaches`;
       const method = editingId ? 'PATCH' : 'POST';
 
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify(form),
+        body: JSON.stringify(cleanedForm),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.message || 'Failed to save coach.'); return; }
@@ -124,11 +131,19 @@ export default function AdminCoachesPage() {
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Homepage Summary (short teaser — separate from the full bio)</label>
-          <textarea name="homepageSummary" value={form.homepageSummary} onChange={handleChange} placeholder="One or two sentences for the homepage card..." rows={2} />
+          <RichTextEditor
+            value={form.homepageSummary}
+            onChange={(html) => setForm(prev => ({ ...prev, homepageSummary: html }))}
+            placeholder="One or two sentences for the homepage card..."
+          />
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Full Bio (shown on the Coaches page)</label>
-          <textarea name="fullBio" value={form.fullBio} onChange={handleChange} placeholder="Full biography..." rows={5} />
+          <RichTextEditor
+            value={form.fullBio}
+            onChange={(html) => setForm(prev => ({ ...prev, fullBio: html }))}
+            placeholder="Full biography..."
+          />
         </div>
         <div className="admin-cms-field admin-cms-form-full">
           <label>Qualifications (one per line)</label>

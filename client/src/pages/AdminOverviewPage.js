@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { NavLink } from 'react-router-dom';
+import { parseLocalDate } from '../utils/dateUtils';
 import './AdminOverviewPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -48,8 +49,8 @@ export default function AdminOverviewPage() {
 
         const today = new Date(); today.setHours(0, 0, 0, 0);
         const upcoming = events
-          .filter(ev => new Date(ev.eventDate) >= today)
-          .sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate))
+          .filter(ev => parseLocalDate(ev.eventDate) >= today)
+          .sort((a, b) => parseLocalDate(a.eventDate) - parseLocalDate(b.eventDate))
           .slice(0, 3);
         setUpcomingEvents(upcoming);
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { parseLocalDate } from '../utils/dateUtils';
 import './TrackMeetsPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -37,7 +38,7 @@ export default function TrackMeetsPage() {
       .then(res => res.json())
       .then(data => {
         const today = new Date(); today.setHours(0, 0, 0, 0);
-        const upcoming = (data.events || []).filter(ev => new Date(ev.eventDate) >= today);
+        const upcoming = (data.events || []).filter(ev => parseLocalDate(ev.eventDate) >= today);
         setUpcomingEvents(upcoming);
       })
       .catch(() => {})
