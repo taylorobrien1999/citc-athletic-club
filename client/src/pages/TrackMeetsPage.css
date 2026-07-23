@@ -177,3 +177,11 @@
   align-items: center;
   gap: 6px;
 }
+
+/* Fixed-height scroll box, same pattern as the Member Dashboard, so this
+   list never elongates the page regardless of how many meets exist */
+.meets-scroll-box {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}

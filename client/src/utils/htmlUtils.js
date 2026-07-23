@@ -13,5 +13,20 @@ export function stripHtml(html) {
 // the editor to freeze on paste.
 export function cleanRichText(html) {
   if (!html) return html;
-  return html.replace(/&nbsp;/g, ' ').replace(/\u00A0/g, ' ');
+  let cleaned = html.replace(/&nbsp;/g, ' ').replace(/\u00A0/g, ' ');
+
+  // Strip any inline background-color, which is what actually caused the
+  // "white highlight" on pasted text (Word/Google Docs/browsers often bake
+  // a background style into copied HTML). This is a retroactive safety net
+  // for content pasted before the editor's paste-fix existed — new pastes
+  // are already cleaned at paste time, but old saved content needs this
+  // to be cleaned the next time it's edited and saved.
+  const temp = document.createElement('div');
+  temp.innerHTML = cleaned;
+  temp.querySelectorAll('[style]').forEach((el) => {
+    el.style.removeProperty('background');
+    el.style.removeProperty('background-color');
+    if (!el.getAttribute('style')) el.removeAttribute('style');
+  });
+  return temp.innerHTML;
 }

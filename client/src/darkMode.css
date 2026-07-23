@@ -509,7 +509,7 @@
 /* ── Member Dashboard: View All, collapse/expand, members-only tag ── */
 [data-theme="dark"] .dash-view-all-btn { border-color: #C4B5FD !important; color: #C4B5FD !important; }
 [data-theme="dark"] .dash-view-all-btn:hover { background: #2a2340 !important; }
-[data-theme="dark"] .dash-rtf-wrap::after {
+[data-theme="dark"] .dash-rtf-wrap.needs-fade::after {
   background: linear-gradient(to bottom, rgba(30,30,42,0), #1e1e2a) !important;
 }
 [data-theme="dark"] .dash-readmore-link { color: #C4B5FD !important; }
@@ -520,3 +520,20 @@
   background: linear-gradient(to bottom, rgba(30,30,42,0), #1e1e2a) !important;
 }
 [data-theme="dark"] .news-readmore-link { color: #C4B5FD !important; }
+
+/* ── Track Meets: full dark mode coverage (verified against real classes) ── */
+[data-theme="dark"] .meets-upcoming-card {
+  background: linear-gradient(135deg, #1e1e2a 0%, #22203a 100%) !important;
+  border-color: #303040 !important;
+}
+[data-theme="dark"] .meets-upcoming-label { color: #C4B5FD !important; }
+[data-theme="dark"] .meets-upcoming-item { background: #22222e !important; }
+[data-theme="dark"] .meets-upcoming-name { color: #f5f5fa !important; }
+[data-theme="dark"] .meets-upcoming-location { color: #9a9ab0 !important; }
+[data-theme="dark"] .meets-season-card { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .meets-season-card h2 { color: #C4B5FD !important; }
+[data-theme="dark"] .meets-heading-icon { color: #C4B5FD !important; }
+[data-theme="dark"] .meets-list-item { border-color: #303040 !important; }
+[data-theme="dark"] .meets-list-name { color: #e0e0ec !important; }
+[data-theme="dark"] .meets-list-when { background: #2a2340 !important; color: #C4B5FD !important; }
+[data-theme="dark"] .meets-season-card .rtf-content { color: #cfcfe0 !important; }

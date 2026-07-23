@@ -21,16 +21,32 @@ export default function RichTextEditor({ value, onChange, placeholder }) {
 
   // Sanitize pasted content using Quill's public, stable clipboard matcher
   // API (not an internal method override, which broke on this Quill
-  // version's different method signature). Converts non-breaking spaces
-  // to normal breakable spaces, so pasted text — from Word, Google Docs,
-  // or anywhere else — never locks up line-wrapping.
+  // version's different method signature).
   useEffect(() => {
     if (!quillRef.current) return;
     const editor = quillRef.current.getEditor();
+
+    // Fix 1: convert non-breaking spaces to normal breakable spaces, so
+    // pasted text never locks up line-wrapping.
     editor.clipboard.addMatcher(Node.TEXT_NODE, (node, delta) => {
       delta.ops.forEach((op) => {
         if (typeof op.insert === 'string') {
           op.insert = op.insert.replace(/\u00A0/g, ' ');
+        }
+      });
+      return delta;
+    });
+
+    // Fix 2: strip any background-color carried over from the paste source.
+    // Word, Google Docs, and even browser copy from a webpage frequently
+    // bake an inline "background: white" (or similar) into the copied
+    // HTML — this is what actually caused the "white highlight" sitting
+    // over pasted text, not a display bug. Only "background" is stripped;
+    // legitimate formatting like bold/italic/links/lists is untouched.
+    editor.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+      delta.ops.forEach((op) => {
+        if (op.attributes && op.attributes.background) {
+          delete op.attributes.background;
         }
       });
       return delta;

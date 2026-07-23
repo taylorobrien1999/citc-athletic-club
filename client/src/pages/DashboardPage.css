@@ -416,11 +416,11 @@
   position: relative;
   transition: max-height 0.3s ease;
 }
-.dash-rtf-wrap::after {
+.dash-rtf-wrap.needs-fade::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 36px;
+  height: 30px;
   background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
   pointer-events: none;
 }

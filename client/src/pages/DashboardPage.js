@@ -21,6 +21,21 @@ export default function DashboardPage() {
   const toggleAnnouncementExpanded = (id) =>
     setExpandedAnnouncementIds(prev => ({ ...prev, [id]: !prev[id] }));
 
+  // Detects whether each announcement's real content actually overflows the
+  // collapsed height — the fade overlay should only appear when genuinely
+  // needed, otherwise short announcements show a decorative "highlight"
+  // sitting over text that was never actually being clipped.
+  const [overflowingIds, setOverflowingIds] = useState({});
+  const bodyRefs = useState(() => ({}))[0];
+
+  useEffect(() => {
+    const next = {};
+    Object.entries(bodyRefs).forEach(([id, el]) => {
+      if (el && el.scrollHeight > el.clientHeight + 2) next[id] = true;
+    });
+    setOverflowingIds(next);
+  }, [announcements]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Profile edit state
   const [editingProfile, setEditingProfile] = useState(false);
   const [profileForm, setProfileForm] = useState({
@@ -156,20 +171,28 @@ export default function DashboardPage() {
 
                     {isPublic ? (
                       <>
-                        <div className="dash-rtf-wrap">
+                        <div
+                          className={`dash-rtf-wrap${overflowingIds[a.id] ? ' needs-fade' : ''}`}
+                          ref={(el) => { bodyRefs[a.id] = el; }}
+                        >
                           <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
                         </div>
                         <Link to="/news" className="dash-readmore-link">Read more on News →</Link>
                       </>
                     ) : (
                       <>
-                        <div className={`dash-rtf-wrap${isExpanded ? ' expanded' : ''}`}>
+                        <div
+                          className={`dash-rtf-wrap${isExpanded ? ' expanded' : overflowingIds[a.id] ? ' needs-fade' : ''}`}
+                          ref={(el) => { bodyRefs[a.id] = el; }}
+                        >
                           <div className="rtf-content" dangerouslySetInnerHTML={{ __html: a.body }} />
                         </div>
                         <div className="dash-announcement-footer">
-                          <button className="dash-readmore-link" onClick={() => toggleAnnouncementExpanded(a.id)}>
-                            {isExpanded ? 'Show less ↑' : 'Read more ↓'}
-                          </button>
+                          {overflowingIds[a.id] && (
+                            <button className="dash-readmore-link" onClick={() => toggleAnnouncementExpanded(a.id)}>
+                              {isExpanded ? 'Show less ↑' : 'Read more ↓'}
+                            </button>
+                          )}
                           <span className="dash-members-tag">Members Only</span>
                         </div>
                         {isExpanded && (
