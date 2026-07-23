@@ -381,10 +381,20 @@
    items exist (even hypothetically 100), scrolling internally instead of
    growing the whole page. Applies to Announcements, Schedule, and Resources. */
 .dash-scroll-box {
-  max-height: 380px;
   overflow-y: auto;
   padding-right: 4px;
 }
+
+/* Announcements include images + longer text, so this restores roughly the
+   original unbounded feel while still capping for very long lists */
+.dash-announcement-list.dash-scroll-box { max-height: 640px; }
+
+/* Schedule rows are a similar height to what was already confirmed working */
+.dash-event-list.dash-scroll-box { max-height: 380px; }
+
+/* Resource rows are compact — a shorter cap so scrolling actually kicks in
+   at a similar few-item threshold instead of needing 10+ items first */
+.dash-resource-list.dash-scroll-box { max-height: 260px; }
 
 .dash-announcement-footer {
   display: flex;
