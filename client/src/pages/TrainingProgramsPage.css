@@ -1,5 +1,5 @@
 .training-page {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   padding: calc(var(--nav-height) + 24px) 24px 100px;
 }
@@ -34,7 +34,7 @@
   border-radius: 18px;
   padding: 40px;
   box-shadow: 0 4px 20px rgba(91, 33, 182, 0.06);
-  margin-bottom: 56px;
+  margin-top: 56px;
   text-align: center;
 }
 
@@ -73,47 +73,26 @@
   border-radius: 999px;
 }
 
-/* ── Programs — alternating feature-row layout. A single column that never
-   produces an orphaned/lonely card regardless of how many programs exist,
-   and gives this much text (paragraphs + lists) proper room to read. ── */
-.training-programs-list {
+/* ── Program carousel ── */
+.training-carousel {
   display: flex;
   flex-direction: column;
-  gap: 44px;
+  align-items: center;
 }
 
 .training-program-card {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 0;
+  position: relative;
+  width: 100%;
   background: #fff;
   border: 1px solid #eee;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
-  transition: box-shadow 0.22s ease;
-}
-
-.training-program-card:hover {
-  box-shadow: 0 10px 28px rgba(0,0,0,0.09);
-}
-
-/* Reverse the visual order on alternating rows for rhythm, without
-   changing the underlying markup/DOM order */
-.training-program-card--reverse {
-  grid-template-columns: 1.2fr 1fr;
-}
-.training-program-card--reverse .training-program-media { order: 2; }
-.training-program-card--reverse .training-program-body { order: 1; }
-
-.training-program-media {
-  position: relative;
-  min-height: 280px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.07);
 }
 
 .training-program-img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 8;
   object-fit: cover;
   object-position: center 20%;
   display: block;
@@ -121,30 +100,24 @@
 
 .training-program-card-noimg {
   width: 100%;
-  height: 100%;
-  min-height: 280px;
+  aspect-ratio: 16 / 8;
   background: linear-gradient(135deg, #f3eafd 0%, #ece3f9 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--citc-purple);
   font-weight: 800;
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  text-align: center;
-  padding: 20px;
 }
 
 .training-program-body {
-  padding: 36px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 32px 40px 36px;
 }
 
 .training-program-card h2 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
   margin: 0 0 8px;
   color: #1a1a1a;
@@ -158,8 +131,30 @@
   font-size: 12px !important;
   padding: 4px 12px;
   border-radius: 999px;
-  margin: 0 0 16px !important;
-  align-self: flex-start;
+  margin: 0 0 18px !important;
+}
+
+/* Collapsed by default: clips content with a soft fade-out at the bottom,
+   signaling there's more without abruptly cutting text off */
+.training-rtf-wrap {
+  max-height: 160px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.35s ease;
+}
+.training-rtf-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+  pointer-events: none;
+}
+.training-rtf-wrap.expanded {
+  max-height: 2000px;
+}
+.training-rtf-wrap.expanded::after {
+  display: none;
 }
 
 .training-program-card .rtf-content {
@@ -184,6 +179,65 @@
   line-height: 1.85;
 }
 
+.training-expand-btn {
+  display: block;
+  margin: 14px auto 0;
+  background: none;
+  border: none;
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+.training-expand-btn:hover { text-decoration: underline; }
+
+/* ── Arrows ── */
+.training-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #eee;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--citc-purple);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+.training-arrow:hover { background: #fff; }
+.training-arrow-prev { left: 14px; }
+.training-arrow-next { right: 14px; }
+
+/* ── Dot indicators — same visual language as the Homepage hero slideshow ── */
+.training-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.training-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+.training-dot.active {
+  background: var(--citc-purple);
+  transform: scale(1.25);
+}
+
 .training-additional-heading {
   font-size: 28px;
   font-weight: 800;
@@ -193,28 +247,8 @@
   text-align: center;
 }
 
-.training-program-closing {
-  font-style: italic;
-  color: #666 !important;
-  border-top: 1px solid #f0f0f0;
-  padding-top: 14px;
-  margin-top: 8px !important;
-  font-size: 13.5px !important;
-}
-
-@media (max-width: 800px) {
-  .training-program-card,
-  .training-program-card--reverse {
-    grid-template-columns: 1fr;
-  }
-  .training-program-card--reverse .training-program-media,
-  .training-program-card--reverse .training-program-body {
-    order: initial;
-  }
-  .training-program-media { min-height: 220px; }
-  .training-program-body { padding: 28px 24px; }
-}
-
 @media (max-width: 640px) {
   .training-structure-card { padding: 28px 22px; }
+  .training-program-body { padding: 24px 22px 28px; }
+  .training-arrow { width: 36px; height: 36px; font-size: 20px; }
 }

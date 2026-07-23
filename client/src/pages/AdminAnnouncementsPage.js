@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
 import RichTextEditor from '../components/RichTextEditor';
+import { stripHtml, cleanRichText } from '../utils/htmlUtils';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -38,11 +39,12 @@ export default function AdminAnnouncementsPage() {
     e.preventDefault();
     setError(''); setSuccess(''); setSubmitting(true);
     try {
+      const cleanedForm = { ...form, body: cleanRichText(form.body) };
       const url = editingId ? `${API_URL}/api/announcements/${editingId}` : `${API_URL}/api/announcements`;
       const method = editingId ? 'PATCH' : 'POST';
       const body = editingId
-        ? form
-        : { ...form, postedBy: `${user?.firstName || ''} ${user?.lastName || ''}`.trim() };
+        ? cleanedForm
+        : { ...cleanedForm, postedBy: `${user?.firstName || ''} ${user?.lastName || ''}`.trim() };
 
       const res = await fetch(url, {
         method,
@@ -133,7 +135,7 @@ export default function AdminAnnouncementsPage() {
               {announcements.map((a) => (
                 <tr key={a.id}>
                   <td>{a.title}</td>
-                  <td>{a.body.replace(/<[^>]+>/g, ' ').trim().slice(0, 80)}{a.body.replace(/<[^>]+>/g, '').length > 80 ? '...' : ''}</td>
+                  <td>{(() => { const clean = stripHtml(a.body); return clean.length > 80 ? clean.slice(0, 80) + '...' : clean; })()}</td>
                   <td>{a.imageUrl ? <img src={a.imageUrl} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 6 }} /> : '—'}</td>
                   <td>{a.postedBy || '—'}</td>
                   <td>{new Date(a.createdAt).toLocaleDateString()}</td>

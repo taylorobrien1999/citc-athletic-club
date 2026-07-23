@@ -1,0 +1,81 @@
+.cta-section {
+  background: #4C1D95;
+  padding: 7rem 2.5rem;
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.cta-eyebrow {
+  color: #C4B5FD;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.cta-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(44px, 6vw, 64px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+.cta-sub {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+
+.cta-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.closing-cta .btn-primary {
+  background: #D97706;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.closing-cta .btn-primary:hover { background: #B45309; transform: translateY(-2px); text-decoration: none; }
+
+.closing-cta .btn-outline-dark {
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+  display: inline-block;
+}
+.closing-cta .btn-outline-dark:hover { border-color: rgba(255,255,255,0.7); text-decoration: none; }
+
+@media (max-width: 640px) {
+  .cta-section { padding: 4rem 1.25rem; }
+  .cta-btns { flex-direction: column; align-items: center; }
+}

@@ -169,7 +169,7 @@ export default function HomePage() {
           <h2 className="section-title">Built for<br />Complete Athletes</h2>
           <div className="programs-grid">
             {PROGRAMS.map((p) => (
-              <div className="prog-card" key={p.title}>
+              <Link to="/the-club/training" className="prog-card" key={p.title}>
                 <div className="prog-img-wrap">
                   <span className="prog-tag">{p.tag}</span>
                   <img src={siteContent[`home_program_${p.slug}_image`] || p.img} alt={p.title} />
@@ -177,10 +177,13 @@ export default function HomePage() {
                 <div className="prog-body">
                   <div className="prog-title">{p.title}</div>
                   <p className="prog-desc">{p.desc}</p>
-                  <Link to="/the-club/training" className="prog-link">Learn more →</Link>
+                  <span className="prog-link">Learn more →</span>
                 </div>
-              </div>
+              </Link>
             ))}
+          </div>
+          <div className="programs-view-all">
+            <Link to="/the-club/training" className="btn-outline">View All Programs →</Link>
           </div>
         </div>
       </section>
@@ -254,27 +257,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ── FOOTER ───────────────────────────────────────────────────────── */}
-      <footer className="footer">
-        <div className="footer-inner">
-          <div className="footer-brand">
-            <span className="footer-badge">CITC</span>
-            <p className="footer-tag">
-              Calgary International Track Club<br />
-              In the Habit of Excellence since 1993
-            </p>
-          </div>
-          <div className="footer-links">
-            <Link to="/the-club/coaches">Coaches</Link>
-            <Link to="/the-club/training">Programs</Link>
-            <Link to="/membership/fees">Membership</Link>
-            <Link to="/contact">Contact</Link>
-            <a href="https://www.instagram.com/calgaryinternational/" target="_blank" rel="noreferrer">Instagram</a>
-          </div>
-          <p className="footer-copy">© {new Date().getFullYear()} Calgary International Track Club. All rights reserved.</p>
-        </div>
-      </footer>
 
     </main>
   );

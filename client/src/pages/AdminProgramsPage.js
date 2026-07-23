@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
 import RichTextEditor from '../components/RichTextEditor';
+import { stripHtml, cleanRichText } from '../utils/htmlUtils';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -38,13 +39,14 @@ export default function AdminProgramsPage() {
     e.preventDefault();
     setError(''); setSuccess(''); setSubmitting(true);
     try {
+      const cleanedForm = { ...form, description: cleanRichText(form.description) };
       const url = editingId ? `${API_URL}/api/programs/${editingId}` : `${API_URL}/api/programs`;
       const method = editingId ? 'PATCH' : 'POST';
 
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify(form),
+        body: JSON.stringify(cleanedForm),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.message || 'Failed to save program.'); return; }
@@ -136,7 +138,7 @@ export default function AdminProgramsPage() {
                   <td>{p.imageUrl ? <img src={p.imageUrl} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 6 }} /> : '—'}</td>
                   <td>{p.name}</td>
                   <td>{p.ageGroup || '—'}</td>
-                  <td>{p.description.replace(/<[^>]+>/g, ' ').trim().slice(0, 80)}{p.description.replace(/<[^>]+>/g, '').length > 80 ? '...' : ''}</td>
+                  <td>{(() => { const clean = stripHtml(p.description); return clean.length > 80 ? clean.slice(0, 80) + '...' : clean; })()}</td>
                   <td style={{ display: 'flex', gap: 8 }}>
                     <button className="admin-cms-submit" style={{ padding: '5px 12px', fontSize: '0.78rem' }} onClick={() => handleEdit(p)}>Edit</button>
                     <button className="admin-cms-delete-btn" onClick={() => handleDelete(p.id)}>Delete</button>

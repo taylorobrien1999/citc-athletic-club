@@ -394,3 +394,27 @@
   background: linear-gradient(135deg, #22203a 0%, #2a2340 100%) !important;
   color: #C4B5FD !important;
 }
+/* ── Training Programs carousel ── */
+[data-theme="dark"] .training-program-card { background: #1e1e2a !important; border-color: #303040 !important; }
+[data-theme="dark"] .training-rtf-wrap::after {
+  background: linear-gradient(to bottom, rgba(30,30,42,0), #1e1e2a) !important;
+}
+[data-theme="dark"] .training-arrow {
+  background: rgba(30, 30, 42, 0.9) !important;
+  border-color: #3a3a4a !important;
+  color: #C4B5FD !important;
+}
+[data-theme="dark"] .training-arrow:hover { background: #22222e !important; }
+[data-theme="dark"] .training-dot { background: #3a3a4a !important; }
+[data-theme="dark"] .training-dot.active { background: #C4B5FD !important; }
+[data-theme="dark"] .training-expand-btn { color: #C4B5FD !important; }
+
+/* ── Homepage: View All Programs button ── */
+[data-theme="dark"] .programs-view-all .btn-outline {
+  border-color: #A78BFA !important;
+  color: #A78BFA !important;
+}
+[data-theme="dark"] .programs-view-all .btn-outline:hover {
+  background: #A78BFA !important;
+  color: #14141c !important;
+}

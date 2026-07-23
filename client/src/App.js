@@ -10,6 +10,8 @@ import DashboardPage      from './pages/DashboardPage';
 import AdminPage          from './pages/AdminPage';
 import AdminOverviewPage  from './pages/AdminOverviewPage';
 import NavbarGate         from './components/NavbarGate';
+import FooterGate         from './components/FooterGate';
+import ScrollToTop        from './components/ScrollToTop';
 import ContactPage        from './pages/ContactPage';
 import AdminInquiriesPage from './pages/AdminInquiriesPage';
 import CoachesPage        from './pages/CoachesPage';
@@ -41,6 +43,7 @@ function App() {
     <AuthProvider>
       <ThemeProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <NavbarGate />
         <PublicChatWidgetGate />
         <Routes>
@@ -88,6 +91,7 @@ function App() {
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <FooterGate />
       </BrowserRouter>
     </ThemeProvider>
     </AuthProvider>

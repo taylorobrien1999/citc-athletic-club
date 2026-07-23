@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import ReactQuill, { Quill } from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { useAuth } from '../context/AuthContext';
@@ -18,6 +18,24 @@ Quill.register(Font, true);
 export default function RichTextEditor({ value, onChange, placeholder }) {
   const { token } = useAuth();
   const quillRef = useRef(null);
+
+  // Sanitize pasted content using Quill's public, stable clipboard matcher
+  // API (not an internal method override, which broke on this Quill
+  // version's different method signature). Converts non-breaking spaces
+  // to normal breakable spaces, so pasted text — from Word, Google Docs,
+  // or anywhere else — never locks up line-wrapping.
+  useEffect(() => {
+    if (!quillRef.current) return;
+    const editor = quillRef.current.getEditor();
+    editor.clipboard.addMatcher(Node.TEXT_NODE, (node, delta) => {
+      delta.ops.forEach((op) => {
+        if (typeof op.insert === 'string') {
+          op.insert = op.insert.replace(/\u00A0/g, ' ');
+        }
+      });
+      return delta;
+    });
+  }, []);
 
   // Custom image handler — uploads through the same /api/upload endpoint the
   // rest of the admin dashboard already uses, then inserts the resulting URL
