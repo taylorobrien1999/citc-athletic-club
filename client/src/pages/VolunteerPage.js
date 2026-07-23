@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './StaticPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -16,6 +17,7 @@ export default function VolunteerPage() {
   const override = siteContent.volunteer_text || null;
 
   return (
+    <>
     <div className="static-page">
       <div className="static-hero">
         <span className="static-eyebrow">MEMBERSHIP</span>
@@ -25,7 +27,7 @@ export default function VolunteerPage() {
 
       <div className="static-card">
         {override ? (
-          <div style={{ whiteSpace: 'pre-wrap' }}>{override}</div>
+          <div className="rtf-content" dangerouslySetInnerHTML={{ __html: override }} />
         ) : (
           <>
             <h2>What's Required</h2>
@@ -58,5 +60,7 @@ export default function VolunteerPage() {
         )}
       </div>
     </div>
+    <ClosingCTA />
+    </>
   );
 }

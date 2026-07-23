@@ -15,11 +15,11 @@ const getAnnouncements = async (req, res) => {
 // Admin only.
 const createAnnouncement = async (req, res) => {
   try {
-    const { title, body, postedBy, imageUrl } = req.body;
+    const { title, body, postedBy, imageUrl, visibility } = req.body;
     if (!title || !body) {
       return res.status(400).json({ message: 'Title and body are required.' });
     }
-    const announcement = await Announcement.create({ title, body, postedBy, imageUrl });
+    const announcement = await Announcement.create({ title, body, postedBy, imageUrl, visibility });
     return res.status(201).json({ announcement });
   } catch (err) {
     console.error('Create announcement error:', err);
@@ -49,10 +49,11 @@ const updateAnnouncement = async (req, res) => {
     const announcement = await Announcement.findByPk(id);
     if (!announcement) return res.status(404).json({ message: 'Announcement not found.' });
 
-    const { title, body, imageUrl } = req.body;
+    const { title, body, imageUrl, visibility } = req.body;
     if (title !== undefined) announcement.title = title;
     if (body !== undefined) announcement.body = body;
     if (imageUrl !== undefined) announcement.imageUrl = imageUrl;
+    if (visibility !== undefined) announcement.visibility = visibility;
     await announcement.save();
 
     return res.status(200).json({ announcement });
@@ -77,14 +78,38 @@ const getEvents = async (req, res) => {
 // Admin only.
 const createEvent = async (req, res) => {
   try {
-    const { title, eventDate, startTime, location, notes } = req.body;
+    const { title, eventDate, startTime, location, notes, visibility } = req.body;
     if (!title || !eventDate) {
       return res.status(400).json({ message: 'Title and event date are required.' });
     }
-    const event = await Event.create({ title, eventDate, startTime, location, notes });
+    const event = await Event.create({ title, eventDate, startTime, location, notes, visibility });
     return res.status(201).json({ event });
   } catch (err) {
     console.error('Create event error:', err);
+    return res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+// ── PATCH /api/events/:id ────────────────────────────────────────────────────
+// Admin only.
+const updateEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const event = await Event.findByPk(id);
+    if (!event) return res.status(404).json({ message: 'Event not found.' });
+
+    const { title, eventDate, startTime, location, notes, visibility } = req.body;
+    if (title !== undefined) event.title = title;
+    if (eventDate !== undefined) event.eventDate = eventDate;
+    if (startTime !== undefined) event.startTime = startTime;
+    if (location !== undefined) event.location = location;
+    if (notes !== undefined) event.notes = notes;
+    if (visibility !== undefined) event.visibility = visibility;
+    await event.save();
+
+    return res.status(200).json({ event });
+  } catch (err) {
+    console.error('Update event error:', err);
     return res.status(500).json({ message: 'Server error.' });
   }
 };
@@ -111,5 +136,6 @@ module.exports = {
   deleteAnnouncement,
   getEvents,
   createEvent,
+  updateEvent,
   deleteEvent,
 };

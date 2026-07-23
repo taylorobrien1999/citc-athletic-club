@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './CodeOfConductPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -28,6 +29,7 @@ export default function CodeOfConductPage() {
   const fullOverride = siteContent.code_of_conduct_full || null;
 
   return (
+    <>
     <div className="conduct-page">
       <div className="conduct-hero">
         <span className="conduct-eyebrow">THE CLUB</span>
@@ -36,7 +38,7 @@ export default function CodeOfConductPage() {
 
       <div className="conduct-card">
         {fullOverride ? (
-          <div style={{ whiteSpace: 'pre-wrap' }}>{fullOverride}</div>
+          <div className="rtf-content" dangerouslySetInnerHTML={{ __html: fullOverride }} />
         ) : (
           <>
             <h2>Dear Athlete,</h2>
@@ -77,5 +79,7 @@ export default function CodeOfConductPage() {
         )}
       </div>
     </div>
+    <ClosingCTA />
+    </>
   );
 }

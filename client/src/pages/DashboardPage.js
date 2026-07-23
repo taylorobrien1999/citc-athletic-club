@@ -46,8 +46,8 @@ export default function DashboardPage() {
           return;
         }
 
-        setAnnouncements(annData.announcements);
-        setEvents(evData.events);
+        setAnnouncements(annData.announcements || []);
+        setEvents(evData.events || []);
         setResources((resData.resources || []).filter(r => r.visibility === 'members'));
       } catch (err) {
         setError('Failed to load dashboard data.');

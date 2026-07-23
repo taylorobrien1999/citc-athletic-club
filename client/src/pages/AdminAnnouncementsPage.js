@@ -7,7 +7,7 @@ import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
-const BLANK_FORM = { title: '', body: '', imageUrl: '' };
+const BLANK_FORM = { title: '', body: '', imageUrl: '', visibility: 'public' };
 
 export default function AdminAnnouncementsPage() {
   const { token, user } = useAuth();
@@ -65,7 +65,7 @@ export default function AdminAnnouncementsPage() {
   };
 
   const handleEdit = (a) => {
-    setForm({ title: a.title, body: a.body, imageUrl: a.imageUrl || '' });
+    setForm({ title: a.title, body: a.body, imageUrl: a.imageUrl || '', visibility: a.visibility || 'public' });
     setEditingId(a.id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -113,6 +113,13 @@ export default function AdminAnnouncementsPage() {
           <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="https://... (or upload below)" />
           <FileUploadButton accept="image/*" onUploaded={(url) => setForm(prev => ({ ...prev, imageUrl: url }))} />
         </div>
+        <div className="admin-cms-field">
+          <label>Visibility</label>
+          <select name="visibility" value={form.visibility} onChange={handleChange}>
+            <option value="public">Public Website</option>
+            <option value="members">Members Only (Dashboard)</option>
+          </select>
+        </div>
         <button className="admin-cms-submit" disabled={submitting}>
           {submitting ? 'Saving...' : editingId ? 'Update Announcement' : 'Post Announcement'}
         </button>
@@ -129,13 +136,22 @@ export default function AdminAnnouncementsPage() {
         <div className="admin-cms-table-wrap">
           <table className="admin-cms-table">
             <thead>
-              <tr><th>Title</th><th>Message</th><th>Photo</th><th>Posted By</th><th>Date</th><th></th></tr>
+              <tr><th>Title</th><th>Message</th><th>Visibility</th><th>Photo</th><th>Posted By</th><th>Date</th><th></th></tr>
             </thead>
             <tbody>
               {announcements.map((a) => (
                 <tr key={a.id}>
                   <td>{a.title}</td>
                   <td>{(() => { const clean = stripHtml(a.body); return clean.length > 80 ? clean.slice(0, 80) + '...' : clean; })()}</td>
+                  <td>
+                    <span style={{
+                      fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 6,
+                      background: a.visibility === 'members' ? '#fef3c7' : '#f3eafd',
+                      color: a.visibility === 'members' ? '#92400e' : '#6c3baa',
+                    }}>
+                      {a.visibility === 'members' ? 'Members Only' : 'Public'}
+                    </span>
+                  </td>
                   <td>{a.imageUrl ? <img src={a.imageUrl} alt="" style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 6 }} /> : '—'}</td>
                   <td>{a.postedBy || '—'}</td>
                   <td>{new Date(a.createdAt).toLocaleDateString()}</td>

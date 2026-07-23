@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
+import RichTextEditor from '../components/RichTextEditor';
+import { cleanRichText } from '../utils/htmlUtils';
 import './AdminCMS.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -22,6 +24,10 @@ const CATEGORIES = [
       { key: 'home_program_sprint_image', label: 'Sprint Program Card Photo', type: 'image' },
       { key: 'home_program_hurdles_image', label: 'Hurdles Program Card Photo', type: 'image' },
       { key: 'home_program_middledistance_image', label: 'Middle Distance Program Card Photo', type: 'image' },
+      { key: 'home_about_text', label: 'About Section Text (replaces both paragraphs)', type: 'text' },
+      { key: 'jc_tribute_text', label: "Coach John Cannon Tribute (shared — updates both the Homepage and the Coaches page automatically)", type: 'text' },
+      { key: 'home_cta_title', label: 'Bottom CTA Headline (shown on Home, Coaches, Programs, and other pages)', type: 'text' },
+      { key: 'home_cta_sub', label: 'Bottom CTA Body Text (shown on Home, Coaches, Programs, and other pages)', type: 'text' },
     ],
   },
   {
@@ -100,10 +106,11 @@ export default function AdminSiteContentPage() {
   const handleSave = async (row) => {
     setError(''); setSuccess(''); setSavingKey(row.contentKey);
     try {
+      const cleanedValue = row.type === 'text' ? cleanRichText(row.value) : row.value;
       const res = await fetch(`${API_URL}/api/site-content/${row.contentKey}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ value: row.value, label: row.label, type: row.type }),
+        body: JSON.stringify({ value: cleanedValue, label: row.label, type: row.type }),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.message || 'Failed to save.'); return; }
@@ -197,12 +204,10 @@ export default function AdminSiteContentPage() {
                                     <FileUploadButton accept="image/*" onUploaded={(url) => handleValueChange(f.key, url)} />
                                   </>
                                 ) : (
-                                  <textarea
-                                    value={row.value || ''}
+                                  <RichTextEditor
+                                    value={row.value}
+                                    onChange={(html) => handleValueChange(f.key, html)}
                                     placeholder="Leave blank for default"
-                                    onChange={(e) => handleValueChange(f.key, e.target.value)}
-                                    rows={4}
-                                    style={{ width: '100%', padding: '6px 8px', border: '1px solid #d1d5db', borderRadius: 6, fontFamily: 'inherit' }}
                                   />
                                 )}
                               </td>

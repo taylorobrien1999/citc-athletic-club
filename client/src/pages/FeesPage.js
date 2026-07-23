@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './StaticPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -16,6 +17,7 @@ export default function FeesPage() {
   const feesOverride = siteContent.fees_text || null;
 
   return (
+    <>
     <div className="static-page">
       <div className="static-hero">
         <span className="static-eyebrow">MEMBERSHIP</span>
@@ -24,7 +26,7 @@ export default function FeesPage() {
 
       <div className="static-card">
         {feesOverride ? (
-          <div style={{ whiteSpace: 'pre-wrap' }}>{feesOverride}</div>
+          <div className="rtf-content" dangerouslySetInnerHTML={{ __html: feesOverride }} />
         ) : (
           <p>
             For current program fees and registration details, please contact us directly —
@@ -36,5 +38,7 @@ export default function FeesPage() {
         </a>
       </div>
     </div>
+    <ClosingCTA />
+    </>
   );
 }

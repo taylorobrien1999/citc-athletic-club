@@ -7,6 +7,7 @@ const Announcement = sequelize.define('Announcement', {
   body: { type: DataTypes.TEXT, allowNull: false },
   postedBy: { type: DataTypes.STRING(150), allowNull: true },
   imageUrl: { type: DataTypes.STRING(500), allowNull: true },
+  visibility: { type: DataTypes.ENUM('public', 'members'), defaultValue: 'public' },
 }, { tableName: 'announcements', timestamps: true });
 
 module.exports = Announcement;

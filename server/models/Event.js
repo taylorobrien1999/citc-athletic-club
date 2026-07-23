@@ -8,6 +8,7 @@ const Event = sequelize.define('Event', {
   startTime: { type: DataTypes.STRING(20), allowNull: true },
   location: { type: DataTypes.STRING(200), allowNull: true },
   notes: { type: DataTypes.TEXT, allowNull: true },
+  visibility: { type: DataTypes.ENUM('public', 'members'), defaultValue: 'public' },
 }, { tableName: 'events', timestamps: true });
 
 module.exports = Event;

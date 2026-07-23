@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './PhotosPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -16,6 +17,7 @@ export default function PhotosPage() {
   }, []);
 
   return (
+    <>
     <div className="photos-page">
       <div className="photos-hero">
         <span className="photos-eyebrow">NEWS &amp; UPDATES</span>
@@ -38,5 +40,7 @@ export default function PhotosPage() {
         </div>
       )}
     </div>
+    <ClosingCTA />
+    </>
   );
 }

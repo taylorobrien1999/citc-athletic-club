@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './NewsPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -22,6 +23,7 @@ export default function NewsPage() {
   }, []);
 
   return (
+    <>
     <div className="news-page">
       <div className="news-hero">
         <span className="news-eyebrow">NEWS &amp; UPDATES</span>
@@ -72,5 +74,7 @@ export default function NewsPage() {
         </p>
       </div>
     </div>
+    <ClosingCTA />
+    </>
   );
 }

@@ -124,7 +124,7 @@ export default function ContactPage() {
 
           <div className="contact-location">
             {siteContent.contact_indoor_location ? (
-              <div style={{ whiteSpace: 'pre-wrap' }}>{siteContent.contact_indoor_location}</div>
+              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.contact_indoor_location }} />
             ) : (
               <>
                 <h3>Indoor Season</h3>
@@ -143,7 +143,7 @@ export default function ContactPage() {
 
           <div className="contact-location">
             {siteContent.contact_outdoor_location ? (
-              <div style={{ whiteSpace: 'pre-wrap' }}>{siteContent.contact_outdoor_location}</div>
+              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.contact_outdoor_location }} />
             ) : (
               <>
                 <h3>Outdoor Season</h3>

@@ -100,10 +100,13 @@ export default function HomePage() {
               <span className="hero-title-accent">Habit of</span><br />
               Excellence
             </h1>
-            <p className="hero-sub">
-              {siteContent.home_hero_subtext ||
-                'A values driven track club since 1993. Developing high-performance athletes and champions in life across Calgary and beyond.'}
-            </p>
+            {siteContent.home_hero_subtext ? (
+              <p className="hero-sub" dangerouslySetInnerHTML={{ __html: siteContent.home_hero_subtext }} />
+            ) : (
+              <p className="hero-sub">
+                A values driven track club since 1993. Developing high-performance athletes and champions in life across Calgary and beyond.
+              </p>
+            )}
             <div className="hero-btns">
               <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
               <Link to="/the-club/coaches" className="btn-outline">Meet the Coaches</Link>
@@ -140,16 +143,22 @@ export default function HomePage() {
               International<br />
               Track Club
             </h2>
-            <p className="body-text">
-              CITC has been <strong>In the Habit of Excellence</strong> since 1993. Founded on
-              Coach John Cannon's vision to create an environment where dedicated athletes
-              could maximize their potential — on and off the track.
-            </p>
-            <p className="body-text">
-              Over three decades, CITC has grown into one of Canada's most respected
-              high-performance track and field clubs, producing City, Provincial, National,
-              and Olympic-level athletes.
-            </p>
+            {siteContent.home_about_text ? (
+              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.home_about_text }} />
+            ) : (
+              <>
+                <p className="body-text">
+                  CITC has been <strong>In the Habit of Excellence</strong> since 1993. Founded on
+                  Coach John Cannon's vision to create an environment where dedicated athletes
+                  could maximize their potential — on and off the track.
+                </p>
+                <p className="body-text">
+                  Over three decades, CITC has grown into one of Canada's most respected
+                  high-performance track and field clubs, producing City, Provincial, National,
+                  and Olympic-level athletes.
+                </p>
+              </>
+            )}
             <Link to="/the-club/mission" className="text-link">Our Mission & Values →</Link>
           </div>
           <div className="about-image-wrap">
@@ -218,15 +227,18 @@ export default function HomePage() {
             <div className="jc-text">
               <p className="eyebrow">Club Legacy</p>
               <h3 className="jc-title">Coach John Cannon</h3>
-              <p className="jc-body">
-                Calgary International Track Club was founded on Coach John Cannon's vision
-                to create an environment where dedicated athletes could maximize their
-                potential and pursue excellence both on and off the track. Under his
-                leadership — one of Canada's most decorated track and field coaches, with
-                international appointments spanning four Olympic Games — CITC established
-                a legacy defined not only by medals, but by integrity, character, and
-                community. His influence remains the foundation of everything we do.
-              </p>
+              {siteContent.jc_tribute_text ? (
+                <div className="jc-body rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.jc_tribute_text }} />
+              ) : (
+                <p className="jc-body">
+                  CITC was founded on Coach John Cannon's vision to create an environment where
+                  dedicated athletes could maximize their potential and pursue excellence both on
+                  and off the track. One of Canada's most decorated track and field coaches, with
+                  international appointments spanning four Olympic Games, his legacy is defined not
+                  only by medals, but by integrity, character, and community — values that continue
+                  to guide CITC today.
+                </p>
+              )}
             </div>
           </div>
         </div>

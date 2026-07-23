@@ -501,3 +501,8 @@
 [data-theme="dark"] .coach-qualifications { border-color: #303040 !important; }
 [data-theme="dark"] .coach-qualifications h3 { color: #C4B5FD !important; }
 [data-theme="dark"] .coach-qualifications ul { color: #cfcfe0 !important; }
+
+/* ── Coach bio text — was missing entirely for this class name; card
+   background was dark-mode-covered but the actual paragraph text color
+   inside it never was, causing dark-on-dark unreadable text. ── */
+[data-theme="dark"] .coach-full-card .rtf-content { color: #cfcfe0 !important; }

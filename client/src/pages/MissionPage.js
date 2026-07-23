@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './MissionPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -59,6 +60,7 @@ export default function MissionPage() {
   const displayedDeiText = siteContent.mission_dei_text || null;
 
   return (
+    <>
     <div className="mission-page">
       <div className="mission-hero">
         <span className="mission-eyebrow">THE CLUB</span>
@@ -66,12 +68,14 @@ export default function MissionPage() {
       </div>
 
       <div className="mission-statement-card">
-        <p className="mission-statement-text">"{displayedStatement}"</p>
+        <div className="mission-statement-text">
+          "<span dangerouslySetInnerHTML={{ __html: displayedStatement }} />"
+        </div>
       </div>
 
       <div className="mission-card">
         {displayedDeiText ? (
-          <div style={{ whiteSpace: 'pre-wrap' }}>{displayedDeiText}</div>
+          <div className="rtf-content" dangerouslySetInnerHTML={{ __html: displayedDeiText }} />
         ) : (
           <>
             <h2>Our Commitment to Diversity, Equity &amp; Inclusion</h2>
@@ -90,5 +94,7 @@ export default function MissionPage() {
         )}
       </div>
     </div>
+    <ClosingCTA />
+    </>
   );
 }

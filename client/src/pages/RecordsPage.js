@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './StaticPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -24,6 +25,7 @@ export default function RecordsPage() {
   }, {});
 
   return (
+    <>
     <div className="static-page">
       <div className="static-hero">
         <span className="static-eyebrow">NEWS &amp; UPDATES</span>
@@ -68,5 +70,7 @@ export default function RecordsPage() {
         More club records coming soon — check back for updates.
       </p>
     </div>
+    <ClosingCTA />
+    </>
   );
 }

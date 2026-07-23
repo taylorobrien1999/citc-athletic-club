@@ -85,6 +85,29 @@ const createResource = async (req, res) => {
   }
 };
 
+// ── PATCH /api/resources/:id ──────────────────────────────────────────────────
+// Admin only.
+const updateResource = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const resource = await Resource.findByPk(id);
+    if (!resource) return res.status(404).json({ message: 'Resource not found.' });
+
+    const { title, type, url, description, visibility } = req.body;
+    if (title !== undefined) resource.title = title;
+    if (type !== undefined) resource.type = type;
+    if (url !== undefined) resource.url = url;
+    if (description !== undefined) resource.description = description;
+    if (visibility !== undefined) resource.visibility = visibility;
+    await resource.save();
+
+    return res.status(200).json({ resource });
+  } catch (err) {
+    console.error('Update resource error:', err);
+    return res.status(500).json({ message: 'Server error.' });
+  }
+};
+
 const deleteResource = async (req, res) => {
   try {
     const { id } = req.params;
@@ -130,6 +153,6 @@ const updateFeedbackStatus = async (req, res) => {
 
 module.exports = {
   getPrograms, createProgram, updateProgram, deleteProgram,
-  getResources, createResource, deleteResource,
+  getResources, createResource, updateResource, deleteResource,
   getFeedback, updateFeedbackStatus,
 };

@@ -10,6 +10,7 @@ export default function CoachesPage() {
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [siteContent, setSiteContent] = useState({});
 
   useEffect(() => {
     fetch(`${API_URL}/api/team-coaches`)
@@ -17,6 +18,13 @@ export default function CoachesPage() {
       .then(data => setCoaches(data.coaches || []))
       .catch(() => {})
       .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/site-content`)
+      .then(res => res.json())
+      .then(data => setSiteContent(data.content || {}))
+      .catch(() => {});
   }, []);
 
   const goTo = (index) => {
@@ -111,14 +119,18 @@ export default function CoachesPage() {
           <div className="jc-text">
             <p className="eyebrow">Club Legacy</p>
             <h3 className="jc-title">Coach John Cannon</h3>
-            <p>
-              CITC was founded on Coach John Cannon's vision to create an environment where
-              dedicated athletes could maximize their potential and pursue excellence both on
-              and off the track. One of Canada's most decorated track and field coaches, with
-              international appointments spanning four Olympic Games, his legacy is defined not
-              only by medals, but by integrity, character, and community — values that continue
-              to guide CITC today.
-            </p>
+            {siteContent.jc_tribute_text ? (
+              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.jc_tribute_text }} />
+            ) : (
+              <p>
+                CITC was founded on Coach John Cannon's vision to create an environment where
+                dedicated athletes could maximize their potential and pursue excellence both on
+                and off the track. One of Canada's most decorated track and field coaches, with
+                international appointments spanning four Olympic Games, his legacy is defined not
+                only by medals, but by integrity, character, and community — values that continue
+                to guide CITC today.
+              </p>
+            )}
           </div>
         </div>
       </div>

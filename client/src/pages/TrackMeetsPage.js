@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { parseLocalDate } from '../utils/dateUtils';
 import './TrackMeetsPage.css';
+import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -49,6 +50,7 @@ export default function TrackMeetsPage() {
   const outdoorOverride = siteContent.track_meets_outdoor || null;
 
   return (
+    <>
     <div className="meets-page">
       <div className="meets-hero">
         <span className="meets-eyebrow">THE CLUB</span>
@@ -62,7 +64,7 @@ export default function TrackMeetsPage() {
         <div className="meets-season-card">
           <h2>Indoor Season</h2>
           {indoorOverride ? (
-            <div style={{ whiteSpace: 'pre-wrap' }}>{indoorOverride}</div>
+            <div className="rtf-content" dangerouslySetInnerHTML={{ __html: indoorOverride }} />
           ) : (
             <table className="meets-table">
               <tbody>
@@ -80,7 +82,7 @@ export default function TrackMeetsPage() {
         <div className="meets-season-card">
           <h2>Outdoor Season</h2>
           {outdoorOverride ? (
-            <div style={{ whiteSpace: 'pre-wrap' }}>{outdoorOverride}</div>
+            <div className="rtf-content" dangerouslySetInnerHTML={{ __html: outdoorOverride }} />
           ) : (
             <table className="meets-table">
               <tbody>
@@ -122,5 +124,7 @@ export default function TrackMeetsPage() {
         contact us for the latest schedule.
       </p>
     </div>
+    <ClosingCTA />
+    </>
   );
 }
