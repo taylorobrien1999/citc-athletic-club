@@ -34,7 +34,9 @@ const CATEGORIES = [
     name: 'The Club — Mission Statement',
     fields: [
       { key: 'mission_statement', label: 'Main Mission Statement', type: 'text' },
-      { key: 'mission_dei_text', label: 'Full DEI Section (heading, list, and closing — replaces the whole section below the quote)', type: 'text' },
+      { key: 'mission_dei_text', label: 'DEI Panel Text (the box overlapping the photo)', type: 'text' },
+      { key: 'mission_commitments_text', label: 'Team Commitments Section (the list and closing statement below)', type: 'text' },
+      { key: 'mission_photo', label: 'Mission Page Photo', type: 'image' },
     ],
   },
   {

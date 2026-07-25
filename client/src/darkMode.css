@@ -547,3 +547,18 @@
 [data-theme="dark"] .mission-commitment-card { background: #2a2340 !important; }
 [data-theme="dark"] .mission-commitment-card svg { color: #C4B5FD !important; }
 [data-theme="dark"] .mission-commitment-card span { color: #e0d4fc !important; }
+
+/* ── Mission page redesign: overlapping panel layout ── */
+[data-theme="dark"] .mission-page { background: #14141c !important; }
+[data-theme="dark"] .mission-panel {
+  background: #1e1e2a !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important;
+}
+[data-theme="dark"] .mission-panel h2 { color: #f5f5fa !important; }
+[data-theme="dark"] .mission-panel p { color: #cfcfe0 !important; }
+[data-theme="dark"] .mission-panel .rtf-content { color: #cfcfe0 !important; }
+[data-theme="dark"] .mission-below h3 { color: #C4B5FD !important; }
+[data-theme="dark"] .mission-below li { color: #e0e0ec !important; }
+[data-theme="dark"] .mission-below ul li::marker { color: #C4B5FD !important; }
+[data-theme="dark"] .mission-close { color: #9a9ab0 !important; border-color: #303040 !important; }
+[data-theme="dark"] .mission-below .rtf-content { color: #e0e0ec !important; }
