@@ -5,13 +5,13 @@ const { sendMail } = require('../utils/mailer');
 // Public — no auth required.
 const createMessage = async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, phone, subject, message } = req.body;
 
     if (!name || !email || !message) {
       return res.status(400).json({ message: 'Name, email, and message are required.' });
     }
 
-    const contactMessage = await ContactMessage.create({ name, email, subject, message });
+    const contactMessage = await ContactMessage.create({ name, email, phone, subject, message });
 
     // Notify the club's real inbox — previously this only saved to the
     // database with no way for anyone to actually see a new submission.
@@ -21,6 +21,7 @@ const createMessage = async (req, res) => {
         subject: `New Contact Form Message${subject ? `: ${subject}` : ''}`,
         html: `
           <p><strong>From:</strong> ${name} (${email})</p>
+          ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
           ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ''}
           <p><strong>Message:</strong></p>
           <p>${message.replace(/\n/g, '<br>')}</p>
