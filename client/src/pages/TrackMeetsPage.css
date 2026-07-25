@@ -1,7 +1,43 @@
+/* ── Immersive photo hero band ── */
+.meets-photo-hero {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+}
+
+.meets-photo-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.meets-photo-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,10,25,0.55) 0%, rgba(15,10,25,0.75) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--nav-height) + 20px) 24px 20px;
+}
+
+.meets-photo-hero .meets-eyebrow { color: #C4B5FD; }
+.meets-photo-hero .meets-title { color: #fff; }
+.meets-photo-hero .meets-subtitle { color: rgba(255,255,255,0.85); }
+
+@media (max-width: 640px) {
+  .meets-photo-hero { height: 300px; }
+}
+
 .meets-page {
   max-width: 900px;
   margin: 0 auto;
-  padding: calc(var(--nav-height) + 16px) 24px 100px;
+  padding: 40px 24px 100px;
 }
 
 .meets-hero { text-align: center; margin-bottom: 40px; }

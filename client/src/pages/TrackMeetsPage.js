@@ -22,6 +22,8 @@ const OUTDOOR_MEETS = [
   { name: 'Legion Nationals U16 / U18', when: 'August' },
 ];
 
+const DEFAULT_HERO_PHOTO = 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1600&q=80';
+
 export default function TrackMeetsPage() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
@@ -48,17 +50,22 @@ export default function TrackMeetsPage() {
 
   const indoorOverride = siteContent.track_meets_indoor || null;
   const outdoorOverride = siteContent.track_meets_outdoor || null;
+  const heroPhoto = siteContent.track_meets_hero_photo || DEFAULT_HERO_PHOTO;
 
   return (
     <>
-      <div className="meets-page">
-        <div className="meets-hero">
+      <div className="meets-photo-hero">
+        <img src={heroPhoto} alt="CITC athletes competing" />
+        <div className="meets-photo-hero-overlay">
           <span className="meets-eyebrow">THE CLUB</span>
           <h1 className="meets-title">Track Meets</h1>
           <p className="meets-subtitle">
             CITC athletes compete year-round across Alberta and nationally, indoors and out.
           </p>
         </div>
+      </div>
+
+      <div className="meets-page">
 
         <div className="meets-grid">
           <div className="meets-season-card">

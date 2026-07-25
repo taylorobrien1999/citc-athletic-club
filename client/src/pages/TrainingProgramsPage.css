@@ -1,7 +1,7 @@
 .training-page {
-  max-width: 1140px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: calc(var(--nav-height) + 24px) 24px 100px;
+  padding: calc(var(--nav-height) + 40px) 24px 100px;
 }
 
 .training-hero {
@@ -258,5 +258,11 @@
 @media (max-width: 640px) {
   .training-structure-card { padding: 28px 22px; }
   .training-program-body { padding: 24px 22px 28px; }
-  .training-arrow { width: 36px; height: 36px; font-size: 20px; }
+  .training-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    top: 90px;
+    transform: none;
+  }
 }

@@ -42,6 +42,7 @@ const CATEGORIES = [
     fields: [
       { key: 'track_meets_indoor', label: 'Indoor Season Meets List', type: 'text' },
       { key: 'track_meets_outdoor', label: 'Outdoor Season Meets List', type: 'text' },
+      { key: 'track_meets_hero_photo', label: 'Track Meets Hero Photo', type: 'image' },
     ],
   },
   {
