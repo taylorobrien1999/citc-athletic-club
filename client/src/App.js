@@ -37,6 +37,7 @@ import AdminMembersPage from './pages/AdminMembersPage';
 import AdminRecordsPage from './pages/AdminRecordsPage';
 import PublicChatWidgetGate from './components/PublicChatWidgetGate';
 import AdminCoachesPage from './pages/AdminCoachesPage';
+import AdminSponsorsPage from './pages/AdminSponsorsPage';
 
 function App() {
   return (
@@ -85,6 +86,7 @@ function App() {
               <Route path="members" element={<AdminMembersPage />} />
               <Route path="records" element={<AdminRecordsPage />} />
               <Route path="coaches" element={<AdminCoachesPage />} />
+              <Route path="sponsors" element={<AdminSponsorsPage />} />
             </Route>
           </Route>
 

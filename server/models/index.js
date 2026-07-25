@@ -14,6 +14,7 @@ const AccountInvite = require('./AccountInvite');
 const PasswordResetToken = require('./PasswordResetToken');
 const ClubRecord = require('./ClubRecord');
 const TeamCoach = require('./TeamCoach');
+const Sponsor = require('./Sponsor');
 
 // Associations
 User.hasOne(Athlete, { foreignKey: 'userId', onDelete: 'CASCADE' });
@@ -39,4 +40,5 @@ module.exports = {
   PasswordResetToken,
   ClubRecord,
   TeamCoach,
+  Sponsor,
 };

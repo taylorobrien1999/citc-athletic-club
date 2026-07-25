@@ -625,3 +625,6 @@
 }
 [data-theme="dark"] .volunteer-detail-card h3 { color: #C4B5FD !important; }
 [data-theme="dark"] .volunteer-detail-card p { color: #cfcfe0 !important; }
+
+/* ── Sponsors collage ── */
+[data-theme="dark"] .sponsors-eyebrow { color: #C4B5FD !important; }

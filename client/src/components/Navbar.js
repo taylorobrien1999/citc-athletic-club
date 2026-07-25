@@ -37,7 +37,7 @@ const NAV_ITEMS = [
     ],
   },
   { label: 'Contact',  to: '/contact' },
-  { label: 'Sponsors', to: '/sponsors' },
+  { label: 'Sponsors', to: '/#sponsors' },
 ];
 
 export default function Navbar() {
@@ -228,7 +228,7 @@ export default function Navbar() {
         <Link to="/news/records" className="drawer-sub" onClick={() => setDrawerOpen(false)}>Club Records</Link>
 
         <Link to="/contact"  className="drawer-link" onClick={() => setDrawerOpen(false)}>Contact</Link>
-        <Link to="/sponsors" className="drawer-link" onClick={() => setDrawerOpen(false)}>Sponsors</Link>
+        <Link to="/#sponsors" className="drawer-link" onClick={() => setDrawerOpen(false)}>Sponsors</Link>
 
         {user ? (
           <>

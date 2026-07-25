@@ -44,6 +44,15 @@ export default function HomePage() {
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [siteContent, setSiteContent] = useState({});
   const [teamCoaches, setTeamCoaches] = useState([]);
+  const [sponsors, setSponsors] = useState([]);
+
+  useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    fetch(`${API_URL}/api/sponsors`)
+      .then(res => res.json())
+      .then(data => setSponsors(data.sponsors || []))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -243,6 +252,32 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Sponsors — hidden entirely until at least one sponsor is added ── */}
+      {sponsors.length > 0 && (
+        <section className="sponsors-section" id="sponsors">
+          <p className="sponsors-eyebrow">Our Sponsors</p>
+          <div className="sponsors-grid">
+            {sponsors.map((s) => (
+              s.websiteUrl ? (
+                <a
+                  href={s.websiteUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="sponsor-logo-link"
+                  key={s.id}
+                >
+                  <img src={s.logoUrl} alt={s.name} />
+                </a>
+              ) : (
+                <div className="sponsor-logo-link" key={s.id}>
+                  <img src={s.logoUrl} alt={s.name} />
+                </div>
+              )
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── CTA ──────────────────────────────────────────────────────────── */}
       <section className="cta-section">

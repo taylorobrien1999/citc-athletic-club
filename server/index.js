@@ -20,6 +20,7 @@ const memberRoutes = require('./routes/memberRoutes');
 const recordRoutes = require('./routes/recordRoutes');
 const chatProxyRoutes = require('./routes/chatProxyRoutes');
 const teamCoachRoutes = require('./routes/teamCoachRoutes');
+const sponsorRoutes = require('./routes/sponsorRoutes');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use('/api/members', memberRoutes);
 app.use('/api/records', recordRoutes);
 app.use('/api/chat', chatProxyRoutes);
 app.use('/api/team-coaches', teamCoachRoutes);
+app.use('/api/sponsors', sponsorRoutes);
 
 // ── Serve React build (production) ────────────────────────────────────────────
 const clientBuildPath = path.join(__dirname, 'client-build');
