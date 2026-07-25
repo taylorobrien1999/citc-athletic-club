@@ -5,6 +5,8 @@ import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+const DEFAULT_PHOTO = 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200&q=80';
+
 const INDOOR_MEETS = [
   { name: 'Dino Meets', when: 'Dec / Jan' },
   { name: 'Alberta Indoor Games', when: 'Jan' },
@@ -21,8 +23,6 @@ const OUTDOOR_MEETS = [
   { name: 'Nationals U20 / Senior', when: 'June (varies year to year)' },
   { name: 'Legion Nationals U16 / U18', when: 'August' },
 ];
-
-const DEFAULT_HERO_PHOTO = 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1600&q=80';
 
 export default function TrackMeetsPage() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
@@ -50,94 +50,95 @@ export default function TrackMeetsPage() {
 
   const indoorOverride = siteContent.track_meets_indoor || null;
   const outdoorOverride = siteContent.track_meets_outdoor || null;
-  const heroPhoto = siteContent.track_meets_hero_photo || DEFAULT_HERO_PHOTO;
+  const photoUrl = siteContent.track_meets_photo || DEFAULT_PHOTO;
 
   return (
     <>
-      <div className="meets-photo-hero">
-        <img src={heroPhoto} alt="CITC athletes competing" />
-        <div className="meets-photo-hero-overlay">
+      <div className="meets-page">
+        <div className="meets-hero">
           <span className="meets-eyebrow">THE CLUB</span>
           <h1 className="meets-title">Track Meets</h1>
-          <p className="meets-subtitle">
-            CITC athletes compete year-round across Alberta and nationally, indoors and out.
-          </p>
-        </div>
-      </div>
-
-      <div className="meets-page">
-
-        <div className="meets-grid">
-          <div className="meets-season-card">
-            <h2>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="meets-heading-icon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-              Indoor Season
-            </h2>
-            {indoorOverride ? (
-              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: indoorOverride }} />
-            ) : (
-              <div className="meets-list">
-                {INDOOR_MEETS.map((m) => (
-                  <div className="meets-list-item" key={m.name}>
-                    <span className="meets-list-name">{m.name}</span>
-                    <span className="meets-list-when">{m.when}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="meets-season-card">
-            <h2>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="meets-heading-icon"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-              Outdoor Season
-            </h2>
-            {outdoorOverride ? (
-              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: outdoorOverride }} />
-            ) : (
-              <div className="meets-list">
-                {OUTDOOR_MEETS.map((m) => (
-                  <div className="meets-list-item" key={m.name}>
-                    <span className="meets-list-name">{m.name}</span>
-                    <span className="meets-list-when">{m.when}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
 
-        {!loadingEvents && upcomingEvents.length > 0 && (
-          <div className="meets-upcoming-card">
-            <span className="meets-upcoming-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              Upcoming Scheduled Meets
-            </span>
-            <div className="meets-upcoming-list meets-scroll-box">
-              {upcomingEvents.map((ev) => (
-                <div className="meets-upcoming-item" key={ev.id}>
-                  <div className="meets-upcoming-date">
-                    {new Date(ev.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                  </div>
-                  <div>
-                    <div className="meets-upcoming-name">{ev.title}</div>
-                    {ev.location && (
-                      <div className="meets-upcoming-location">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        {ev.location}
-                      </div>
-                    )}
-                  </div>
+        <div className="meets-body">
+          <div className="meets-photo">
+            <img src={photoUrl} alt="CITC athletes competing" />
+          </div>
+
+          <div className="meets-overlay-stack">
+            <div className="meets-season-card meets-overlay-card">
+              <h2>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="meets-heading-icon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+                Indoor Season
+              </h2>
+              {indoorOverride ? (
+                <div className="rtf-content" dangerouslySetInnerHTML={{ __html: indoorOverride }} />
+              ) : (
+                <div className="meets-list">
+                  {INDOOR_MEETS.map((m) => (
+                    <div className="meets-list-item" key={m.name}>
+                      <span className="meets-list-name">{m.name}</span>
+                      <span className="meets-list-when">{m.when}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
+            </div>
+
+            <div className="meets-season-card meets-overlay-card">
+              <h2>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="meets-heading-icon"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                Outdoor Season
+              </h2>
+              {outdoorOverride ? (
+                <div className="rtf-content" dangerouslySetInnerHTML={{ __html: outdoorOverride }} />
+              ) : (
+                <div className="meets-list">
+                  {OUTDOOR_MEETS.map((m) => (
+                    <div className="meets-list-item" key={m.name}>
+                      <span className="meets-list-name">{m.name}</span>
+                      <span className="meets-list-when">{m.when}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
 
-        <p className="meets-note">
-          Exact dates and venues are confirmed closer to each season — check Announcements or
-          contact us for the latest schedule.
-        </p>
+        <div className="meets-below">
+          {!loadingEvents && upcomingEvents.length > 0 && (
+            <div className="meets-upcoming-card">
+              <span className="meets-upcoming-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                Upcoming Scheduled Meets
+              </span>
+              <div className="meets-upcoming-list meets-scroll-box">
+                {upcomingEvents.map((ev) => (
+                  <div className="meets-upcoming-item" key={ev.id}>
+                    <div className="meets-upcoming-date">
+                      {new Date(ev.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                    </div>
+                    <div>
+                      <div className="meets-upcoming-name">{ev.title}</div>
+                      {ev.location && (
+                        <div className="meets-upcoming-location">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                          {ev.location}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <p className="meets-note">
+            Exact dates and venues are confirmed closer to each season — check Announcements or
+            contact us for the latest schedule.
+          </p>
+        </div>
       </div>
 
       <ClosingCTA />

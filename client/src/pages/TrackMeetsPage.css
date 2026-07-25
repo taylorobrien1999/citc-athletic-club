@@ -1,43 +1,7 @@
-/* ── Immersive photo hero band ── */
-.meets-photo-hero {
-  position: relative;
-  width: 100%;
-  height: 380px;
-  overflow: hidden;
-}
-
-.meets-photo-hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-  display: block;
-}
-
-.meets-photo-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(15,10,25,0.55) 0%, rgba(15,10,25,0.75) 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: calc(var(--nav-height) + 20px) 24px 20px;
-}
-
-.meets-photo-hero .meets-eyebrow { color: #C4B5FD; }
-.meets-photo-hero .meets-title { color: #fff; }
-.meets-photo-hero .meets-subtitle { color: rgba(255,255,255,0.85); }
-
-@media (max-width: 640px) {
-  .meets-photo-hero { height: 300px; }
-}
-
 .meets-page {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 24px 100px;
+  padding: calc(var(--nav-height) + 16px) 24px 100px;
 }
 
 .meets-hero { text-align: center; margin-bottom: 40px; }
@@ -57,15 +21,123 @@
   color: #1a1a1a;
 }
 
-.meets-subtitle {
-  color: #555;
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.6;
+/* ── Photo + overlapping panel — same proven pattern as Mission/Code of Conduct ── */
+.meets-body {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto 60px;
 }
 
-/* ── Upcoming scheduled meets — highlighted gradient card, same language
-   as Program Structure / Fees-style intro cards ── */
+/* Photo is absolutely positioned to automatically fill 100% of whatever
+   height the card stack below computes to — this guarantees the photo
+   always matches the real content height exactly, instead of a manually
+   guessed pixel value that can never reliably match organic content. */
+.meets-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 66%;
+  overflow: hidden;
+  border-radius: 0 0 4px 0;
+  z-index: 0;
+}
+
+.meets-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
+
+/* ── Double overlay — the stack is normal document flow (this is what
+   determines .meets-body's real height), photo above stretches to match ── */
+.meets-overlay-stack {
+  position: relative;
+  z-index: 1;
+  margin-left: 3%;
+  width: 42%;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.meets-overlay-card {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.14);
+}
+
+.meets-below {
+  max-width: 900px;
+  margin: 70px auto 0;
+  padding: 0 24px;
+}
+
+/* ── Season cards ── */
+.meets-season-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+}
+
+.meets-season-card h2 {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0 0 18px;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meets-heading-icon {
+  color: var(--citc-purple);
+  flex-shrink: 0;
+}
+
+.meets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meets-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 1px solid #f0f0f0;
+}
+.meets-list-item:first-child { border-top: none; }
+
+.meets-list-name {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: #333;
+}
+
+.meets-list-when {
+  background: var(--citc-purple-light);
+  color: var(--citc-purple);
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.meets-season-card .rtf-content {
+  color: #444;
+  line-height: 1.75;
+  font-size: 14.5px;
+}
+
+/* ── Upcoming scheduled meets ── */
 .meets-upcoming-card {
   background: linear-gradient(135deg, #faf8ff 0%, #f3eafd 100%);
   border: 1px solid #ece3f9;
@@ -120,75 +192,21 @@
 }
 
 .meets-upcoming-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 12.5px;
   color: #888;
   margin-top: 2px;
 }
 
-/* ── Season cards ── */
-.meets-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+.meets-scroll-box {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scroll-snap-type: y proximity;
 }
-
-@media (max-width: 700px) {
-  .meets-grid { grid-template-columns: 1fr; }
-}
-
-.meets-season-card {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.05);
-}
-
-.meets-season-card h2 {
-  font-size: 19px;
-  font-weight: 800;
-  margin: 0 0 18px;
-  color: #1a1a1a;
-}
-
-.meets-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.meets-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-top: 1px solid #f0f0f0;
-}
-.meets-list-item:first-child { border-top: none; }
-
-.meets-list-name {
-  font-weight: 600;
-  font-size: 14.5px;
-  color: #333;
-}
-
-.meets-list-when {
-  background: var(--citc-purple-light);
-  color: var(--citc-purple);
-  font-weight: 700;
-  font-size: 11.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.meets-season-card .rtf-content {
-  color: #444;
-  line-height: 1.75;
-  font-size: 14.5px;
-}
+.meets-scroll-box > * { scroll-snap-align: start; }
 
 .meets-note {
   text-align: center;
@@ -197,29 +215,8 @@
   margin-top: 32px;
 }
 
-.meets-season-card h2 {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+@media (max-width: 900px) {
+  .meets-body { display: flex; flex-direction: column; }
+  .meets-photo { position: static; width: 100%; height: 280px; order: -1; }
+  .meets-overlay-stack { width: auto; margin: 20px 16px 0; padding: 0; }
 }
-
-.meets-heading-icon {
-  color: var(--citc-purple);
-  flex-shrink: 0;
-}
-
-.meets-upcoming-location {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Fixed-height scroll box, same pattern as the Member Dashboard, so this
-   list never elongates the page regardless of how many meets exist */
-.meets-scroll-box {
-  max-height: 380px;
-  overflow-y: auto;
-  padding-right: 4px;
-  scroll-snap-type: y proximity;
-}
-.meets-scroll-box > * { scroll-snap-align: start; }
