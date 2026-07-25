@@ -1,0 +1,79 @@
+.aa-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(var(--nav-height) + 16px) 24px 100px;
+}
+
+.aa-hero { text-align: center; margin-bottom: 40px; }
+
+.aa-eyebrow {
+  color: var(--citc-purple);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.aa-title {
+  font-size: 42px;
+  font-weight: 800;
+  font-style: italic;
+  margin: 12px 0;
+  color: #1a1a1a;
+}
+
+/* ── Photo + overlapping panel — same proven pattern as Mission/Code of Conduct ── */
+.aa-body {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+}
+
+.aa-photo {
+  margin-left: 34%;
+  width: 66%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 0 0 4px 0;
+}
+
+.aa-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.aa-panel {
+  position: absolute;
+  left: 3%;
+  top: 60px;
+  width: 42%;
+  background: #fff;
+  padding: 44px 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+  border-top: 3px solid var(--citc-purple);
+}
+
+.aa-panel p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #3a3a3a;
+  margin: 0 0 18px;
+}
+
+.aa-panel p:last-child { margin-bottom: 0; }
+
+.aa-panel a {
+  color: var(--citc-purple);
+  font-weight: 600;
+}
+
+.aa-panel .rtf-content {
+  color: #3a3a3a;
+}
+
+@media (max-width: 900px) {
+  .aa-photo { margin-left: 0; width: 100%; height: 260px; }
+  .aa-panel { position: static; width: auto; margin: 20px 16px 0; padding: 28px 24px; }
+}

@@ -60,6 +60,21 @@ const CATEGORIES = [
     ],
   },
   {
+    name: 'Membership — Athletics Alberta',
+    fields: [
+      { key: 'athletics_alberta_text', label: 'Page Text', type: 'text' },
+      { key: 'athletics_alberta_photo', label: 'Athletics Alberta Page Photo', type: 'image' },
+    ],
+  },
+  {
+    name: 'Membership — Volunteer',
+    fields: [
+      { key: 'volunteer_intro_text', label: 'Intro Text (the panel overlapping the photo)', type: 'text' },
+      { key: 'volunteer_details_text', label: 'Volunteer Details Section (the content below)', type: 'text' },
+      { key: 'volunteer_photo', label: 'Volunteer Page Photo', type: 'image' },
+    ],
+  },
+  {
     name: 'Contact Page',
     fields: [
       { key: 'contact_email', label: 'Direct Contact Email', type: 'text' },

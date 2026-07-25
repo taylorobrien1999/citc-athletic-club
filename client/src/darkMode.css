@@ -596,3 +596,32 @@
 [data-theme="dark"] .contact-map-toggle-block { border-color: #303040 !important; }
 [data-theme="dark"] .contact-map-toggle button { background: #2a2340 !important; color: #cfcfe0 !important; }
 [data-theme="dark"] .contact-map-toggle button.active { background: #C4B5FD !important; color: #14141c !important; }
+/* ── Athletics Alberta: photo+panel redesign ── */
+[data-theme="dark"] .aa-eyebrow { color: #C4B5FD !important; }
+[data-theme="dark"] .aa-title { color: #f5f5fa !important; }
+[data-theme="dark"] .aa-panel {
+  background: #1e1e2a !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important;
+}
+[data-theme="dark"] .aa-panel p { color: #cfcfe0 !important; }
+[data-theme="dark"] .aa-panel a { color: #C4B5FD !important; }
+[data-theme="dark"] .aa-panel .rtf-content { color: #cfcfe0 !important; }
+
+/* ── Volunteer: photo+panel+below redesign ── */
+[data-theme="dark"] .volunteer-eyebrow { color: #C4B5FD !important; }
+[data-theme="dark"] .volunteer-title { color: #f5f5fa !important; }
+[data-theme="dark"] .volunteer-subtitle { color: #9a9ab0 !important; }
+[data-theme="dark"] .volunteer-panel {
+  background: #1e1e2a !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important;
+}
+[data-theme="dark"] .volunteer-panel h2 { color: #f5f5fa !important; }
+[data-theme="dark"] .volunteer-panel h3 { color: #C4B5FD !important; }
+[data-theme="dark"] .volunteer-panel ul { color: #e0e0ec !important; }
+[data-theme="dark"] .volunteer-panel .rtf-content { color: #cfcfe0 !important; }
+[data-theme="dark"] .volunteer-detail-card {
+  background: linear-gradient(135deg, #1e1e2a 0%, #22203a 100%) !important;
+  border-color: #303040 !important;
+}
+[data-theme="dark"] .volunteer-detail-card h3 { color: #C4B5FD !important; }
+[data-theme="dark"] .volunteer-detail-card p { color: #cfcfe0 !important; }
