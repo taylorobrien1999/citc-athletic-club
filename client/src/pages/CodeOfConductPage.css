@@ -1,61 +1,115 @@
 .conduct-page {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: calc(var(--nav-height) + 16px) 24px 100px;
 }
 
-.conduct-hero { text-align: center; margin-bottom: 40px; }
+.conduct-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
 
 .conduct-eyebrow {
+  display: block;
   color: var(--citc-purple);
   font-weight: 700;
   letter-spacing: 1px;
   font-size: 13px;
+  margin: 0;
 }
 
 .conduct-title {
+  color: #1a1a1a;
   font-size: 42px;
   font-weight: 800;
   font-style: italic;
-  margin: 12px 0;
-  color: #1a1a1a;
+  margin: 12px 0 0;
 }
 
-.conduct-card {
+/* ── Photo + overlapping panel — same pattern as Mission ── */
+.conduct-body {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.conduct-photo {
+  margin-left: 34%;
+  width: 66%;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 0 0 4px 0;
+}
+
+.conduct-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
+
+.conduct-panel {
+  position: absolute;
+  left: 3%;
+  top: 70px;
+  width: 42%;
   background: #fff;
-  border: 1px solid #eee;
-  border-radius: 16px;
-  padding: 40px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  padding: 52px 46px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+  border-top: 3px solid var(--citc-purple);
 }
 
-.conduct-card h2 {
+.conduct-panel h2 {
   font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 16px;
-  color: #1a1a1a;
+  font-weight: 800;
+  color: #14121f;
+  margin: 0 0 18px;
 }
 
-.conduct-card h3 {
+.conduct-panel p {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #3a3a3a;
+  margin: 0 0 20px;
+}
+
+.conduct-panel p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Below section — numbered conduct points ── */
+.conduct-below {
+  max-width: 900px;
+  margin: 60px auto 0;
+  padding: 0 24px;
+}
+
+.conduct-below h3 {
   font-size: 15px;
   font-weight: 700;
-  margin: 24px 0 12px;
   color: var(--citc-purple);
-}
-
-.conduct-card p {
-  color: #444;
-  line-height: 1.7;
-  font-size: 15px;
-  margin: 0 0 14px;
+  margin: 0 0 20px;
 }
 
 .conduct-list {
+  padding-left: 20px;
   margin: 0;
-  padding-left: 22px;
-  color: #444;
-  font-size: 14.5px;
-  line-height: 1.8;
 }
 
-.conduct-list li { margin-bottom: 14px; }
+.conduct-list li {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.conduct-list li::marker {
+  color: var(--citc-purple);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .conduct-photo { margin-left: 0; width: 100%; height: 320px; }
+  .conduct-panel { position: static; width: auto; margin: 20px 16px 0; padding: 30px 24px; }
+}

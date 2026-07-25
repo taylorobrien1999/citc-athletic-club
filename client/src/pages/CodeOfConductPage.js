@@ -4,6 +4,8 @@ import ClosingCTA from '../components/ClosingCTA';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+const DEFAULT_PHOTO = 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200&q=80';
+
 const CONDUCT_POINTS = [
   'Fall outdoor training begins at 5pm. This means that a warmup begins at 5pm. If you are unable to attend a session, please give notice.',
   "On competition day, please arrive at the venue 1.5 hours before the first race. If you are unable to attend, please give as much notice as possible. Race entries are a big cost to the team, and if you miss a race, you will be required to pay the fee.",
@@ -26,60 +28,65 @@ export default function CodeOfConductPage() {
       .catch(() => {});
   }, []);
 
-  const fullOverride = siteContent.code_of_conduct_full || null;
+  const introOverride = siteContent.conduct_intro_text || null;
+  const listOverride = siteContent.conduct_list_text || null;
+  const photoUrl = siteContent.conduct_photo || DEFAULT_PHOTO;
 
   return (
     <>
-    <div className="conduct-page">
-      <div className="conduct-hero">
-        <span className="conduct-eyebrow">THE CLUB</span>
-        <h1 className="conduct-title">Code of Conduct</h1>
+      <div className="conduct-page">
+        <div className="conduct-hero">
+          <span className="conduct-eyebrow">THE CLUB</span>
+          <h1 className="conduct-title">Code of Conduct</h1>
+        </div>
+
+        <div className="conduct-body">
+          <div className="conduct-photo">
+            <img src={photoUrl} alt="CITC athletes at practice" />
+          </div>
+
+          <div className="conduct-panel">
+            {introOverride ? (
+              <div className="rtf-content" dangerouslySetInnerHTML={{ __html: introOverride }} />
+            ) : (
+              <>
+                <h2>Dear Athlete,</h2>
+                <p>
+                  Whether you are a high school, university, or post-collegiate athlete, your
+                  dedication to individual progress in sport and life is encouraged and supported
+                  by Calgary International Track Club (CITC).
+                </p>
+                <p>
+                  In turn, it is requested that you support the name and reputation of CITC —
+                  Calgary International has always been considered an elite Canadian track club
+                  with a strong commitment to the habit of excellence.
+                </p>
+                <p>
+                  If you've registered with Athletics Alberta under a CITC affiliation, then you
+                  have agreed to follow this Code of Conduct. If, at any point, you feel a fellow
+                  athlete is not respecting these policies, please speak to the coaches in
+                  confidence.
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="conduct-below">
+          {listOverride ? (
+            <div className="rtf-content" dangerouslySetInnerHTML={{ __html: listOverride }} />
+          ) : (
+            <>
+              <h3>Please read over the following, and reach out to coaches for clarification as necessary:</h3>
+              <ol className="conduct-list">
+                {CONDUCT_POINTS.map((point, i) => <li key={i}>{point}</li>)}
+              </ol>
+            </>
+          )}
+        </div>
       </div>
 
-      <div className="conduct-card">
-        {fullOverride ? (
-          <div className="rtf-content" dangerouslySetInnerHTML={{ __html: fullOverride }} />
-        ) : (
-          <>
-            <h2>Dear Athlete,</h2>
-            <p>
-              Whether you are a high school, university, or post-collegiate athlete, your
-              dedication to individual progress in sport and life is encouraged and supported by
-              Calgary International Track Club (CITC).
-            </p>
-            <p>
-              In turn, it is requested that you support the name and reputation of CITC; Calgary
-              International has always been considered an elite Canadian track club with a strong
-              commitment to the habit of excellence. It is no easy task to embody this mission, but
-              it's a worthy endeavour.
-            </p>
-            <p>
-              A CITC Code of Conduct has been created to guide you in this mission of excellence.
-              These policies are not intended to be threatening or demanding; rather, they're
-              designed so that you, a CITC athlete, may train in a healthy, safe, high-functioning
-              environment. This Code of Conduct is meant to serve you, so that you can flourish
-              with full comprehension of team values.
-            </p>
-            <p>
-              If you've registered with Athletics Alberta under a CITC affiliation, then you have
-              agreed to follow this Code of Conduct. If you do not believe that you can commit to
-              this Code, CITC coaches would be happy to refer you to another group.
-            </p>
-            <p>
-              The protocol is simple but strict, with respect a priority. If, at any point, you feel
-              that a fellow athlete is not respecting the outlined policies, please speak to the
-              coaches in confidence.
-            </p>
-
-            <h3>Please read over the following, and reach out to coaches for clarification as necessary:</h3>
-            <ol className="conduct-list">
-              {CONDUCT_POINTS.map((point, i) => <li key={i}>{point}</li>)}
-            </ol>
-          </>
-        )}
-      </div>
-    </div>
-    <ClosingCTA />
+      <ClosingCTA />
     </>
   );
 }

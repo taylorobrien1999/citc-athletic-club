@@ -34,9 +34,7 @@ const CATEGORIES = [
     name: 'The Club — Mission Statement',
     fields: [
       { key: 'mission_statement', label: 'Main Mission Statement', type: 'text' },
-      { key: 'mission_dei_text', label: 'DEI Panel Text (the box overlapping the photo)', type: 'text' },
-      { key: 'mission_commitments_text', label: 'Team Commitments Section (the list and closing statement below)', type: 'text' },
-      { key: 'mission_photo', label: 'Mission Page Photo', type: 'image' },
+      { key: 'mission_dei_text', label: 'Full DEI Section (heading, list, and closing — replaces the whole section below the quote)', type: 'text' },
     ],
   },
   {
@@ -49,7 +47,9 @@ const CATEGORIES = [
   {
     name: 'The Club — Code of Conduct',
     fields: [
-      { key: 'code_of_conduct_full', label: 'Full Code of Conduct Text', type: 'text' },
+      { key: 'conduct_intro_text', label: 'Intro Letter (the panel overlapping the photo)', type: 'text' },
+      { key: 'conduct_list_text', label: 'Conduct Points Section (the list below)', type: 'text' },
+      { key: 'conduct_photo', label: 'Code of Conduct Page Photo', type: 'image' },
     ],
   },
   {
