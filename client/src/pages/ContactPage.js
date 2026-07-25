@@ -9,6 +9,7 @@ export default function ContactPage() {
   const [error, setError] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [siteContent, setSiteContent] = useState({});
+  const [activeMap, setActiveMap] = useState('indoor');
 
   useEffect(() => {
     fetch(`${API_URL}/api/site-content`)
@@ -96,7 +97,7 @@ export default function ContactPage() {
                     name="message"
                     value={form.message}
                     onChange={handleChange}
-                    rows={5}
+                    rows={6}
                     placeholder="Tell us how we can help..."
                     required
                   />
@@ -129,8 +130,7 @@ export default function ContactPage() {
               <>
                 <h3>Indoor Season</h3>
                 <p>MNP Sports Centre</p>
-                <p>2225 Macleod Trail SE</p>
-                <p>Calgary, AB T2G 5B6</p>
+                <p>2225 Macleod Trail SE, Calgary, AB T2G 5B6</p>
                 <div className="contact-schedule">
                   <p><span>Monday</span> 4:30–6pm</p>
                   <p><span>Wednesday</span> 4:30–6:30pm</p>
@@ -148,8 +148,7 @@ export default function ContactPage() {
               <>
                 <h3>Outdoor Season</h3>
                 <p>Glenmore Track (Glenmore Athletic Park)</p>
-                <p>5300 19 Street SW</p>
-                <p>Calgary, AB T3E 1P6</p>
+                <p>5300 19 Street SW, Calgary, AB T3E 1P6</p>
                 <div className="contact-schedule">
                   <p><span>Monday</span> 5–7pm</p>
                   <p><span>Wednesday</span> 5–7pm</p>
@@ -158,6 +157,42 @@ export default function ContactPage() {
                 </div>
               </>
             )}
+          </div>
+
+          <div className="contact-map-toggle-block">
+            <div className="contact-map-toggle">
+              <button
+                className={activeMap === 'indoor' ? 'active' : ''}
+                onClick={() => setActiveMap('indoor')}
+              >
+                Indoor Map
+              </button>
+              <button
+                className={activeMap === 'outdoor' ? 'active' : ''}
+                onClick={() => setActiveMap('outdoor')}
+              >
+                Outdoor Map
+              </button>
+            </div>
+            <div className="contact-map">
+              {activeMap === 'indoor' ? (
+                <iframe
+                  key="indoor"
+                  title="MNP Sports Centre location"
+                  src="https://www.google.com/maps?q=MNP+Sports+Centre+2225+Macleod+Trail+SE+Calgary+AB&output=embed"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              ) : (
+                <iframe
+                  key="outdoor"
+                  title="Glenmore Athletic Park location"
+                  src="https://www.google.com/maps?q=Glenmore+Athletic+Park+5300+19+Street+SW+Calgary+AB&output=embed"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              )}
+            </div>
           </div>
 
           <div className="contact-social">

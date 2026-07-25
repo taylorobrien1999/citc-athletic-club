@@ -1,4 +1,5 @@
 const { ContactMessage } = require('../models');
+const { sendMail } = require('../utils/mailer');
 
 // ── POST /api/contact ─────────────────────────────────────────────────────────
 // Public — no auth required.
@@ -11,6 +12,25 @@ const createMessage = async (req, res) => {
     }
 
     const contactMessage = await ContactMessage.create({ name, email, subject, message });
+
+    // Notify the club's real inbox — previously this only saved to the
+    // database with no way for anyone to actually see a new submission.
+    try {
+      await sendMail({
+        to: 'rudecindy13@gmail.com',
+        subject: `New Contact Form Message${subject ? `: ${subject}` : ''}`,
+        html: `
+          <p><strong>From:</strong> ${name} (${email})</p>
+          ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ''}
+          <p><strong>Message:</strong></p>
+          <p>${message.replace(/\n/g, '<br>')}</p>
+        `,
+      });
+    } catch (mailErr) {
+      // Don't fail the whole request if email sending has an issue — the
+      // message is still safely saved in the database either way.
+      console.error('Contact form email notification failed:', mailErr);
+    }
 
     return res.status(201).json({
       message: "Thanks for reaching out! We'll get back to you as soon as possible.",

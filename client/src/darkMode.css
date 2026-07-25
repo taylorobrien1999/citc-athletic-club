@@ -138,11 +138,16 @@
 [data-theme="dark"] .news-document-type { background: #2a2340 !important; color: #A78BFA !important; }
 
 /* ── Contact page ── */
-[data-theme="dark"] .contact-form-heading, [data-theme="dark"] .contact-location h3 { color: #f5f5fa !important; }
+[data-theme="dark"] .contact-form-heading { color: #f5f5fa !important; }
+[data-theme="dark"] .contact-location h3 { color: #A78BFA !important; background: #2a2340 !important; }
+[data-theme="dark"] .contact-location p:nth-of-type(1) { color: #f5f5fa !important; }
+[data-theme="dark"] .contact-location p:nth-of-type(2) { color: #9a9ab0 !important; }
 [data-theme="dark"] .contact-info-intro, [data-theme="dark"] .contact-location p,
 [data-theme="dark"] .contact-schedule span, [data-theme="dark"] .contact-schedule {
   color: #cfcfe0 !important;
 }
+[data-theme="dark"] .contact-location { border-color: #303040 !important; }
+[data-theme="dark"] .contact-schedule p { border-color: #262632 !important; }
 [data-theme="dark"] .contact-field label { color: #a8a8c0 !important; }
 [data-theme="dark"] .contact-social a { color: #A78BFA !important; }
 
@@ -272,7 +277,11 @@
 [data-theme="dark"] .admin-cms-submit:hover { background: #3d2c5c !important; }
 
 /* Contact page: the "Prefer email?" surrounding text, not just the link */
-[data-theme="dark"] .contact-direct-email { color: #cfcfe0 !important; }
+[data-theme="dark"] .contact-direct-email {
+  color: #cfcfe0 !important;
+  background: #22222e !important;
+  border-color: #303040 !important;
+}
 
 /* Member dashboard summary numbers — switch from purple to clean white,
    removing the "which blue/purple is this" ambiguity entirely */
@@ -581,3 +590,9 @@
 /* ── Track Meets panel (restored — reverted from the glass-card experiment
    back to the proven Mission/Conduct pattern) ── */
 
+
+/* ── Contact page: embedded map containers ── */
+[data-theme="dark"] .contact-map { border-color: #303040 !important; }
+[data-theme="dark"] .contact-map-toggle-block { border-color: #303040 !important; }
+[data-theme="dark"] .contact-map-toggle button { background: #2a2340 !important; color: #cfcfe0 !important; }
+[data-theme="dark"] .contact-map-toggle button.active { background: #C4B5FD !important; color: #14141c !important; }
