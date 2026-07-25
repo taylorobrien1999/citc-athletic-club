@@ -4,7 +4,7 @@ import './ContactPage.css';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -84,6 +84,11 @@ export default function ContactPage() {
                 <div className="contact-field">
                   <label>Email *</label>
                   <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
+                </div>
+
+                <div className="contact-field">
+                  <label>Phone Number (optional)</label>
+                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="(403) 555-0123" />
                 </div>
 
                 <div className="contact-field">
