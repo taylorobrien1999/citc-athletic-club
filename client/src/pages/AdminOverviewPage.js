@@ -138,7 +138,7 @@ export default function AdminOverviewPage() {
                 <div className="overview-feed-item" key={ev.id}>
                   <div className="overview-feed-title">{ev.title}</div>
                   <div className="overview-feed-meta">
-                    {new Date(ev.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                    {parseLocalDate(ev.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                     {ev.location && ` · ${ev.location}`}
                   </div>
                 </div>

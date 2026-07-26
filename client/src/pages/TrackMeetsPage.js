@@ -117,7 +117,7 @@ export default function TrackMeetsPage() {
                 {upcomingEvents.map((ev) => (
                   <div className="meets-upcoming-item" key={ev.id}>
                     <div className="meets-upcoming-date">
-                      {new Date(ev.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                      {parseLocalDate(ev.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                     </div>
                     <div>
                       <div className="meets-upcoming-name">{ev.title}</div>

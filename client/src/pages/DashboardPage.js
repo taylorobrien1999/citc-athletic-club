@@ -135,7 +135,7 @@ export default function DashboardPage() {
         <div className="dash-summary-item">
           <span className="dash-summary-value">
             {loading ? '···' : nextEvent
-              ? new Date(nextEvent.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+              ? parseLocalDate(nextEvent.eventDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
               : '—'}
           </span>
           <span className="dash-summary-label">Next Event</span>
@@ -227,7 +227,7 @@ export default function DashboardPage() {
               {upcomingEvents.map((ev) => (
                 <div className="dash-event" key={ev.id}>
                   <div className="dash-event-date">
-                    {new Date(ev.eventDate).toLocaleDateString(undefined, {
+                    {parseLocalDate(ev.eventDate).toLocaleDateString(undefined, {
                       month: 'short', day: 'numeric',
                     })}
                   </div>
