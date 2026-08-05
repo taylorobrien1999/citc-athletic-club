@@ -70,6 +70,8 @@ export default function AdminRecordsPage() {
   };
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm('Delete this record? This cannot be undone.');
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/api/records/${id}`, {
         method: 'DELETE',

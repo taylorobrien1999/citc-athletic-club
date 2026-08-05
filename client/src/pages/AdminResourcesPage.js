@@ -74,6 +74,8 @@ export default function AdminResourcesPage() {
   };
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm('Delete this resource? This cannot be undone.');
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/api/resources/${id}`, {
         method: 'DELETE',

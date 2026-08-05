@@ -79,6 +79,8 @@ export default function AdminInquiriesPage() {
   };
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm('Delete this inquiry? This cannot be undone.');
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/api/inquiries/${id}`, {
         method: 'DELETE',

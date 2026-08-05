@@ -75,6 +75,8 @@ export default function AdminEventsPage() {
   };
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm('Delete this event? This cannot be undone.');
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/api/events/${id}`, {
         method: 'DELETE',

@@ -72,6 +72,8 @@ export default function AdminSponsorsPage() {
   };
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm('Delete this sponsor? This cannot be undone.');
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/api/sponsors/${id}`, {
         method: 'DELETE',

@@ -71,6 +71,8 @@ export default function AdminAnnouncementsPage() {
   };
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm('Delete this announcement? This cannot be undone.');
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/api/announcements/${id}`, {
         method: 'DELETE',

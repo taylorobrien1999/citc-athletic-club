@@ -68,6 +68,8 @@ export default function AdminProgramsPage() {
   };
 
   const handleDelete = async (id) => {
+    const confirmed = window.confirm('Delete this program? This cannot be undone.');
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/api/programs/${id}`, {
         method: 'DELETE',
