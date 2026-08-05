@@ -102,13 +102,16 @@ export default function TrainingProgramsPage() {
         <div className="training-structure-card">
           <h2>Program Structure</h2>
           <p>
-            All event groups share a common foundation. Athletes are placed in programs based
-            on event demands, while progression across groups is encouraged as athletes mature
-            and specialize.
+            Our training model is built around the development of complete athletes. All event
+            groups share a common foundation emphasizing:
           </p>
           <ul className="training-structure-list">
             {PROGRAM_STRUCTURE_POINTS.map((p, i) => <li key={i}>{p}</li>)}
           </ul>
+          <p>
+            Athletes are placed in programs based on event demands, while progression across
+            groups is encouraged as athletes mature and specialize.
+          </p>
         </div>
       </div>
 
