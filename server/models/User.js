@@ -10,10 +10,22 @@ const User = sequelize.define('User', {
   firstName: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    validate: {
+      is: {
+        args: /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/,
+        msg: 'First name can only contain letters, spaces, hyphens, and apostrophes.',
+      },
+    },
   },
   lastName: {
     type: DataTypes.STRING(100),
     allowNull: false,
+    validate: {
+      is: {
+        args: /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/,
+        msg: 'Last name can only contain letters, spaces, hyphens, and apostrophes.',
+      },
+    },
   },
   email: {
     type: DataTypes.STRING(255),
@@ -45,10 +57,28 @@ const User = sequelize.define('User', {
   phone: {
     type: DataTypes.STRING(30),
     allowNull: true,
+    validate: {
+      // Optional field — only validate format if a value is actually provided.
+      isValidPhone(value) {
+        if (!value) return;
+        const digitsOnly = value.replace(/\D/g, '');
+        if (digitsOnly.length !== 10) {
+          throw new Error('Phone number must contain exactly 10 digits.');
+        }
+      },
+    },
   },
   emergencyContactName: {
     type: DataTypes.STRING(150),
     allowNull: true,
+    validate: {
+      isValidName(value) {
+        if (!value) return;
+        if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]+$/.test(value)) {
+          throw new Error('Emergency contact name can only contain letters, spaces, hyphens, and apostrophes.');
+        }
+      },
+    },
   },
   emergencyContactRelation: {
     type: DataTypes.STRING(50),
@@ -57,6 +87,15 @@ const User = sequelize.define('User', {
   emergencyContactPhone: {
     type: DataTypes.STRING(30),
     allowNull: true,
+    validate: {
+      isValidPhone(value) {
+        if (!value) return;
+        const digitsOnly = value.replace(/\D/g, '');
+        if (digitsOnly.length !== 10) {
+          throw new Error('Emergency contact phone must contain exactly 10 digits.');
+        }
+      },
+    },
   },
   profilePictureUrl: {
     type: DataTypes.STRING(500),

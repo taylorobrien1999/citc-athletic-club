@@ -144,6 +144,9 @@ const updateMe = async (req, res) => {
 
     return res.status(200).json({ message: 'Profile updated.', user: sanitize(user) });
   } catch (err) {
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: err.errors[0].message });
+    }
     console.error('Update me error:', err);
     return res.status(500).json({ message: 'Server error.' });
   }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { sanitizeNameInput, sanitizePhoneInput } from '../utils/inputSanitize';
 import './ContactPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -22,7 +23,10 @@ export default function ContactPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    let cleaned = value;
+    if (name === 'name') cleaned = sanitizeNameInput(value);
+    if (name === 'phone') cleaned = sanitizePhoneInput(value);
+    setForm(prev => ({ ...prev, [name]: cleaned }));
     setError('');
   };
 

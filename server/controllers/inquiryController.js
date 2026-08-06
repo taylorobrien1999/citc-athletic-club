@@ -31,6 +31,9 @@ const createInquiry = async (req, res) => {
       inquiry,
     });
   } catch (err) {
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: err.errors[0].message });
+    }
     console.error('Create inquiry error:', err);
     return res.status(500).json({ message: 'Server error. Please try again.' });
   }

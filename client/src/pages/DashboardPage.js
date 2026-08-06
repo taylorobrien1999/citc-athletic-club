@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import FileUploadButton from '../components/FileUploadButton';
 import { parseLocalDate } from '../utils/dateUtils';
+import { sanitizeNameInput, sanitizePhoneInput } from '../utils/inputSanitize';
 import './DashboardPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -80,8 +81,15 @@ export default function DashboardPage() {
     load();
   }, []);
 
+  const NAME_FIELDS = ['firstName', 'lastName', 'emergencyContactName'];
+  const PHONE_FIELDS = ['phone', 'emergencyContactPhone'];
+
   const handleProfileChange = (e) => {
-    setProfileForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    let cleaned = value;
+    if (NAME_FIELDS.includes(name)) cleaned = sanitizeNameInput(value);
+    if (PHONE_FIELDS.includes(name)) cleaned = sanitizePhoneInput(value);
+    setProfileForm(prev => ({ ...prev, [name]: cleaned }));
   };
 
   const handleProfileSave = async (e) => {

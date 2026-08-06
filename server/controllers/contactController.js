@@ -38,6 +38,9 @@ const createMessage = async (req, res) => {
       contactMessage,
     });
   } catch (err) {
+    if (err.name === 'SequelizeValidationError') {
+      return res.status(400).json({ message: err.errors[0].message });
+    }
     console.error('Create contact message error:', err);
     return res.status(500).json({ message: 'Server error. Please try again.' });
   }
