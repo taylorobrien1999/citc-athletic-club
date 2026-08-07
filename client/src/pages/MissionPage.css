@@ -43,6 +43,7 @@
   height: 600px;
   overflow: hidden;
   border-radius: 0 0 4px 0;
+  background: #f0eef5;
 }
 
 .mission-photo img {

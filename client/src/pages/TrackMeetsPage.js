@@ -28,12 +28,14 @@ export default function TrackMeetsPage() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [siteContent, setSiteContent] = useState({});
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/api/site-content`)
       .then(res => res.json())
       .then(data => setSiteContent(data.content || {}))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setContentLoaded(true));
   }, []);
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function TrackMeetsPage() {
 
         <div className="meets-body">
           <div className="meets-photo">
-            <img src={photoUrl} alt="CITC athletes competing" />
+            {contentLoaded && <img src={photoUrl} alt="CITC athletes competing" />}
           </div>
 
           <div className="meets-overlay-stack">

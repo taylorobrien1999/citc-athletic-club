@@ -628,3 +628,13 @@
 
 /* ── Sponsors collage ── */
 [data-theme="dark"] .sponsors-eyebrow { color: #C4B5FD !important; }
+
+/* ── Photo placeholder backgrounds — prevent a bright flash in dark mode
+   during the brief moment before content loads ── */
+[data-theme="dark"] .mission-photo,
+[data-theme="dark"] .conduct-photo,
+[data-theme="dark"] .aa-photo,
+[data-theme="dark"] .volunteer-photo,
+[data-theme="dark"] .meets-photo {
+  background: #1e1e2a !important;
+}

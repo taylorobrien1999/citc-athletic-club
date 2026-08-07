@@ -8,12 +8,14 @@ const DEFAULT_PHOTO = 'https://images.unsplash.com/photo-1461896836934-ffe607ba8
 
 export default function AthleticsAlbertaPage() {
   const [siteContent, setSiteContent] = useState({});
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/api/site-content`)
       .then(res => res.json())
       .then(data => setSiteContent(data.content || {}))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setContentLoaded(true));
   }, []);
 
   const override = siteContent.athletics_alberta_text || null;
@@ -29,7 +31,7 @@ export default function AthleticsAlbertaPage() {
 
         <div className="aa-body">
           <div className="aa-photo">
-            <img src={photoUrl} alt="CITC athlete training" />
+            {contentLoaded && <img src={photoUrl} alt="CITC athlete training" />}
           </div>
 
           <div className="aa-panel">

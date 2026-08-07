@@ -8,12 +8,14 @@ const DEFAULT_PHOTO = 'https://images.unsplash.com/photo-1517649763962-0c6230660
 
 export default function VolunteerPage() {
   const [siteContent, setSiteContent] = useState({});
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/api/site-content`)
       .then(res => res.json())
       .then(data => setSiteContent(data.content || {}))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setContentLoaded(true));
   }, []);
 
   const introOverride = siteContent.volunteer_intro_text || null;
@@ -31,7 +33,7 @@ export default function VolunteerPage() {
 
         <div className="volunteer-body">
           <div className="volunteer-photo">
-            <img src={photoUrl} alt="CITC volunteers at a meet" />
+            {contentLoaded && <img src={photoUrl} alt="CITC volunteers at a meet" />}
           </div>
 
           <div className="volunteer-panel">

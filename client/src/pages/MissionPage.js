@@ -22,12 +22,14 @@ const DEI_COMMITMENTS = [
 
 export default function MissionPage() {
   const [siteContent, setSiteContent] = useState({});
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/api/site-content`)
       .then(res => res.json())
       .then(data => setSiteContent(data.content || {}))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setContentLoaded(true));
   }, []);
 
   const displayedDeiText = siteContent.mission_dei_text || null;
@@ -44,7 +46,7 @@ export default function MissionPage() {
 
         <div className="mission-body">
           <div className="mission-photo">
-            <img src={photoUrl} alt="CITC athletes with coach" />
+            {contentLoaded && <img src={photoUrl} alt="CITC athletes with coach" />}
           </div>
 
           <div className="mission-panel">

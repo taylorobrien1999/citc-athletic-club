@@ -20,12 +20,14 @@ const CONDUCT_POINTS = [
 
 export default function CodeOfConductPage() {
   const [siteContent, setSiteContent] = useState({});
+  const [contentLoaded, setContentLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`${API_URL}/api/site-content`)
       .then(res => res.json())
       .then(data => setSiteContent(data.content || {}))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setContentLoaded(true));
   }, []);
 
   const introOverride = siteContent.conduct_intro_text || null;
@@ -42,7 +44,7 @@ export default function CodeOfConductPage() {
 
         <div className="conduct-body">
           <div className="conduct-photo">
-            <img src={photoUrl} alt="CITC athletes at practice" />
+            {contentLoaded && <img src={photoUrl} alt="CITC athletes at practice" />}
           </div>
 
           <div className="conduct-panel">
