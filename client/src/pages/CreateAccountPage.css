@@ -1,5 +1,12 @@
 .create-account-page {
-  min-height: calc(100vh - 80px); /* 80px ≈ your navbar height, adjust to match */
+  position: relative;
+  overflow: hidden;
+  /* Was calc(100vh - 80px), which relied on the Footer below to fill the
+     leftover 80px. Now that /create-account no longer renders a footer
+     (see FooterGate), that gap showed up as bare white space at the
+     bottom. Full 100vh matches how the other auth pages (AuthPage.css)
+     already handle this. */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,6 +16,8 @@
 .create-account-loading { color: #888; }
 
 .create-account-card {
+  position: relative;
+  z-index: 1;
   background: #fff;
   border: 1px solid #eee;
   border-radius: 16px;

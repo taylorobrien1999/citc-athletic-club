@@ -4,6 +4,7 @@ import { loginUser } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import RegistrationModal from '../components/RegistrationModal';
 import PasswordInput from '../components/PasswordInput';
+import AuthBackground from '../components/AuthBackground';
 import citcLogo from '../assets/citc-logo-full.png';
 import './AuthPage.css';
 
@@ -39,6 +40,7 @@ export default function LoginPage() {
   return (
     <>
       <div className="auth-page">
+        <AuthBackground />
         <div className="auth-card">
           <img src={citcLogo} alt="CITC" className="auth-logo" />
           <h2 className="auth-subtitle">Sign In</h2>

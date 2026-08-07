@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import PasswordInput from '../components/PasswordInput';
 import citcLogo from '../assets/citc-logo-full.png';
+import AuthBackground from '../components/AuthBackground';
 import './CreateAccountPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -69,6 +70,7 @@ export default function CreateAccountPage() {
   if (error && !invite) {
     return (
       <div className="create-account-page">
+        <AuthBackground />
         <div className="create-account-card">
           <h1>Invite Not Valid</h1>
           <p className="create-account-error">{error}</p>
@@ -80,6 +82,7 @@ export default function CreateAccountPage() {
 
   return (
     <div className="create-account-page">
+      <AuthBackground />
       <div className="create-account-card">
         <img src={citcLogo} alt="CITC" className="auth-logo" />
         <h1>Create Your Account</h1>
