@@ -18,15 +18,17 @@
     max-width: 420px;
   }
   
-  .auth-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-style: italic;
-    font-weight: 800;
-    font-size: 2rem;
-    text-align: center;
-    color: var(--citc-purple);
+  .auth-logo {
+    display: block;
+    height: 44px;
+    width: auto;
+    margin: 0 auto 8px;
   }
-  
+
+  [data-theme="dark"] .auth-logo {
+    filter: brightness(0) invert(1);
+  }
+
   .auth-subtitle {
     font-size: 1.1rem;
     font-weight: 600;

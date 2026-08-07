@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import PasswordInput from '../components/PasswordInput';
+import citcLogo from '../assets/citc-logo-full.png';
 import './AuthPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -62,7 +63,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="auth-page">
         <div className="auth-card">
-          <h1 className="auth-title">CITC</h1>
+          <img src={citcLogo} alt="CITC" className="auth-logo" />
           <h2 className="auth-subtitle">Link Not Valid</h2>
           <p className="auth-error">{checkError}</p>
           <p className="auth-footer">
@@ -76,7 +77,7 @@ export default function ResetPasswordPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1 className="auth-title">CITC</h1>
+        <img src={citcLogo} alt="CITC" className="auth-logo" />
         <h2 className="auth-subtitle">Set a New Password</h2>
 
         {done ? (

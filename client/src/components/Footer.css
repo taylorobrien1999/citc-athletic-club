@@ -30,6 +30,14 @@
   border-radius: 6px;
 }
 
+.footer-logo {
+  height: 100px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  flex-shrink: 0;
+  margin: -34px 0;
+}
+
 .footer-tag {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.4);

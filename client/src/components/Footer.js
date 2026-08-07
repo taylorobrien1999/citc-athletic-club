@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import citcLogo from '../assets/citc-logo-full.png';
 import './Footer.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -20,7 +21,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <span className="footer-badge">CITC</span>
+          <img src={citcLogo} alt="CITC" className="footer-logo" />
           <p className="footer-tag">
             Calgary International Track Club<br />
             In the Habit of Excellence since 1993

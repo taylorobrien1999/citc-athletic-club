@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import citcLogo from '../assets/citc-logo-full.png';
 import './AuthPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -33,7 +34,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1 className="auth-title">CITC</h1>
+        <img src={citcLogo} alt="CITC" className="auth-logo" />
         <h2 className="auth-subtitle">Reset Your Password</h2>
 
         {submitted ? (

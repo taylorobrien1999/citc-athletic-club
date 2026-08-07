@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import PasswordInput from '../components/PasswordInput';
+import citcLogo from '../assets/citc-logo-full.png';
 import './CreateAccountPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
@@ -80,7 +81,7 @@ export default function CreateAccountPage() {
   return (
     <div className="create-account-page">
       <div className="create-account-card">
-        <span className="create-account-eyebrow">WELCOME TO CITC</span>
+        <img src={citcLogo} alt="CITC" className="auth-logo" />
         <h1>Create Your Account</h1>
         <p className="create-account-sub">
           Hi {invite?.firstName}, set a password below to activate your account

@@ -1,5 +1,5 @@
 .create-account-page {
-  min-height: 80vh;
+  min-height: calc(100vh - 80px); /* 80px ≈ your navbar height, adjust to match */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,11 +18,15 @@
   box-shadow: 0 2px 16px rgba(0,0,0,0.06);
 }
 
-.create-account-eyebrow {
-  color: var(--citc-purple);
-  font-weight: 700;
-  letter-spacing: 1px;
-  font-size: 12px;
+.auth-logo {
+  display: block;
+  height: 286px;
+  width: auto;
+  margin: -100px auto -80px;
+}
+
+[data-theme="dark"] .auth-logo {
+  filter: brightness(0) invert(1);
 }
 
 .create-account-card h1 {
