@@ -70,7 +70,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth > 768) setDrawerOpen(false); };
+    const onResize = () => { if (window.innerWidth > 1100) setDrawerOpen(false); };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);

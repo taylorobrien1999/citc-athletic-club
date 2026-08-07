@@ -231,7 +231,7 @@
 .nav-drawer {
   display: none;
   position: fixed;
-  top: 70px; left: 0; right: 0; bottom: 0;
+  top: var(--nav-height); left: 0; right: 0; bottom: 0;
   background: rgba(15, 10, 30, 0.97);
   backdrop-filter: blur(12px);
   overflow-y: auto;
@@ -315,10 +315,14 @@
 .drawer-register:hover { background: var(--citc-purple-dark); text-decoration: none; }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .nav-links     { display: none; }
   .nav-hamburger { display: flex; }
+}
+
+@media (max-width: 768px) {
   .nav-inner     { padding: 0 1.25rem; height: 72px; }
+  .nav-drawer    { top: var(--nav-height-mobile); }
 }
 
 /* ── Logout toast ── */
