@@ -104,6 +104,7 @@ export default function ChatWidget({ mode = 'public' }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."
+              maxLength={300}
               disabled={loading}
             />
             <button type="submit" disabled={loading || !input.trim()}>Send</button>

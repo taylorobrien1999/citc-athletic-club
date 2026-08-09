@@ -31,7 +31,12 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(255),
     allowNull: false,
     unique: true,
-    validate: { isEmail: true },
+    validate: {
+      is: {
+        args: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        msg: 'Please enter a valid email address.',
+      },
+    },
   },
   passwordHash: {
     type: DataTypes.STRING(255),

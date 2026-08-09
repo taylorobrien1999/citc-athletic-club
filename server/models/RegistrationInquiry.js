@@ -23,7 +23,16 @@ const RegistrationInquiry = sequelize.define('RegistrationInquiry', {
       },
     },
   },
-  email: { type: DataTypes.STRING(255), allowNull: false, validate: { isEmail: true } },
+  email: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    validate: {
+      is: {
+        args: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        msg: 'Please enter a valid email address.',
+      },
+    },
+  },
   phone: {
     type: DataTypes.STRING(30),
     allowNull: true,
@@ -39,7 +48,11 @@ const RegistrationInquiry = sequelize.define('RegistrationInquiry', {
   },
   parentEmail: { type: DataTypes.STRING(255), allowNull: true },
   dateOfBirth: { type: DataTypes.DATEONLY, allowNull: true },
-  message: { type: DataTypes.TEXT, allowNull: true },
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    validate: { len: { args: [0, 600], msg: 'Message must be 600 characters or fewer.' } },
+  },
   status: { type: DataTypes.ENUM('pending', 'contacted', 'accepted', 'declined'), defaultValue: 'pending' },
 }, { tableName: 'registration_inquiries', timestamps: true });
 

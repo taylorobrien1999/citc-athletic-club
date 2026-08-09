@@ -107,9 +107,13 @@ export default function ContactPage() {
                     value={form.message}
                     onChange={handleChange}
                     rows={6}
+                    maxLength={600}
                     placeholder="Tell us how we can help..."
                     required
                   />
+                  <span style={{ display: 'block', textAlign: 'right', fontSize: '12px', color: '#888', marginTop: '4px' }}>
+                    {form.message.length}/600
+                  </span>
                 </div>
 
                 <button type="submit" className="contact-submit-btn" disabled={loading}>

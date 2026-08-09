@@ -13,7 +13,16 @@ const ContactMessage = sequelize.define('ContactMessage', {
       },
     },
   },
-  email: { type: DataTypes.STRING(255), allowNull: false, validate: { isEmail: true } },
+  email: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    validate: {
+      is: {
+        args: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        msg: 'Please enter a valid email address.',
+      },
+    },
+  },
   phone: {
     type: DataTypes.STRING(30),
     allowNull: true,
@@ -28,7 +37,11 @@ const ContactMessage = sequelize.define('ContactMessage', {
     },
   },
   subject: { type: DataTypes.STRING(200), allowNull: true },
-  message: { type: DataTypes.TEXT, allowNull: false },
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: { len: { args: [1, 600], msg: 'Message must be between 1 and 600 characters.' } },
+  },
   status: { type: DataTypes.ENUM('unread', 'read', 'replied'), defaultValue: 'unread' },
 }, { tableName: 'contact_messages', timestamps: true });
 

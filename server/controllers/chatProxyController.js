@@ -14,7 +14,7 @@ const proxyChat = async (req, res) => {
     }
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000); // don't hang forever if the service is down
+    const timeout = setTimeout(() => controller.abort(), 20000); // don't hang forever if the service is down
 
     const response = await fetch(`${CHATBOT_SERVICE_URL}/api/chat`, {
       method: 'POST',

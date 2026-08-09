@@ -13,6 +13,9 @@ const chat = async (req, res) => {
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ message: 'A message is required.' });
     }
+    if (message.length > 300) {
+      return res.status(400).json({ message: 'Message is too long. Please keep it under 300 characters.' });
+    }
 
     const systemContext = mode === 'admin' ? CITC_ADMIN_CONTEXT : CITC_PUBLIC_CONTEXT;
 
@@ -37,7 +40,7 @@ const chat = async (req, res) => {
         ],
         generationConfig: {
           temperature: 0.4,
-          maxOutputTokens: 400,
+          maxOutputTokens: 900,
         },
       }),
     });

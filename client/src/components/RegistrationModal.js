@@ -140,9 +140,13 @@ export default function RegistrationModal({ isOpen, onClose }) {
                   value={form.message}
                   onChange={handleChange}
                   rows={4}
+                  maxLength={600}
                   placeholder="e.g. Running experience, goals, which program you're interested in..."
                   style={{ width: '100%', fontFamily: 'inherit', fontSize: '14px', padding: '10px', borderRadius: '8px', border: '1px solid #ccc', resize: 'vertical' }}
                 />
+                <span style={{ display: 'block', textAlign: 'right', fontSize: '12px', color: '#888', marginTop: '4px' }}>
+                  {form.message.length}/600
+                </span>
               </div>
 
               <button type="submit" className="reg-submit-btn" disabled={loading}>
