@@ -1,6 +1,6 @@
 /* Matches AdminPage.css color tokens: #1a1a2e, #6c3baa, #f4f5f7 */
 
-.admin-inquiries { max-width: 1000px; }
+.admin-inquiries { width: 100%; }
 
 .inquiries-header { margin-bottom: 1.5rem; }
 .inquiries-header h2 { font-size: 1.4rem; font-weight: 700; color: #1a1a2e; margin: 0 0 0.35rem; }
