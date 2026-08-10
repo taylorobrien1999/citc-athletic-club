@@ -1,12 +1,19 @@
+import { useTheme } from '../context/ThemeContext';
 import './AuthBackground.css';
 
 /**
  * Animated day/night track-field background used behind the sign in,
  * forgot password, reset password, and create account cards.
  *
- * Purely decorative -- aria-hidden so screen readers skip it. Respects
- * prefers-reduced-motion (see AuthBackground.css) and swaps automatically
- * with the site's [data-theme="dark"] attribute on <html>.
+ * Mostly decorative -- aria-hidden so screen readers skip it (the accessible
+ * theme control lives in the navbar). Respects prefers-reduced-motion (see
+ * AuthBackground.css) and swaps automatically with the site's
+ * [data-theme="dark"] attribute on <html>.
+ *
+ * The sun/moon itself IS clickable -- touching it calls toggleTheme() the
+ * same as the navbar button, so visitors can flip the theme right from the
+ * sky. It overrides the pointer-events: none set on the rest of this
+ * decorative layer (see .auth-bg-celestial in AuthBackground.css).
  *
  * Track ellipse radii below are ~10% larger than the original design
  * (rx 330/290/250/210, ry 110/93/76/60) -- to revert just the track size
@@ -14,12 +21,20 @@ import './AuthBackground.css';
  * finish-line y1/y2 back to 160/380.
  */
 export default function AuthBackground() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <div className="auth-bg" aria-hidden="true">
       <div className="auth-bg-sky" />
 
-      <div className="auth-bg-sun" />
-      <div className="auth-bg-moon" />
+      <div
+        className="auth-bg-celestial"
+        onClick={toggleTheme}
+        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        <div className="auth-bg-sun" />
+        <div className="auth-bg-moon" />
+      </div>
 
       <div className="auth-bg-cloud auth-bg-cloud--1" />
       <div className="auth-bg-cloud auth-bg-cloud--2" />
