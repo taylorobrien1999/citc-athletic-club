@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import citcLogoFull from '../assets/citc-logo-full.png';
 import citcLogoIcon from '../assets/citc-logo-icon.jpg';
 import RegistrationModal from '../components/RegistrationModal';
@@ -40,6 +41,7 @@ const SLIDES = [
 ];
 
 export default function HomePage() {
+  const { user, isAdmin } = useAuth();
   const [slide, setSlide] = useState(0);
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [siteContent, setSiteContent] = useState({});
@@ -117,7 +119,11 @@ export default function HomePage() {
               </p>
             )}
             <div className="hero-btns">
-              <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
+              {user ? (
+                <Link to={isAdmin ? '/admin' : '/dashboard'} className="btn-primary">Go to Dashboard</Link>
+              ) : (
+                <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
+              )}
               <Link to="/the-club/coaches" className="btn-outline">Meet the Coaches</Link>
             </div>
           </div>
@@ -280,30 +286,35 @@ export default function HomePage() {
       )}
 
       {/* ── CTA ──────────────────────────────────────────────────────────── */}
-      <section className="cta-section">
-        <div className="cta-inner">
-          <p className="cta-eyebrow">Join the Club</p>
-          <h2 className="cta-title">
-            {siteContent.home_cta_title
-              ? <span dangerouslySetInnerHTML={{ __html: siteContent.home_cta_title.replace(/\n/g, '<br />') }} />
-              : <>Start Your<br />Journey</>
-            }
-          </h2>
-          {siteContent.home_cta_sub ? (
-            <div className="cta-sub rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.home_cta_sub }} />
-          ) : (
-            <p className="cta-sub">
-              New athletes and parents are invited to submit a Registration Inquiry — a coach
-              will follow up within 48 hours to discuss the best training option for you. A
-              valid Athletics Alberta membership is required before your first session.
-            </p>
-          )}
-          <div className="cta-btns">
-            <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
-            <Link to="/contact" className="btn-outline-dark">Contact Us</Link>
+      {/* This whole section is aimed at prospective members ("New athletes
+          and parents are invited...") so it's hidden once someone is
+          logged in -- there's nothing here for an existing member. */}
+      {!user && (
+        <section className="cta-section">
+          <div className="cta-inner">
+            <p className="cta-eyebrow">Join the Club</p>
+            <h2 className="cta-title">
+              {siteContent.home_cta_title
+                ? <span dangerouslySetInnerHTML={{ __html: siteContent.home_cta_title.replace(/\n/g, '<br />') }} />
+                : <>Start Your<br />Journey</>
+              }
+            </h2>
+            {siteContent.home_cta_sub ? (
+              <div className="cta-sub rtf-content" dangerouslySetInnerHTML={{ __html: siteContent.home_cta_sub }} />
+            ) : (
+              <p className="cta-sub">
+                New athletes and parents are invited to submit a Registration Inquiry — a coach
+                will follow up within 48 hours to discuss the best training option for you. A
+                valid Athletics Alberta membership is required before your first session.
+              </p>
+            )}
+            <div className="cta-btns">
+              <button className="btn-primary" onClick={() => setIsRegModalOpen(true)}>Register Now</button>
+              <Link to="/contact" className="btn-outline-dark">Contact Us</Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
     </main>
   );
