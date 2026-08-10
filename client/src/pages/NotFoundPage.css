@@ -1,0 +1,25 @@
+/* 404 Not Found page */
+
+.notfound-card {
+  text-align: center;
+}
+
+.notfound-code {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--citc-purple);
+  line-height: 1;
+  margin: 0.5rem 0 0;
+}
+
+.notfound-text {
+  color: var(--citc-text-muted);
+  font-size: 0.95rem;
+  margin: 0.75rem 0 1.5rem;
+}
+
+.notfound-home-btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}

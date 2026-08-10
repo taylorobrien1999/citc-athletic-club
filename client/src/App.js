@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import PrivateRoute from './components/PrivateRoute';
@@ -38,6 +38,7 @@ import AdminRecordsPage from './pages/AdminRecordsPage';
 import PublicChatWidgetGate from './components/PublicChatWidgetGate';
 import AdminCoachesPage from './pages/AdminCoachesPage';
 import AdminSponsorsPage from './pages/AdminSponsorsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -90,8 +91,9 @@ function App() {
             </Route>
           </Route>
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Fallback -- any URL that doesn't match a route above gets a
+              real 404 page instead of silently redirecting to the homepage */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <FooterGate />
       </BrowserRouter>
