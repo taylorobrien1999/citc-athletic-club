@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { loginUser } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import RegistrationModal from '../components/RegistrationModal';
@@ -9,13 +9,17 @@ import citcLogo from '../assets/citc-logo-full.png';
 import './AuthPage.css';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, user, isAdmin } = useAuth();
   const navigate  = useNavigate();
 
   const [form, setForm]         = useState({ email: '', password: '' });
   const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
+
+  // Already signed in? Send them straight to their dashboard instead of
+  // showing the sign-in form again (e.g. an old bookmark to /login).
+  if (user) return <Navigate to={isAdmin ? '/admin' : '/dashboard'} replace />;
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

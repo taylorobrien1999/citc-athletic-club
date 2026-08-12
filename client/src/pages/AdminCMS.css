@@ -1,6 +1,6 @@
 /* Shared admin CMS styling — matches AdminInquiriesPage color tokens */
 
-.admin-cms { max-width: 1000px; }
+.admin-cms { width: 100%; }
 
 .admin-cms-header { margin-bottom: 1.5rem; }
 .admin-cms-header h2 { font-size: 1.4rem; font-weight: 700; color: #1a1a2e; margin: 0 0 0.35rem; }

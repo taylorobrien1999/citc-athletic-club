@@ -11,348 +11,365 @@
    of the site instead of introducing a new palette.
    ========================================================================== */
 
-.auth-bg {
-  position: absolute;
-  top: var(--nav-height);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Both .auth-page (login/forgot/reset) and .create-account-page are now
-   plain 100vh containers (see CreateAccountPage.css), so this offset
-   below the fixed navbar applies the same way on every auth screen. */
-@media (max-width: 768px) {
-  .auth-bg {
-    top: var(--nav-height-mobile);
+   .auth-bg {
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
   }
-}
-
-.auth-bg-sky {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #f6ecff 0%, #fbe9d6 55%, #f5f5f5 100%);
-  transition: background 0.6s ease;
-}
-
-[data-theme="dark"] .auth-bg-sky {
-  background: linear-gradient(180deg, #161029 0%, #201a38 55%, #14141c 100%);
-}
-
-/* ---- sun / moon ---- */
-
-.auth-bg-sun,
-.auth-bg-moon {
-  position: absolute;
-  top: 8%;
-  right: 12%;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  animation: auth-bg-drift 20s ease-in-out infinite;
-  transition: opacity 0.6s ease;
-}
-
-.auth-bg-sun {
-  background: #FAC775;
-  box-shadow: 0 0 60px 18px rgba(250, 199, 117, 0.45);
-  opacity: 1;
-}
-
-.auth-bg-moon {
-  width: 76px;
-  height: 76px;
-  background: #e9e0f8;
-  box-shadow: 0 0 40px 12px rgba(167, 139, 250, 0.35);
-  opacity: 0;
-}
-
-[data-theme="dark"] .auth-bg-sun { opacity: 0; }
-[data-theme="dark"] .auth-bg-moon { opacity: 1; }
-
-@keyframes auth-bg-drift {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
-}
-
-/* ---- clouds (daytime only) ---- */
-
-.auth-bg-cloud {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 999px;
-  opacity: 1;
-  transition: opacity 0.6s ease;
-}
-
-.auth-bg-cloud::before,
-.auth-bg-cloud::after {
-  content: '';
-  position: absolute;
-  background: inherit;
-  border-radius: 50%;
-}
-
-.auth-bg-cloud::before {
-  width: 58%;
-  height: 150%;
-  top: -75%;
-  left: 8%;
-}
-
-.auth-bg-cloud::after {
-  width: 42%;
-  height: 115%;
-  top: -55%;
-  left: 52%;
-}
-
-.auth-bg-cloud--1 {
-  width: 162px;
-  height: 38px;
-  top: 16%;
-  left: -140px;
-  animation: auth-bg-cloud-drift 30s linear infinite -10s;
-}
-
-.auth-bg-cloud--2 {
-  width: 122px;
-  height: 30px;
-  top: 26%;
-  left: -100px;
-  background: rgba(255, 255, 255, 0.5);
-  animation: auth-bg-cloud-drift 38s linear infinite -22s;
-}
-
-.auth-bg-cloud--3 {
-  width: 95px;
-  height: 24px;
-  top: 20%;
-  left: -80px;
-  background: rgba(255, 255, 255, 0.6);
-  animation: auth-bg-cloud-drift 44s linear infinite -36s;
-}
-
-.auth-bg-cloud--4 {
-  width: 135px;
-  height: 32px;
-  top: 32%;
-  left: -120px;
-  background: rgba(255, 255, 255, 0.55);
-  animation: auth-bg-cloud-drift 34s linear infinite -13s;
-}
-
-.auth-bg-cloud--5 {
-  width: 81px;
-  height: 22px;
-  top: 12%;
-  left: -70px;
-  background: rgba(255, 255, 255, 0.65);
-  animation: auth-bg-cloud-drift 40s linear infinite -28s;
-}
-
-.auth-bg-cloud--6 {
-  width: 110px;
-  height: 26px;
-  top: 9%;
-  left: -110px;
-  background: rgba(255, 255, 255, 0.6);
-  animation: auth-bg-cloud-drift 36s linear infinite -39s;
-}
-
-.auth-bg-cloud--7 {
-  width: 90px;
-  height: 21px;
-  top: 23%;
-  left: -90px;
-  background: rgba(255, 255, 255, 0.5);
-  animation: auth-bg-cloud-drift 42s linear infinite -20s;
-}
-
-.auth-bg-cloud--8 {
-  width: 140px;
-  height: 33px;
-  top: 29%;
-  left: -140px;
-  background: rgba(255, 255, 255, 0.55);
-  animation: auth-bg-cloud-drift 32s linear infinite -30s;
-}
-
-[data-theme="dark"] .auth-bg-cloud { opacity: 0; }
-
-@keyframes auth-bg-cloud-drift {
-  from { transform: translateX(0); }
-  to   { transform: translateX(700px); }
-}
-
-/* ---- stars (night only) ---- */
-
-.auth-bg-star {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #A78BFA;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-[data-theme="dark"] .auth-bg-star {
-  animation: auth-bg-twinkle 4.5s ease-in-out infinite;
-}
-
-.auth-bg-star--1 { top: 12%; left: 14%; animation-duration: 4s; }
-.auth-bg-star--2 { top: 22%; left: 30%; width: 5px; height: 5px; animation-duration: 5s; animation-delay: 1s; }
-.auth-bg-star--3 { top: 32%; left: 8%;  animation-duration: 4.5s; animation-delay: 2s; }
-.auth-bg-star--4 { top: 10%; left: 42%; width: 3px; height: 3px; animation-duration: 5.5s; animation-delay: 0.5s; }
-.auth-bg-star--5 { top: 26%; left: 52%; width: 4px; height: 4px; animation-duration: 4.8s; animation-delay: 1.6s; }
-.auth-bg-star--6 { top: 15%; left: 22%; width: 3px; height: 3px; animation-duration: 5.2s; animation-delay: 2.4s; }
-.auth-bg-star--7 { top: 34%; left: 64%; width: 3px; height: 3px; animation-duration: 4.6s; animation-delay: 0.8s; }
-.auth-bg-star--8 { top: 6%;  left: 58%; width: 4px; height: 4px; animation-duration: 5.8s; animation-delay: 3s; }
-.auth-bg-star--9 { top: 20%; left: 36%; width: 3px; height: 3px; animation-duration: 4.3s; animation-delay: 1.2s; }
-.auth-bg-star--10 { top: 28%; left: 74%; width: 3px; height: 3px; animation-duration: 5.1s; animation-delay: 2.8s; }
-.auth-bg-star--11 { top: 4%;  left: 18%; width: 3px; height: 3px; animation-duration: 4.4s; animation-delay: 0.3s; }
-.auth-bg-star--13 { top: 30%; left: 46%; width: 3px; height: 3px; animation-duration: 4.9s; animation-delay: 3.4s; }
-.auth-bg-star--14 { top: 3%;  left: 48%; width: 3px; height: 3px; animation-duration: 5.3s; animation-delay: 0.6s; }
-.auth-bg-star--15 { top: 7%;  left: 40%; width: 4px; height: 4px; animation-duration: 4.7s; animation-delay: 2.1s; }
-.auth-bg-star--16 { top: 5%;  left: 56%; width: 3px; height: 3px; animation-duration: 5.4s; animation-delay: 1.4s; }
-.auth-bg-star--18 { top: 9%;  left: 6%;  width: 3px; height: 3px; animation-duration: 5.7s; animation-delay: 2.6s; }
-.auth-bg-star--19 { top: 33%; left: 92%; width: 4px; height: 4px; animation-duration: 4.5s; animation-delay: 1.1s; }
-/* left empty region (below/left of card) */
-.auth-bg-star--21 { top: 37%; left: 15%; width: 3px; height: 3px; animation-duration: 4.6s; animation-delay: 1.7s; }
-.auth-bg-star--22 { top: 44%; left: 23%; width: 4px; height: 4px; animation-duration: 5.3s; animation-delay: 0.4s; }
-.auth-bg-star--23 { top: 32%; left: 28%; width: 3px; height: 3px; animation-duration: 4.8s; animation-delay: 2.9s; }
-.auth-bg-star--24 { top: 48%; left: 19%; width: 3px; height: 3px; animation-duration: 5.5s; animation-delay: 1.1s; }
-/* right empty region (below/right of card) */
-.auth-bg-star--25 { top: 32%; left: 77%; width: 3px; height: 3px; animation-duration: 4.7s; animation-delay: 2.2s; }
-.auth-bg-star--26 { top: 39%; left: 83%; width: 4px; height: 4px; animation-duration: 5.1s; animation-delay: 0.7s; }
-.auth-bg-star--27 { top: 28%; left: 86%; width: 3px; height: 3px; animation-duration: 4.4s; animation-delay: 3.1s; }
-.auth-bg-star--28 { top: 45%; left: 80%; width: 3px; height: 3px; animation-duration: 5.6s; animation-delay: 1.5s; }
-/* small gap between the card and the moon */
-.auth-bg-star--29 { top: 12%; left: 68%; width: 3px; height: 3px; animation-duration: 4.6s; animation-delay: 2.5s; }
-.auth-bg-star--30 { top: 17%; left: 74%; width: 3px; height: 3px; animation-duration: 5.2s; animation-delay: 0.8s; }
-.auth-bg-star--31 { top: 9%;  left: 73%; width: 4px; height: 4px; animation-duration: 4.9s; animation-delay: 1.9s; }
-.auth-bg-star--32 { top: 38%; left: 71%; width: 3px; height: 3px; animation-duration: 5.4s; animation-delay: 3.0s; }
-.auth-bg-star--33 { top: 44%; left: 68%; width: 3px; height: 3px; animation-duration: 4.5s; animation-delay: 1.2s; }
-
-@keyframes auth-bg-twinkle {
-  0%, 100% { opacity: 0.15; }
-  50%      { opacity: 0.9; }
-}
-
-/* ---- occasional shooting star (night only) ----
-   Each streak is visible for a short burst near the start of a long,
-   staggered cycle, so the two elements never fire in sync and feel
-   "occasional" rather than a repeating pattern. */
-
-.auth-bg-shooting-star {
-  position: absolute;
-  top: 14%;
-  left: 65%;
-  width: 110px;
-  height: 2px;
-  background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.6) 25%, rgba(255,255,255,0) 100%);
-  border-radius: 2px;
-  opacity: 0;
-  display: none;
-}
-
-.auth-bg-shooting-star::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
-  transform: translate(-1px, -50%);
-}
-
-[data-theme="dark"] .auth-bg-shooting-star {
-  display: block;
-  animation: auth-bg-shooting 12s linear infinite;
-}
-
-.auth-bg-shooting-star--1 {
-  top: 16%;
-  left: 58%;
-  --sa: -30deg;
-  animation-duration: 13s;
-  animation-delay: 2s;
-}
-
-.auth-bg-shooting-star--2 {
-  top: 9%;
-  left: 30%;
-  --sa: -24deg;
-  animation-duration: 18s;
-  animation-delay: 8s;
-}
-
-@keyframes auth-bg-shooting {
-  0%   { opacity: 0;   transform: rotate(var(--sa)) translateX(0); }
-  1%   { opacity: 1;   transform: rotate(var(--sa)) translateX(0); }
-  7%   { opacity: 0.9; transform: rotate(var(--sa)) translateX(-130px); }
-  9%   { opacity: 0;   transform: rotate(var(--sa)) translateX(-150px); }
-  100% { opacity: 0;   transform: rotate(var(--sa)) translateX(-150px); }
-}
-
-/* ---- track field ---- */
-
-.auth-bg-track {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
-}
-
-.auth-bg-lane {
-  fill: none;
-  stroke: #5B21B6;
-  stroke-width: 2;
-  stroke-opacity: 0.32;
-}
-
-.auth-bg-lane--outer-fill {
-  stroke: none;
-  fill: #5B21B6;
-  fill-opacity: 0.12;
-}
-
-[data-theme="dark"] .auth-bg-lane { stroke: #A78BFA; stroke-opacity: 0.4; }
-[data-theme="dark"] .auth-bg-lane--outer-fill { fill: #A78BFA; fill-opacity: 0.14; }
-
-.auth-bg-infield {
-  fill: #f5f5f5;
-  fill-opacity: 0.9;
-  transition: fill 0.6s ease;
-}
-
-[data-theme="dark"] .auth-bg-infield { fill: #14141c; fill-opacity: 0.9; }
-
-.auth-bg-finishline {
-  stroke: #5B21B6;
-  stroke-opacity: 0.4;
-  stroke-width: 3;
-  stroke-dasharray: 5 7;
-}
-
-[data-theme="dark"] .auth-bg-finishline { stroke: #A78BFA; stroke-opacity: 0.5; }
-
-/* ---- respect reduced motion ---- */
-
-@media (prefers-reduced-motion: reduce) {
+  
+  /* Both .auth-page (login/forgot/reset) and .create-account-page are now
+     plain 100vh containers (see CreateAccountPage.css), so this offset
+     below the fixed navbar applies the same way on every auth screen. */
+  @media (max-width: 768px) {
+    .auth-bg {
+      top: var(--nav-height-mobile);
+    }
+  }
+  
+  .auth-bg-sky {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #f6ecff 0%, #fbe9d6 55%, #f5f5f5 100%);
+    transition: background 0.6s ease;
+  }
+  
+  [data-theme="dark"] .auth-bg-sky {
+    background: linear-gradient(180deg, #161029 0%, #201a38 55%, #14141c 100%);
+  }
+  
+  /* ---- sun / moon ---- */
+  
+  /* Clickable wrapper -- re-enables pointer events (the rest of .auth-bg is
+     pointer-events: none) and carries the drift animation + hit area, so
+     touching/clicking the sun or moon itself toggles the theme. */
+  .auth-bg-celestial {
+    position: absolute;
+    top: 8%;
+    right: 12%;
+    width: 84px;
+    height: 84px;
+    animation: auth-bg-drift 20s ease-in-out infinite;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  
+  .auth-bg-celestial:hover .auth-bg-sun,
+  .auth-bg-celestial:hover .auth-bg-moon {
+    filter: brightness(1.12);
+  }
+  
   .auth-bg-sun,
-  .auth-bg-moon,
-  .auth-bg-cloud,
-  .auth-bg-star,
-  .auth-bg-shooting-star {
-    animation: none !important;
+  .auth-bg-moon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transition: opacity 0.6s ease, filter 0.2s ease;
   }
-}
+  
+  .auth-bg-sun {
+    background: #FAC775;
+    box-shadow: 0 0 60px 18px rgba(250, 199, 117, 0.45);
+    opacity: 1;
+  }
+  
+  .auth-bg-moon {
+    width: 76px;
+    height: 76px;
+    background: #e9e0f8;
+    box-shadow: 0 0 40px 12px rgba(167, 139, 250, 0.35);
+    opacity: 0;
+  }
+  
+  [data-theme="dark"] .auth-bg-sun { opacity: 0; }
+  [data-theme="dark"] .auth-bg-moon { opacity: 1; }
+  
+  @keyframes auth-bg-drift {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  
+  /* ---- clouds (daytime only) ---- */
+  
+  .auth-bg-cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+  }
+  
+  .auth-bg-cloud::before,
+  .auth-bg-cloud::after {
+    content: '';
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+  }
+  
+  .auth-bg-cloud::before {
+    width: 58%;
+    height: 150%;
+    top: -75%;
+    left: 8%;
+  }
+  
+  .auth-bg-cloud::after {
+    width: 42%;
+    height: 115%;
+    top: -55%;
+    left: 52%;
+  }
+  
+  .auth-bg-cloud--1 {
+    width: 162px;
+    height: 38px;
+    top: 16%;
+    left: -140px;
+    animation: auth-bg-cloud-drift 30s linear infinite -10s;
+  }
+  
+  .auth-bg-cloud--2 {
+    width: 122px;
+    height: 30px;
+    top: 26%;
+    left: -100px;
+    background: rgba(255, 255, 255, 0.5);
+    animation: auth-bg-cloud-drift 38s linear infinite -22s;
+  }
+  
+  .auth-bg-cloud--3 {
+    width: 95px;
+    height: 24px;
+    top: 20%;
+    left: -80px;
+    background: rgba(255, 255, 255, 0.6);
+    animation: auth-bg-cloud-drift 44s linear infinite -36s;
+  }
+  
+  .auth-bg-cloud--4 {
+    width: 135px;
+    height: 32px;
+    top: 32%;
+    left: -120px;
+    background: rgba(255, 255, 255, 0.55);
+    animation: auth-bg-cloud-drift 34s linear infinite -13s;
+  }
+  
+  .auth-bg-cloud--5 {
+    width: 81px;
+    height: 22px;
+    top: 12%;
+    left: -70px;
+    background: rgba(255, 255, 255, 0.65);
+    animation: auth-bg-cloud-drift 40s linear infinite -28s;
+  }
+  
+  .auth-bg-cloud--6 {
+    width: 110px;
+    height: 26px;
+    top: 9%;
+    left: -110px;
+    background: rgba(255, 255, 255, 0.6);
+    animation: auth-bg-cloud-drift 36s linear infinite -39s;
+  }
+  
+  .auth-bg-cloud--7 {
+    width: 90px;
+    height: 21px;
+    top: 23%;
+    left: -90px;
+    background: rgba(255, 255, 255, 0.5);
+    animation: auth-bg-cloud-drift 42s linear infinite -20s;
+  }
+  
+  .auth-bg-cloud--8 {
+    width: 140px;
+    height: 33px;
+    top: 29%;
+    left: -140px;
+    background: rgba(255, 255, 255, 0.55);
+    animation: auth-bg-cloud-drift 32s linear infinite -30s;
+  }
+  
+  [data-theme="dark"] .auth-bg-cloud { opacity: 0; }
+  
+  @keyframes auth-bg-cloud-drift {
+    from { transform: translateX(0); }
+    to   { transform: translateX(700px); }
+  }
+  
+  /* ---- stars (night only) ---- */
+  
+  .auth-bg-star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #A78BFA;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  
+  [data-theme="dark"] .auth-bg-star {
+    animation: auth-bg-twinkle 4.5s ease-in-out infinite;
+  }
+  
+  .auth-bg-star--1 { top: 12%; left: 14%; animation-duration: 4s; }
+  .auth-bg-star--2 { top: 22%; left: 30%; width: 5px; height: 5px; animation-duration: 5s; animation-delay: 1s; }
+  .auth-bg-star--3 { top: 32%; left: 8%;  animation-duration: 4.5s; animation-delay: 2s; }
+  .auth-bg-star--4 { top: 10%; left: 42%; width: 3px; height: 3px; animation-duration: 5.5s; animation-delay: 0.5s; }
+  .auth-bg-star--5 { top: 26%; left: 52%; width: 4px; height: 4px; animation-duration: 4.8s; animation-delay: 1.6s; }
+  .auth-bg-star--6 { top: 15%; left: 22%; width: 3px; height: 3px; animation-duration: 5.2s; animation-delay: 2.4s; }
+  .auth-bg-star--7 { top: 34%; left: 64%; width: 3px; height: 3px; animation-duration: 4.6s; animation-delay: 0.8s; }
+  .auth-bg-star--8 { top: 6%;  left: 58%; width: 4px; height: 4px; animation-duration: 5.8s; animation-delay: 3s; }
+  .auth-bg-star--9 { top: 20%; left: 36%; width: 3px; height: 3px; animation-duration: 4.3s; animation-delay: 1.2s; }
+  .auth-bg-star--10 { top: 28%; left: 74%; width: 3px; height: 3px; animation-duration: 5.1s; animation-delay: 2.8s; }
+  .auth-bg-star--11 { top: 4%;  left: 18%; width: 3px; height: 3px; animation-duration: 4.4s; animation-delay: 0.3s; }
+  .auth-bg-star--13 { top: 30%; left: 46%; width: 3px; height: 3px; animation-duration: 4.9s; animation-delay: 3.4s; }
+  .auth-bg-star--14 { top: 3%;  left: 48%; width: 3px; height: 3px; animation-duration: 5.3s; animation-delay: 0.6s; }
+  .auth-bg-star--15 { top: 7%;  left: 40%; width: 4px; height: 4px; animation-duration: 4.7s; animation-delay: 2.1s; }
+  .auth-bg-star--16 { top: 5%;  left: 56%; width: 3px; height: 3px; animation-duration: 5.4s; animation-delay: 1.4s; }
+  .auth-bg-star--18 { top: 9%;  left: 6%;  width: 3px; height: 3px; animation-duration: 5.7s; animation-delay: 2.6s; }
+  .auth-bg-star--19 { top: 33%; left: 92%; width: 4px; height: 4px; animation-duration: 4.5s; animation-delay: 1.1s; }
+  /* left empty region (below/left of card) */
+  .auth-bg-star--21 { top: 37%; left: 15%; width: 3px; height: 3px; animation-duration: 4.6s; animation-delay: 1.7s; }
+  .auth-bg-star--22 { top: 44%; left: 23%; width: 4px; height: 4px; animation-duration: 5.3s; animation-delay: 0.4s; }
+  .auth-bg-star--23 { top: 32%; left: 28%; width: 3px; height: 3px; animation-duration: 4.8s; animation-delay: 2.9s; }
+  .auth-bg-star--24 { top: 48%; left: 19%; width: 3px; height: 3px; animation-duration: 5.5s; animation-delay: 1.1s; }
+  /* right empty region (below/right of card) */
+  .auth-bg-star--25 { top: 32%; left: 77%; width: 3px; height: 3px; animation-duration: 4.7s; animation-delay: 2.2s; }
+  .auth-bg-star--26 { top: 39%; left: 83%; width: 4px; height: 4px; animation-duration: 5.1s; animation-delay: 0.7s; }
+  .auth-bg-star--27 { top: 28%; left: 86%; width: 3px; height: 3px; animation-duration: 4.4s; animation-delay: 3.1s; }
+  .auth-bg-star--28 { top: 45%; left: 80%; width: 3px; height: 3px; animation-duration: 5.6s; animation-delay: 1.5s; }
+  /* small gap between the card and the moon */
+  .auth-bg-star--29 { top: 12%; left: 68%; width: 3px; height: 3px; animation-duration: 4.6s; animation-delay: 2.5s; }
+  .auth-bg-star--30 { top: 17%; left: 74%; width: 3px; height: 3px; animation-duration: 5.2s; animation-delay: 0.8s; }
+  .auth-bg-star--31 { top: 9%;  left: 73%; width: 4px; height: 4px; animation-duration: 4.9s; animation-delay: 1.9s; }
+  .auth-bg-star--32 { top: 38%; left: 71%; width: 3px; height: 3px; animation-duration: 5.4s; animation-delay: 3.0s; }
+  .auth-bg-star--33 { top: 44%; left: 68%; width: 3px; height: 3px; animation-duration: 4.5s; animation-delay: 1.2s; }
+  
+  @keyframes auth-bg-twinkle {
+    0%, 100% { opacity: 0.15; }
+    50%      { opacity: 0.9; }
+  }
+  
+  /* ---- occasional shooting star (night only) ----
+     Each streak is visible for a short burst near the start of a long,
+     staggered cycle, so the two elements never fire in sync and feel
+     "occasional" rather than a repeating pattern. */
+  
+  .auth-bg-shooting-star {
+    position: absolute;
+    top: 14%;
+    left: 65%;
+    width: 110px;
+    height: 2px;
+    background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.6) 25%, rgba(255,255,255,0) 100%);
+    border-radius: 2px;
+    opacity: 0;
+    display: none;
+  }
+  
+  .auth-bg-shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
+    transform: translate(-1px, -50%);
+  }
+  
+  [data-theme="dark"] .auth-bg-shooting-star {
+    display: block;
+    animation: auth-bg-shooting 12s linear infinite;
+  }
+  
+  .auth-bg-shooting-star--1 {
+    top: 16%;
+    left: 58%;
+    --sa: -30deg;
+    animation-duration: 13s;
+    animation-delay: 2s;
+  }
+  
+  .auth-bg-shooting-star--2 {
+    top: 9%;
+    left: 30%;
+    --sa: -24deg;
+    animation-duration: 18s;
+    animation-delay: 8s;
+  }
+  
+  @keyframes auth-bg-shooting {
+    0%   { opacity: 0;   transform: rotate(var(--sa)) translateX(0); }
+    1%   { opacity: 1;   transform: rotate(var(--sa)) translateX(0); }
+    7%   { opacity: 0.9; transform: rotate(var(--sa)) translateX(-130px); }
+    9%   { opacity: 0;   transform: rotate(var(--sa)) translateX(-150px); }
+    100% { opacity: 0;   transform: rotate(var(--sa)) translateX(-150px); }
+  }
+  
+  /* ---- track field ---- */
+  
+  .auth-bg-track {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+  }
+  
+  .auth-bg-lane {
+    fill: none;
+    stroke: #5B21B6;
+    stroke-width: 2;
+    stroke-opacity: 0.32;
+  }
+  
+  .auth-bg-lane--outer-fill {
+    stroke: none;
+    fill: #5B21B6;
+    fill-opacity: 0.12;
+  }
+  
+  [data-theme="dark"] .auth-bg-lane { stroke: #A78BFA; stroke-opacity: 0.4; }
+  [data-theme="dark"] .auth-bg-lane--outer-fill { fill: #A78BFA; fill-opacity: 0.14; }
+  
+  .auth-bg-infield {
+    fill: #f5f5f5;
+    fill-opacity: 0.9;
+    transition: fill 0.6s ease;
+  }
+  
+  [data-theme="dark"] .auth-bg-infield { fill: #14141c; fill-opacity: 0.9; }
+  
+  .auth-bg-finishline {
+    stroke: #5B21B6;
+    stroke-opacity: 0.4;
+    stroke-width: 3;
+    stroke-dasharray: 5 7;
+  }
+  
+  [data-theme="dark"] .auth-bg-finishline { stroke: #A78BFA; stroke-opacity: 0.5; }
+  
+  /* ---- respect reduced motion ---- */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .auth-bg-celestial,
+    .auth-bg-cloud,
+    .auth-bg-star,
+    .auth-bg-shooting-star {
+      animation: none !important;
+    }
+  }

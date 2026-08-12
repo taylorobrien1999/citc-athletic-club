@@ -130,7 +130,10 @@ export default function Navbar() {
                     </svg>
                   </button>
                   <div className="dropdown">
-                    {item.dropdown.map((dd, i) =>
+                    {item.dropdown
+                      .filter(dd => !(user && dd.isRegTrigger))
+                      .filter((dd, i, arr) => !(dd.divider && i === arr.length - 1))
+                      .map((dd, i) =>
                       dd.divider ? (
                         <hr key={i} />
                       ) : dd.isRegTrigger ? (

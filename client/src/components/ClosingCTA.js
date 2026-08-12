@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import RegistrationModal from './RegistrationModal';
 import './ClosingCTA.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+// Shared "Join the Club" closing block used at the bottom of Coaches, Fees,
+// Training Programs, Track Meets, Mission, Code of Conduct, News, Photos,
+// Records, Athletics Alberta, and Volunteer -- the public/member-facing
+// pages. The copy here ("New athletes and parents are invited...") is aimed
+// at prospective members, so -- same as the homepage's own CTA section --
+// it's hidden once someone is logged in, whether they're a regular member
+// or an admin. Fixing it in this one shared component fixes it everywhere
+// it's used at once.
 export default function ClosingCTA() {
+  const { user } = useAuth();
   const [isRegModalOpen, setIsRegModalOpen] = useState(false);
   const [siteContent, setSiteContent] = useState({});
 
@@ -15,6 +25,8 @@ export default function ClosingCTA() {
       .then(data => setSiteContent(data.content || {}))
       .catch(() => {});
   }, []);
+
+  if (user) return null;
 
   return (
     <section className="cta-section closing-cta">

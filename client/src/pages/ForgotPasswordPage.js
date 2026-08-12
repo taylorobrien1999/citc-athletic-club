@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import citcLogo from '../assets/citc-logo-full.png';
 import AuthBackground from '../components/AuthBackground';
 import './AuthPage.css';
@@ -7,10 +8,15 @@ import './AuthPage.css';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 export default function ForgotPasswordPage() {
+  const { user, isAdmin } = useAuth();
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Already signed in? No reason to be resetting a password from here --
+  // send them to their dashboard instead.
+  if (user) return <Navigate to={isAdmin ? '/admin' : '/dashboard'} replace />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
