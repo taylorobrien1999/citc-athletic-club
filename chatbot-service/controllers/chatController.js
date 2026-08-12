@@ -18,6 +18,7 @@ const chat = async (req, res) => {
     }
 
     const systemContext = mode === 'admin' ? CITC_ADMIN_CONTEXT : CITC_PUBLIC_CONTEXT;
+    const tokenLimit = mode === 'admin' ? 900 : 500;
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -40,7 +41,7 @@ const chat = async (req, res) => {
         ],
         generationConfig: {
           temperature: 0.4,
-          maxOutputTokens: 900,
+          maxOutputTokens: tokenLimit,
         },
       }),
     });
