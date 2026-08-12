@@ -78,6 +78,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="auth-page">
+      <AuthBackground />
       <div className="auth-card">
         <img src={citcLogo} alt="CITC" className="auth-logo" />
         <h2 className="auth-subtitle">Set a New Password</h2>
