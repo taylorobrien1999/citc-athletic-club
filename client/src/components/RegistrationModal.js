@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { sanitizeNameInput, sanitizePhoneInput } from '../utils/inputSanitize';
 import './RegistrationModal.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 const NOTIF_API_URL = process.env.REACT_APP_NOTIFICATIONS_API_URL || 'http://localhost:5100';
 
 export default function RegistrationModal({ isOpen, onClose }) {
