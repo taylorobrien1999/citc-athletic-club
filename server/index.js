@@ -4,8 +4,6 @@ require('dotenv').config();
 
 const { sequelize } = require('./models');
 const authRoutes = require('./routes/authRoutes');
-const inquiryRoutes = require('./routes/inquiryRoutes');
-const contactRoutes = require('./routes/contactRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const programRoutes = require('./routes/programRoutes');
@@ -33,8 +31,6 @@ app.use(express.json());
 // ── API routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
-app.use('/api/inquiries', inquiryRoutes);
-app.use('/api/contact', contactRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/programs', programRoutes);

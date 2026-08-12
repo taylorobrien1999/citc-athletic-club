@@ -27,6 +27,7 @@ jobs:
           npm run build
         env:
           REACT_APP_API_URL: 'https://calgaryinternational-dkb0cfa3fmg8g9bb.canadacentral-01.azurewebsites.net'
+          REACT_APP_NOTIFICATIONS_API_URL: 'https://citc-notifications-service-a7bzfth3a3f9hqdv.canadacentral-01.azurewebsites.net'
 
       - name: Install server dependencies
         run: |

@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import './AdminInquiriesPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const NOTIF_API_URL = process.env.REACT_APP_NOTIFICATIONS_API_URL || 'http://localhost:5100';
 
 const STATUS_OPTIONS = ['pending', 'accepted', 'declined'];
 
@@ -17,7 +18,7 @@ export default function AdminInquiriesPage() {
 
   const fetchInquiries = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/inquiries`, {
+      const res = await fetch(`${NOTIF_API_URL}/api/inquiries`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -49,7 +50,7 @@ export default function AdminInquiriesPage() {
 
     setError(''); setSuccess(''); setSavingId(inq.id);
     try {
-      const res = await fetch(`${API_URL}/api/inquiries/${inq.id}`, {
+      const res = await fetch(`${NOTIF_API_URL}/api/inquiries/${inq.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ export default function AdminInquiriesPage() {
     const confirmed = window.confirm('Delete this inquiry? This cannot be undone.');
     if (!confirmed) return;
     try {
-      const res = await fetch(`${API_URL}/api/inquiries/${id}`, {
+      const res = await fetch(`${NOTIF_API_URL}/api/inquiries/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });

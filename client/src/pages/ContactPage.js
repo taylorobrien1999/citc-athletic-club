@@ -3,6 +3,7 @@ import { sanitizeNameInput, sanitizePhoneInput } from '../utils/inputSanitize';
 import './ContactPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const NOTIF_API_URL = process.env.REACT_APP_NOTIFICATIONS_API_URL || 'http://localhost:5100';
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -34,7 +35,7 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`${API_URL}/api/contact`, {
+      const res = await fetch(`${NOTIF_API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

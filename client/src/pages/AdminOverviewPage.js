@@ -5,6 +5,7 @@ import { parseLocalDate } from '../utils/dateUtils';
 import './AdminOverviewPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const NOTIF_API_URL = process.env.REACT_APP_NOTIFICATIONS_API_URL || 'http://localhost:5100';
 
 export default function AdminOverviewPage() {
   const { user, token } = useAuth();
@@ -23,7 +24,7 @@ export default function AdminOverviewPage() {
           fetch(`${API_URL}/api/programs`),
           fetch(`${API_URL}/api/events`),
           fetch(`${API_URL}/api/announcements`),
-          fetch(`${API_URL}/api/inquiries`, { headers }),
+          fetch(`${NOTIF_API_URL}/api/inquiries`, { headers }),
           fetch(`${API_URL}/api/members`, { headers }),
         ]);
 
