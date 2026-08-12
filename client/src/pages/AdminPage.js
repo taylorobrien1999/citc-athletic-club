@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import './AdminPage.css';
 import ChatWidget from '../components/ChatWidget';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_AUTH_API_URL || 'http://localhost:5200';
 
 const ADMIN_NAV = [
   { label: 'Overview',      to: '/admin',                 icon: '⊞', end: true },

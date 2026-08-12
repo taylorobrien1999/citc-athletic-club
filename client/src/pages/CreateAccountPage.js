@@ -6,7 +6,7 @@ import citcLogo from '../assets/citc-logo-full.png';
 import AuthBackground from '../components/AuthBackground';
 import './CreateAccountPage.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_AUTH_API_URL || 'http://localhost:5200';
 
 export default function CreateAccountPage() {
   const { token } = useParams();

@@ -7,6 +7,7 @@ import { sanitizeNameInput, sanitizePhoneInput } from '../utils/inputSanitize';
 import './DashboardPage.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const AUTH_API_URL = process.env.REACT_APP_AUTH_API_URL || 'http://localhost:5200';
 
 export default function DashboardPage() {
   const { user, token, updateUser } = useAuth();
@@ -96,7 +97,7 @@ export default function DashboardPage() {
     e.preventDefault();
     setProfileError(''); setProfileSuccess(''); setSavingProfile(true);
     try {
-      const res = await fetch(`${API_URL}/api/auth/me`, {
+      const res = await fetch(`${AUTH_API_URL}/api/auth/me`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify(profileForm),

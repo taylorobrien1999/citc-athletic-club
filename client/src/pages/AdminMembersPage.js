@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './AdminCMS.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_AUTH_API_URL || 'http://localhost:5200';
 
 export default function AdminMembersPage() {
   const { token } = useAuth();

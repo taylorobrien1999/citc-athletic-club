@@ -3,7 +3,6 @@ const cors = require('cors');
 require('dotenv').config();
 
 const { sequelize } = require('./models');
-const authRoutes = require('./routes/authRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const programRoutes = require('./routes/programRoutes');
@@ -12,9 +11,6 @@ const feedbackRoutes = require('./routes/feedbackRoutes');
 const siteContentRoutes = require('./routes/siteContentRoutes');
 const path = require('path');
 const uploadRoutes = require('./routes/uploadRoutes');
-const accountInviteRoutes = require('./routes/accountInviteRoutes');
-const passwordResetRoutes = require('./routes/passwordResetRoutes');
-const memberRoutes = require('./routes/memberRoutes');
 const recordRoutes = require('./routes/recordRoutes');
 const chatProxyRoutes = require('./routes/chatProxyRoutes');
 const teamCoachRoutes = require('./routes/teamCoachRoutes');
@@ -29,7 +25,6 @@ app.use(cors({
 app.use(express.json());
 
 // ── API routes ────────────────────────────────────────────────────────────────
-app.use('/api/auth', authRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/events', eventRoutes);
@@ -37,9 +32,6 @@ app.use('/api/programs', programRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/feedback', feedbackRoutes);
 app.use('/api/site-content', siteContentRoutes);
-app.use('/api/account-invites', accountInviteRoutes);
-app.use('/api/auth', passwordResetRoutes);
-app.use('/api/members', memberRoutes);
 app.use('/api/records', recordRoutes);
 app.use('/api/chat', chatProxyRoutes);
 app.use('/api/team-coaches', teamCoachRoutes);
