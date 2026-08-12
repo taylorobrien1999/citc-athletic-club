@@ -4,7 +4,7 @@ import 'react-quill-new/dist/quill.snow.css';
 import { useAuth } from '../context/AuthContext';
 import './RichTextEditor.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_MEDIA_API_URL || 'http://localhost:5300';
 
 // Register a small, curated set of fonts (rather than every system font —
 // keeps output consistent with the site's actual design language).

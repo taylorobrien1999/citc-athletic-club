@@ -29,6 +29,7 @@ jobs:
           REACT_APP_API_URL: 'https://calgaryinternational-dkb0cfa3fmg8g9bb.canadacentral-01.azurewebsites.net'
           REACT_APP_NOTIFICATIONS_API_URL: 'https://citc-notifications-service-a7bzfth3a3f9hqdv.canadacentral-01.azurewebsites.net'
           REACT_APP_AUTH_API_URL: 'https://citc-auth-service-aughdpaffyareqcj.canadacentral-01.azurewebsites.net'
+          REACT_APP_MEDIA_API_URL: 'https://citc-media-service-fmdkbxgqbndufmb0.canadacentral-01.azurewebsites.net'
 
       - name: Install server dependencies
         run: |

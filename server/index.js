@@ -10,7 +10,6 @@ const resourceRoutes = require('./routes/resourceRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 const siteContentRoutes = require('./routes/siteContentRoutes');
 const path = require('path');
-const uploadRoutes = require('./routes/uploadRoutes');
 const recordRoutes = require('./routes/recordRoutes');
 const chatProxyRoutes = require('./routes/chatProxyRoutes');
 const teamCoachRoutes = require('./routes/teamCoachRoutes');
@@ -25,7 +24,6 @@ app.use(cors({
 app.use(express.json());
 
 // ── API routes ────────────────────────────────────────────────────────────────
-app.use('/api/upload', uploadRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/programs', programRoutes);
