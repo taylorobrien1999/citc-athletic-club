@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="client/src/assets/citc-logo-full.png" alt="Calgary International Track Club" width="220" />
+<img src="client/src/assets/citc-logo-full.png" alt="Calgary International Track Club" width="340" />
 
 # CITC Athletic Club Operations System
 
